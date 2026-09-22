@@ -1,0 +1,61 @@
+@layer components {
+  .hero {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding-block: var(--hero-pt) var(--hero-pb);
+    text-align: center;
+
+    /* Cỡ chữ hero là gốc của cả khối hero. Bản thiết kế chỉ có desktop nên
+       cỡ này co theo bề ngang màn hình; từ 1456px trở lên nó dừng đúng ở con
+       số đo được từ Figma. Chữ chìm "GLO." neo hẳn vào biến này nên hai lớp
+       luôn giữ đúng tỉ lệ và câu tiêu đề luôn nằm giữa chữ chìm. */
+    --hero-size: clamp(2.75rem, 6.6vw, var(--text-hero));
+  }
+
+  /* Chữ GLO. chìm: [FIGMA] Butler, hộp 1035 × 480 tại (442.5, 189.62),
+     màu #976F40 ở 8%. Đây là trang trí thuần tuý nên vẽ bằng pseudo-element:
+     không có node chữ nào lọt vào cây trợ năng, trình đọc màn hình bỏ qua,
+     và trình kiểm tra tương phản cũng không tính nó là chữ cần đọc.
+
+     Nó gắn vào chính thẻ h1 chứ không vào .hero, và cả cỡ chữ lẫn vị trí đều
+     tính từ --hero-size. Nhờ vậy khi màn hình nhỏ lại, chữ chìm co cùng nhịp
+     với câu tiêu đề và câu tiêu đề vẫn nằm đúng giữa chữ chìm — kể cả khi
+     tiêu đề xuống hai, ba dòng. */
+  .hero__title::before {
+    content: "GLO." / "";
+    position: absolute;
+    z-index: -1;
+    /* Neo vào DÒNG ĐẦU của tiêu đề chứ không vào giữa cả khối: khi tiêu đề
+       xuống hai dòng ở màn hình hẹp, chữ chìm vẫn giữ nguyên vị trí tương
+       đối so với chữ — nửa bước dòng đưa mốc xuống tâm dòng đầu. */
+    inset-block-start: 0;
+    inset-inline-start: 50%;
+    translate: -50%
+      calc(-50% + var(--hero-size) * (var(--leading-tight) / 2 + var(--watermark-drop)));
+    font-family: var(--font-display); /* [FIGMA] Butler */
+    font-size: calc(var(--hero-size) * var(--watermark-scale));
+    font-weight: var(--weight-bold);
+    line-height: 1.2;
+    letter-spacing: 2%;
+    text-indent: 0;
+    color: var(--color-brown-mid);
+    opacity: 0.08;
+    white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
+
+  }
+
+  .hero__title {
+    font-family: var(--font-logo);   /* [FIGMA] Roghiska */
+    position: relative;
+    font-size: var(--hero-size);
+    font-weight: var(--weight-regular);  /* Marcellus chỉ có một độ đậm */
+    /* Bản thiết kế giãn chữ khá rộng: khối "Your Skin Breathe" chiếm 933px.
+       text-indent bù lại phần khoảng hở thừa sau ký tự cuối, nếu không căn
+       giữa sẽ lệch trái nửa bước giãn. */
+    letter-spacing: var(--hero-track);
+    text-indent: var(--hero-track);
+  }
+}

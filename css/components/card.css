@@ -1,0 +1,123 @@
+@layer components {
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--card-row-gap) var(--grid-gap);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  @media (width >= 48rem) {
+    .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  .card {
+    display: grid;
+    grid-template-rows: var(--card-media-h) auto auto auto;
+    justify-items: center;
+    align-content: start;
+    text-align: center;
+  }
+
+  .card__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 100%;
+    block-size: var(--card-media-h);
+  }
+
+  /* File PNG đã cắt sát mép sản phẩm, và trong bản thiết kế mỗi ảnh được
+     đặt đúng kích thước gốc của nó — không thu phóng. Ở màn hình hẹp hơn
+     thì mới cho phép co lại theo bề ngang cột. */
+  .card__media img {
+    inline-size: auto;
+    block-size: auto;
+    max-inline-size: 100%;
+    object-fit: contain;
+  }
+
+  /* Trong Figma sáu tấm ảnh được kéo thả bằng tay nên không tấm nào căn
+     giữa ô hoàn toàn. Hai biến dưới là độ lệch đo được so với tâm ô; dùng
+     translate nên không tấm nào làm xê dịch phần chữ bên dưới. */
+  @media (width >= 90rem) {
+    .card__media img {
+      translate: var(--img-dx, 0) var(--img-dy, 0);
+    }
+
+    .card__media--1 img { --img-dx: var(--img-dx-1); --img-dy: var(--img-dy-1); }
+    .card__media--2 img { --img-dx: var(--img-dx-2); --img-dy: var(--img-dy-2); }
+    .card__media--3 img { --img-dx: var(--img-dx-3); --img-dy: var(--img-dy-3); }
+    .card__media--4 img { --img-dx: var(--img-dx-4); --img-dy: var(--img-dy-4); }
+    .card__media--5 img { --img-dx: var(--img-dx-5); --img-dy: var(--img-dy-5); }
+    .card__media--6 img { --img-dx: var(--img-dx-6); --img-dy: var(--img-dy-6); }
+  }
+
+  .card__title {
+    margin-block-start: var(--card-title-gap);
+    max-inline-size: var(--card-title-w);
+    font-family: var(--font-card);   /* [FIGMA] Gotham */
+    font-size: var(--text-card);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-card);
+  }
+
+  /* Giá tiền trong bản thiết kế là chữ serif đậm, không cùng họ với tên sản
+     phẩm — nét chân chữ thấy rõ ở ảnh export. */
+  .card__price {
+    margin-block-start: var(--card-price-gap);
+    font-family: var(--font-display);  /* [FIGMA] Butler */
+    font-weight: var(--weight-bold);
+    font-size: var(--text-price);
+    /* Playfair Display mặc định dùng chữ số kiểu cũ (có nét thò xuống);
+       bản thiết kế dùng chữ số đều hàng nên bật lining-nums. */
+    font-variant-numeric: lining-nums;
+  }
+
+  /* Trong khung Figma chỉ thẻ đầu tiên hiện ba nút tròn — đó là trạng thái
+     hover được vẽ sẵn để minh hoạ, năm thẻ còn lại không có. Ở đây hàng nút
+     luôn chiếm sẵn chỗ (nên không thẻ nào nhảy khi rê chuột) và chỉ hiện ra
+     khi hover hoặc khi bàn phím tab vào trong thẻ. */
+  .card__actions {
+    display: flex;
+    gap: var(--card-action-gap);
+    margin-block-start: var(--card-actions-gap);
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .card:hover .card__actions,
+  .card:focus-within .card__actions { opacity: 1; }
+
+  /* [ĐO] Hàng thứ hai trong bản thiết kế để khối chữ thấp hơn hàng đầu 17px
+     (ảnh sản phẩm hàng này được đặt cao hơn trong ô). */
+  .product-grid > li:nth-child(n + 4) .card__title {
+    margin-block-start: calc(var(--card-title-gap) + var(--card-title-gap-row2));
+  }
+
+  .card__action {
+    display: grid;
+    place-items: center;
+    inline-size: var(--card-action-size);
+    block-size: var(--card-action-size);
+    border: var(--card-action-ring) solid var(--color-brown);
+    border-radius: var(--radius-pill);
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .card__action:hover { background-color: rgb(88 54 13 / 6%); }
+
+  /* File PNG icon có sẵn lề trong suốt quanh nét vẽ, bản thiết kế dùng
+     nguyên khung 36px nên nét vẽ ra đúng 20–24px. */
+  .card__action img {
+    inline-size: var(--card-action-icon);
+    block-size: var(--card-action-icon);
+  }
+
+  /* Icon con mắt là SVG tự vẽ nên khung nhỏ hơn, nét đã vừa sẵn. */
+  .card__action svg {
+    inline-size: var(--card-action-eye);
+    block-size: var(--card-action-eye);
+  }
+}

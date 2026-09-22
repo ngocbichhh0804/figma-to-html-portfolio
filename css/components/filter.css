@@ -1,0 +1,128 @@
+@layer components {
+  /* [ĐO] Cả cột filter thụt vào 16px so với mép container: chữ "Filter" bắt
+     đầu ở x198 trong khi heading footer bắt đầu ở x182. */
+  .filter { padding-inline-start: var(--sidebar-pad); }
+
+  .filter__bar {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-block-end: var(--filter-bar-pb);
+  }
+
+  /* [FIGMA] Cột filter dùng Century Gothic toàn bộ. */
+  .filter__title,
+  .filter__clear,
+  .filter__legend,
+  .filter__option,
+  .rating__row { font-family: var(--font-sans); }
+
+  .filter__title,
+  .filter__clear { font-size: var(--text-filter); }
+
+  .filter__clear { transition: opacity var(--duration-fast) var(--ease-out); }
+
+  .filter__clear:hover { opacity: 0.6; }
+
+  .filter__groups {
+    display: grid;
+    gap: var(--filter-group-gap);
+    border-block: 1px solid var(--border-hairline);
+    padding-block: 20px 28px;
+  }
+
+  .filter__legend {
+    display: block;
+    font-size: var(--text-filter);
+    font-weight: var(--weight-medium);
+    line-height: 22px;
+    margin-block-end: var(--filter-legend-gap);
+  }
+
+  /* Các dòng rating đã có leading riêng, nếu dùng chung khoảng hở của
+     legend sẽ bị đẩy xuống thấp hơn bản thiết kế. */
+  .filter__legend--rating { margin-block-end: var(--rating-legend-gap); }
+
+  .filter__options,
+  .rating {
+    display: grid;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .filter__option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    block-size: var(--filter-row);
+    line-height: var(--filter-row);
+    font-size: var(--text-option);
+    cursor: pointer;
+  }
+
+  /* Ô tick vuông viền mảnh. Khi chọn thì tô kín nâu và hiện dấu tick trắng.
+     Figma vẽ trạng thái chọn là một ô vuông nhỏ đặc ở giữa; dấu tick dễ đọc
+     hơn hẳn ở cỡ 12px nên đây là chỗ cố ý làm khác bản thiết kế. */
+  .filter__checkbox {
+    appearance: none;
+    flex: none;
+    inline-size: 12px;
+    block-size: 12px;
+    border: 1px solid var(--border-control);
+    border-radius: 2px;
+    display: grid;
+    place-content: center;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out);
+  }
+
+  /* Dấu tick vẽ bằng hai cạnh của một hộp rỗng rồi xoay 45°. */
+  .filter__checkbox::after {
+    content: "";
+    inline-size: 4px;
+    block-size: 7px;
+    margin-block-start: -1.5px;
+    border: 0 solid var(--color-white);
+    border-inline-end-width: 1.7px;
+    border-block-end-width: 1.7px;
+    rotate: 45deg;
+    scale: 0;
+    transition: scale var(--duration-fast) var(--ease-out);
+  }
+
+  .filter__checkbox:checked {
+    background-color: var(--text-primary);
+    border-color: var(--text-primary);
+  }
+
+  .filter__checkbox:checked::after { scale: 1; }
+
+  .rating__row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    block-size: var(--rating-row);
+    line-height: var(--rating-row);
+    font-size: var(--text-option);
+    cursor: pointer;
+  }
+
+  /* [ĐO] sao 16px, tâm cách nhau 20px; khối sao kết thúc x315, nhãn bắt
+     đầu x332 nên cần thêm 5px so với khoảng hở chung của hàng. */
+  .rating__stars {
+    display: flex;
+    gap: var(--rating-star-gap);
+    margin-inline-end: 5px;
+  }
+
+  .rating__stars img {
+    inline-size: var(--rating-star);
+    block-size: var(--rating-star);
+  }
+
+  /* Figma để nhãn ở #A9967F (tương phản 2.66:1 — dưới chuẩn WCAG AA).
+     Ở đây đậm hơn một chút cho đạt 4.62:1, xem README. */
+  .rating__label { color: var(--text-idle); }
+}

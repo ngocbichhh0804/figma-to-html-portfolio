@@ -1,0 +1,28 @@
+/* Các lớp tiện ích một mục đích. Nằm ở layer cao nhất nên luôn thắng
+   mà không cần !important hay tăng specificity. */
+@layer utilities {
+  .visually-hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .skip-link {
+    position: absolute;
+    inset-block-start: -100%;
+    inset-inline-start: 16px;
+    z-index: 100;
+    padding: 8px 16px;
+    color: var(--color-white);
+    background-color: var(--text-primary);
+    border-radius: var(--radius-pill);
+  }
+
+  .skip-link:focus { inset-block-start: 16px; }
+}

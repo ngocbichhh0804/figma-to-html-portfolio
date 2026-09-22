@@ -1,0 +1,85 @@
+/* =========================================================================
+   Bốn họ chữ thay cho font bản quyền trong Figma, đều theo giấy phép SIL OFL
+   nên dùng thương mại thoải mái. File woff2 để ngay trong assets/fonts/ chứ
+   không gọi Google Fonts: trang không phụ thuộc máy chủ ngoài, không gửi IP
+   người xem sang bên thứ ba (GDPR), và chữ hiện ra sớm hơn vì bớt một vòng
+   kết nối. Mỗi file chỉ chứa bảng mã latin — đủ cho toàn bộ nội dung trang.
+
+   Roghiska      -> Marcellus           (logo, tiêu đề hero)
+   Butler        -> Playfair Display    (glo. chìm, "New arrivals", heading)
+   Gotham        -> Montserrat          (tên sản phẩm, nút Subscribe)
+   Century Gothic-> Poppins             (nav, filter, chữ body)
+   ========================================================================= */
+@layer reset {
+  @font-face {
+    font-family: "Marcellus";
+    src: url("../assets/fonts/marcellus-latin-400-normal.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Playfair Display";
+    src: url("../assets/fonts/playfair-display-latin-400-normal.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Playfair Display";
+    src: url("../assets/fonts/playfair-display-latin-700-normal.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Montserrat";
+    src: url("../assets/fonts/montserrat-latin-400-normal.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Montserrat";
+    src: url("../assets/fonts/montserrat-latin-500-normal.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/poppins-latin-300-normal.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/poppins-latin-400-normal.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/poppins-latin-500-normal.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/poppins-latin-600-normal.woff2") format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+}

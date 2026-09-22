@@ -1,0 +1,148 @@
+@layer components {
+  .site-header { position: relative; z-index: 10; }
+
+  /* [FIGMA] Hàng header có lề riêng 168px mỗi bên, rộng hơn container chung
+     của phần thân trang (lề 180px). */
+  .site-header .container {
+    position: relative;
+    max-inline-size: var(--header-w);
+  }
+
+  /* Cả hàng logo + link trong bản thiết kế nằm thấp hơn tâm header một chút,
+     nên thêm phần đệm trên và trừ lại vào chiều cao để header vẫn đúng 200px. */
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding-block-start: var(--nav-drop);
+    min-block-size: var(--header-h);
+  }
+
+  .nav__logo {
+    margin-inline-start: var(--nav-logo-inset);
+    font-family: var(--font-logo);   /* [FIGMA] Roghiska */
+    font-size: var(--text-logo);
+    line-height: 1;
+  }
+
+  /* Menu dựng bằng <details> nên không cần JavaScript. */
+  .nav__disclosure { position: static; }
+
+  .nav__toggle {
+    display: inline-flex;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .nav__toggle::-webkit-details-marker { display: none; }
+
+  .nav__toggle svg { inline-size: 26px; block-size: 26px; }
+
+  /* Mobile: panel là ngăn kéo trượt xuống dưới header. */
+  .nav__panel {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline: 0;
+    z-index: 20;
+    padding: 16px 24px 32px;
+    background-color: var(--surface-page);
+    border-block-end: 1px solid var(--border-hairline);
+  }
+
+  .nav__list {
+    display: grid;
+    gap: 16px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* [FIGMA] Century Gothic — kế thừa từ body, ghi rõ cho khỏi nhầm. */
+  .nav__link {
+    font-family: var(--font-sans);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nav-chevron);
+    font-size: var(--text-nav);
+    font-weight: var(--weight-medium);  /* [ĐO] nét chữ nav đậm hơn chữ body */
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .nav__link:hover { opacity: 0.65; }
+
+  /* [ĐO] Nét mũi tên rộng 8px, nhưng trong bản thiết kế hộp chứa nó còn
+     thừa 8px bên phải nên "About" mới rơi đúng x597. */
+  .nav__link svg {
+    inline-size: 9px;
+    margin-inline-end: 8px;
+  }
+
+  .nav__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--nav-action-gap);
+    margin-inline-start: auto;
+    /* Trong bản thiết kế bốn icon nhích ra ngoài lề phải một chút. */
+    margin-inline-end: var(--nav-action-shift);
+  }
+
+  .nav__action { flex: none; }
+
+  .nav__action img {
+    inline-size: var(--nav-action-size);
+    block-size: var(--nav-action-size);
+  }
+
+  /* Bản thiết kế không có bản mobile. Dưới 768px logo và bốn icon cùng nhỏ
+     lại, khoảng hở hẹp hơn, để cả hàng vừa đúng màn hình 320px mà không icon
+     nào bị cắt hay bị flexbox bóp méo tỉ lệ. */
+  @media (width < 48rem) {
+    .nav { gap: 16px; }
+
+    .nav__logo { font-size: var(--text-logo-sm); }
+
+    .nav__actions {
+      flex: none;
+      gap: var(--nav-action-gap-sm);
+      margin-inline-end: 0;
+    }
+
+    .nav__action img {
+      inline-size: var(--nav-action-size-sm);
+      block-size: var(--nav-action-size-sm);
+    }
+  }
+
+  @media (width >= 64rem) {
+    .nav__toggle { display: none; }
+
+    /* Trình duyệt ẩn nội dung của <details> khi đóng bằng hai cơ chế khác
+       nhau, phải ghi đè cả hai:
+         - trình duyệt cũ đặt display:none lên các con của <details>
+         - Chrome mới bọc nội dung trong ::details-content và đặt
+           content-visibility:hidden — phần tử vẫn có kích thước nhưng
+           không được vẽ ra, nên chỉ ghi đè display là chưa đủ */
+    .nav__disclosure:not([open]) .nav__panel,
+    .nav__panel {
+      position: static;
+      display: block;
+      padding: 0;
+      margin-inline-start: var(--nav-offset);
+      background: none;
+      border: 0;
+    }
+
+    .nav__disclosure::details-content {
+      content-visibility: visible;
+      block-size: auto;
+      overflow: visible;
+    }
+
+    .nav__list {
+      display: flex;
+      align-items: center;
+      gap: var(--nav-gap);
+    }
+  }
+}

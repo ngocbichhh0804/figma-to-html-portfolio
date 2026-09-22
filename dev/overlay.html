@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Overlay — Glo. shop vs Figma</title>
+<style>
+  /* Công cụ dành cho lúc code, không nằm trong bản giao cho khách: nó nạp
+     trang thật vào iframe ở đúng khổ khung thiết kế rồi đè ảnh export Figma
+     lên trên. Nút điều khiển là radio input đọc bằng :has() — không JavaScript. */
+  :root { --frame-w: 1920px; --frame-h: 2748px; }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #1e1e1e; font: 14px/1.4 system-ui, sans-serif; color: #eee; }
+
+  .bar {
+    position: fixed; inset-block-start: 0; inset-inline: 0; z-index: 10;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    padding: 10px 16px; background: #111; border-block-end: 1px solid #333;
+  }
+  .bar strong { font-weight: 600; }
+  .bar label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .bar .hint { margin-inline-start: auto; opacity: .6; }
+
+  .stage { position: relative; width: var(--frame-w); margin: 56px auto 0; }
+  .stage iframe { display: block; width: var(--frame-w); height: var(--frame-h); border: 0; }
+  .stage .ov {
+    position: absolute; inset-block-start: 0; inset-inline-start: 0;
+    width: var(--frame-w); pointer-events: none; opacity: .5;
+  }
+
+  body:has(#m-build:checked)  .ov { opacity: 0; }
+  body:has(#m-50:checked)     .ov { opacity: .5; }
+  body:has(#m-figma:checked)  .ov { opacity: 1; }
+  /* Chế độ difference: pixel nào trùng khít thì thành đen, chỗ lệch sẽ phát sáng. */
+  body:has(#m-diff:checked)   .ov { opacity: 1; mix-blend-mode: difference; }
+  body:has(#m-diff:checked)   .stage { background: #fff; }
+
+  body:has(#grid:checked) .stage::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      repeating-linear-gradient(to right, rgb(0 128 255 / 35%) 0 1px, transparent 1px 100px),
+      repeating-linear-gradient(to bottom, rgb(0 128 255 / 35%) 0 1px, transparent 1px 100px);
+  }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <strong>Glo. — trang Shop</strong>
+    <label><input type="radio" name="mode" id="m-build" /> Chỉ bản code</label>
+    <label><input type="radio" name="mode" id="m-50" checked /> Đè 50%</label>
+    <label><input type="radio" name="mode" id="m-figma" /> Chỉ Figma</label>
+    <label><input type="radio" name="mode" id="m-diff" /> Difference</label>
+    <label><input type="checkbox" id="grid" /> Lưới 100px</label>
+    <span class="hint">1920 × 2748 — zoom trình duyệt để xem vừa màn hình, lớp đè co theo</span>
+  </div>
+
+  <div class="stage">
+    <iframe src="../index.html" title="Bản code" scrolling="no"></iframe>
+    <img class="ov" src="../docs/comparison/shop/shop-figma.png" alt="Ảnh export từ Figma" />
+  </div>
+</body>
+</html>

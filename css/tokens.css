@@ -1,0 +1,199 @@
+/* =========================================================================
+   Design token — bộ UI kit Glo., trang Shop
+   Khung gốc: 1920 × 2748
+
+   [FIGMA]  đọc thẳng từ panel inspector của Figma
+   [ĐO]     đo từ ảnh export 1:1 của bản thiết kế
+   [MẪU]    lấy từ file PNG asset được cung cấp
+   [ƯỚC]    ước lượng, còn chờ xác nhận lại trong Figma
+   ========================================================================= */
+@layer tokens {
+  :root {
+    /* ---------- Màu: giá trị gốc ---------- */
+    --color-cream: #faf7f3;          /* [ĐO]    nền trang                     */
+    --color-brown: #58360d;          /* [MẪU]   icon, chữ body, nút CTA       */
+    --color-brown-mid: #976f40;      /* [FIGMA] màu chữ GLO. chìm             */
+    --color-terracotta: #cd794a;     /* [FIGMA] nét vòng tròn quanh Subscribe */
+    --color-amber: #ffaf00;          /* [FIGMA] vầng sáng vàng ở hero         */
+    --color-blush: #fddede;          /* [FIGMA] khối hồng ở chân trang        */
+    --color-sparkle: #f0a241;        /* [MẪU]   ngôi sao trên dải ribbon      */
+    --color-white: #ffffff;
+
+    /* ---------- Màu: theo ngữ nghĩa ----------
+       Component chỉ dùng tầng này, nhờ vậy đổi theme chỉ phải sửa ở đây. */
+    --surface-page: var(--color-cream);
+    --text-primary: var(--color-brown);
+    --text-muted: rgb(88 54 13 / 72%);
+    --text-idle: rgb(88 54 13 / 72%); /* Figma để #A9967F (50%) — xem README  */
+    --border-hairline: rgb(88 54 13 / 28%);
+    --border-control: rgb(88 54 13 / 56%); /* Figma để #F4EBDF (1.1:1); đậm
+                                              lên cho đạt 3:1 — xem README    */
+    --accent-stroke: var(--color-terracotta);
+
+    /* ---------- Chữ ----------
+       Bản thiết kế dùng Roghiska, Butler, Gotham, Century Gothic — đều là font
+       thương mại. Dự án thay bằng bốn font giấy phép SIL Open Font License
+       (dùng thương mại thoải mái), tự lưu trong assets/fonts/:
+
+         Roghiska       → Marcellus          (serif rộng, nét đều, chân mảnh)
+         Butler         → Playfair Display   (didone, chân chữ vuông dày)
+         Gotham         → Montserrat         (geometric sans, bề ngang sát nhất)
+         Century Gothic → Poppins            (chữ a một tầng, bầu tròn, rất sát)
+
+       Cả bốn đều được chọn bằng cách đo chứ không bằng cảm tính: render thử
+       16 font serif cho dòng hero rồi so từng pixel với ảnh export — Marcellus
+       lệch ít nhất. Với Poppins, bốn link nav rơi đúng x460/599/722/866 so với
+       x460/599/722/867 của bản thiết kế. */
+    --font-logo: "Marcellus", "Times New Roman", serif;   /* thay Roghiska */
+    --font-display: "Playfair Display", serif;             /* thay Butler         */
+    --font-card: "Montserrat", system-ui, sans-serif;      /* thay Gotham         */
+    --font-sans: "Poppins", system-ui, sans-serif;         /* thay Century Gothic */
+    --hero-size:100px;
+    --text-hero: 96px;              /* [ĐO]    nét chữ cao 72px (y311–383)     */
+    --hero-track: 0.1068em;           /* [ĐO]    khối chữ rộng 933px (x491–1424) */
+    --watermark-scale: 4.1667;       /* [FIGMA] chữ chìm 400px ÷ hero 96px     */
+    --watermark-drop: 0.1;        /* [ĐO]    tâm chữ chìm thấp hơn tâm tiêu
+                                               đề 80px, tức 0.8333 lần cỡ hero */
+    --text-logo: 59px;               /* [ĐO]    nét chữ "Glo." rộng 99px       */
+    --text-logo-sm: 40px;            /* dưới 768px cho vừa hàng nav           */
+    --text-nav: 24px;                /* [ĐO]    "Contact" rộng 94px (x720–814)  */
+    --text-card: 24px;               /* [ĐO]    bước dòng 31px                 */
+    --text-price: 20px;              /* [ĐO]    "₹230.00" rộng 76px, cao 14px  */
+    --text-marquee: 50px;            /* [ĐO]    khớp bề ngang chữ bản thiết kế */
+    --text-foot: 24px;               /* [ĐO]    "Products" rộng 99px           */
+    --text-filter: 18px;
+    --text-option: 15px;
+    --text-body: 16px;
+    --text-phone: 17px;              /* [ĐO]    số điện thoại rộng 140px       */
+    --text-small: 14px;
+
+    --leading-tight: 1.15;
+    --leading-card: 1.25;            /* [ĐO]    bước dòng 30px (y906→936)      */
+    --leading-normal: 1.7;
+
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+
+    /* ---------- Hằng số layout đo được ---------- */
+    --frame-w: 1920px;               /* [FIGMA] khung thiết kế                 */
+    --container-w: 1560px;           /* [ĐO]    1920 − 2 × 180                 */
+    --header-w: 1584px;              /* [FIGMA] khung header: lề 168px mỗi bên */
+    --nav-logo-inset: 20px;          /* [ĐO]    trong Figma hộp logo có lề trong
+                                               ~20px, nét "Glo." mới bắt đầu 190 */
+    --container-pad: 24px;           /* mobile; desktop ghi đè trong layout.css */
+    --sidebar-w: 370px;              /* [ĐO]    cột filter 180 → 550           */
+    --sidebar-pad: 16px;             /* [ĐO]    chữ "Filter" bắt đầu ở x198    */
+    --sidebar-gap: 24px;             /* [ĐO]                                   */
+    --grid-gap: 16px;                /* [ĐO]    bước cột 394 − 378             */
+    --nav-drop: 2px;                 /* [ĐO]    chữ nav nằm ở y93 chứ không y89 */
+    --header-h: 200px;               /* [ĐO]    chữ nav nằm ở y79–121          */
+    --hero-pt: 95px;                 /* [ĐO]    nét chữ h1 bắt đầu y314        */
+    --hero-pb: 168px;                /* [ĐO]    lưới sản phẩm bắt đầu y570     */
+    --nav-offset: 131px;             /* [ĐO]    "Shop" bắt đầu ở x459; Figma đo
+                                               161.5px là khoảng cách giữa hai
+                                               khung, khung "Shop" có lề trong   */
+    --nav-gap: 47px;                 /* [ĐO]    Figma đo 41px giữa hai khung;
+                                               mỗi khung link có ~4.5px lề trong
+                                               nên nét chữ cách nhau 50px        */
+    --nav-chevron: 12px;             /* [ĐO]    "Shop" hết ở 516, mũi tên 531  */
+    --nav-action-size: 36px;         /* [ĐO]    khung icon; nét icon 20–26px   */
+    --nav-action-gap: 24px;          /* [FIGMA] khoảng hở giữa các icon        */
+    --nav-action-size-sm: 24px;      /* dưới 768px: icon nhỏ lại cho vừa hàng  */
+    --nav-action-gap-sm: 10px;
+    --nav-action-shift: 2px;         /* [ĐO]    nét icon cuối kết thúc x1741   */
+    --card-media-h: 240px;           /* [ĐO]    dải ảnh sản phẩm y570–809      */
+    /* Sáu tấm ảnh sản phẩm hiện đúng kích thước gốc của file PNG. Trong
+       Figma chúng được kéo thả bằng tay nên lệch khỏi tâm ô mỗi tấm một
+       kiểu; số dưới đây [ĐO] bằng cách so trọng tâm vùng tối của ảnh
+       export 1:1 với bản dựng.                                            */
+    --img-dx-1: 1px; --img-dy-1: 2px;
+    --img-dx-2: -4px; --img-dy-2: -6px;
+    --img-dx-3: 0; --img-dy-3: -15px;
+    --img-dx-4: 0; --img-dy-4: -10px;
+    --img-dx-5: -8px; --img-dy-5: 33px;
+    --img-dx-6: -4px; --img-dy-6: 16px;
+    --card-title-gap: 90px;          /* [ĐO]    ảnh 809 → hộp tiêu đề 900      */
+    --card-title-w: 280px;           /* [ĐO]    khối chữ x624–901 là 277px, nới
+                                               3px để font dự phòng Montserrat còn
+                                               ngắt đúng 2 dòng. Có Gotham thì trả
+                                               về 277px.                            */
+    --card-price-gap: 8px;           /* [ĐO]    tiêu đề hết 962 → hộp giá 970  */
+    --card-actions-gap: 12px;        /* [ĐO]    hộp giá hết 1005 → vòng 1017   */
+    --card-action-size: 64px;        /* [ĐO]    vòng tròn nút nhanh y1017–1080 */
+    --card-action-icon: 36px;        /* [ĐO]    khung icon; nét vẽ 20–24px     */
+    --card-action-eye: 24px;         /* [ĐO]    nét icon con mắt 22 × 19px     */
+    --card-action-ring: 2px;         /* [ĐO]    nét vòng tròn dày 2px, #58360D */
+    --card-action-gap: 16px;         /* [ĐO]    vòng 1 hết 714, vòng 2 từ 731  */
+    --card-title-gap-row2: 17px;     /* [ĐO]    chữ hàng 2 bắt đầu ở y1557     */
+    --card-row-gap: 124px;           /* [ĐO]    ảnh hàng 1 y585 → hàng 2 y1207 */
+    --filter-bar-pb: 8px;            /* [ĐO]    đường kẻ nằm ở y614            */
+    --filter-row: 31.67px;              /* [ĐO]    bước dòng tùy chọn y680→709    */
+    --filter-legend-gap: 12px;       /* [ĐO]    legend y639 → tùy chọn y678    */
+    --filter-group-gap: 15px;        /* [ĐO]    bước giữa các legend 176px     */
+    --rating-legend-gap: 8px;        /* [ĐO]    "Rating" y1158 → dòng y1190    */
+    --rating-star: 16px;             /* [ĐO]    ngôi sao 16 × 15px             */
+    --rating-star-gap: 4px;          /* [ĐO]    tâm sao cách nhau 20px         */
+    --rating-row: 24px;              /* [ĐO]    bước dòng rating y1198→1223    */
+    --text-pagination: 17px;         /* [ĐO]    nét số cao 13px (y1799–1811)   */
+    --pagination-item-gap: 31px;     /* [ĐO]    tâm số cách nhau 48px          */
+    --pagination-arrow-gap: 40px;    /* [ĐO]    mũi tên hết 1056, số 1 từ 1105 */
+    --pagination-arrow: 9px;         /* [ĐO]    nét mũi tên 5 × 8px            */
+    --pagination-gap: 62px;           /* [ĐO]    nét chữ pagination ở y1801     */
+    --marquee-gap: 167px;            /* [ĐO]    mép trên ribbon y1990 tại x960 */
+    --marquee-tilt: -2.25deg;        /* [ĐO]    y2028@x5 → y1953@x1914         */
+    --marquee-band: 25px;            /* [ĐO]    dải băng dày 105px             */
+    --marquee-item-gap: 29.25px;     /* [ĐO]    khoảng lặp 400px               */
+    --marquee-track: 0.016em;         /* [ĐO]    "New arrivals" rộng 285px      */
+    --marquee-star: 54px;            /* [ĐO]    ngôi sao cam rộng 50px          */
+    --marquee-offset: 28.5px;          /* [ĐO]    sao đầu tiên rơi đúng x320     */
+    --footer-pt: 230px;              /* [ĐO]    heading footer ở y2335         */
+    --footer-pb: 96px;               /* [ĐO]    khung kết thúc ở y2748         */
+    --footer-row: 18px;              /* [ĐO]    bước dòng link footer 45px     */
+    --footer-col-1: 285px;           /* [ĐO]    bước cột 183→468               */
+    --footer-col-2: 281px;           /* [ĐO]    468→749                        */
+    --updates-heading-shift: -26px;  /* [ĐO]    "GET UPDATES" nằm ở x1354–1526 */
+    --updates-input-h: 72px;
+    --updates-input-pad: 34px;       /* [ĐO]    chữ gợi ý bắt đầu ở x1228      */
+    --text-subscribe: 18px;          /* [ĐO]    chữ Subscribe 88 × 13px        */
+    --social-top: 36px;              /* [ĐO]    kẻ trên hàng mạng XH ở y2537   */
+    --social-pad-top: 11px;          /* [ĐO]    icon bắt đầu ở y2549           */
+    --social-pad-bottom: 12px;       /* [ĐO]    kẻ dưới ở y2609                */
+    --social-inset-start: 4px;       /* [ĐO]    kẻ ngang bắt đầu ở x1197       */
+    --social-pad-start: 6px;         /* [ĐO]    icon đầu tiên ở x1203           */
+    --social-inset-end: 6px;         /* [ĐO]    kẻ ngang kết thúc ở x1734      */
+    --social-icon: 48px;             /* [ĐO]    icon tròn y2549–2596           */
+    --social-gap: 48px;              /* [ĐO]    bước lặp icon 96px             */
+    --footer-col-3: 447px;           /* [ĐO]    749→1196                       */
+    --glow-blur: 260px;              /* [ĐO]    cùng thang với --blob-blur      */
+    --blob-blur: 260px;              /* [ĐO]    Figma ghi 600 nhưng thang blur
+                                               của Figma khác CSS; 260px là giá
+                                               trị khớp nhất với ảnh export.  */
+
+    /* ---------- Lớp trang trí ---------- */
+    /* Vầng sáng hero: ellipse 992.77 × 1040.81 tại (1170.5, −388.69), #FFAF00 30% */
+    --glow-w: 992.77px;              /* [FIGMA] */
+    --glow-h: 1040.81px;             /* [FIGMA] */
+    --glow-x: 1170.5px;              /* [FIGMA] */
+    --glow-y: -388.69px;             /* [FIGMA] */
+    --glow-opacity: 0.3;             /* [FIGMA] */
+
+    /* Khối hồng chân trang: 1402.97 × 1040.81 tại (−503.48, 1893.59), #FDDEDE */
+    --blob-w: 1402.97px;             /* [FIGMA] */
+    --blob-h: 1040.81px;             /* [FIGMA] */
+    --blob-x: -503.48px;             /* [FIGMA] */
+    --blob-y: 1893.59px;             /* [FIGMA] */
+
+    /* Vòng quanh Subscribe: hai ellipse 137.53 × 60.76, nét 1px #CD794A bên trong */
+    --scribble-w: 137.53px;          /* [FIGMA] */
+    --scribble-h: 60.76px;           /* [FIGMA] */
+    --scribble-rot-a: -16.4deg;      /* [FIGMA] */
+    --scribble-rot-b: -7.17deg;      /* [FIGMA] */
+
+    --radius-sm: 4px;
+    --radius-pill: 999px;
+    --duration-fast: 160ms;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}

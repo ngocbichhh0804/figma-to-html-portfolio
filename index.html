@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Shop — Glo.</title>
+    <meta name="description" content="Glo. skincare shop — browse serums, creams and oils filtered by skin type, concern and rating." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Shop — Glo." />
+    <meta property="og:description" content="Glo. skincare shop — serums, creams and oils." />
+    <meta property="og:image" content="assets/img/og/shop.jpg" />
+
+    <link rel="icon" href="assets/icon/icon-sparkle.png" type="image/png" />
+
+    <!-- Font tự lưu trong assets/fonts/ — không gọi ra máy chủ ngoài.
+         Bốn file dưới đây là bốn kiểu chữ xuất hiện ngay màn hình đầu nên
+         tải trước; số còn lại để fonts.css nạp theo nhu cầu. -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/marcellus-latin-400-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/playfair-display-latin-400-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/poppins-latin-400-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/montserrat-latin-400-normal.woff2" />
+
+    <!-- Thứ tự cascade layer khai báo một lần, trước mọi stylesheet, nhờ đó
+         độ ưu tiên không phụ thuộc thứ tự file và không rule nào cần !important. -->
+    <style>
+      @layer reset, tokens, base, layout, components, utilities;
+    </style>
+
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components/nav.css" />
+    <link rel="stylesheet" href="css/components/hero.css" />
+    <link rel="stylesheet" href="css/components/filter.css" />
+    <link rel="stylesheet" href="css/components/card.css" />
+    <link rel="stylesheet" href="css/components/pagination.css" />
+    <link rel="stylesheet" href="css/components/marquee.css" />
+    <link rel="stylesheet" href="css/components/footer.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <div class="page">
+      <!-- Vầng sáng vàng: ellipse 992.77 × 1040.81 tại (1170.5, −388.69), #FFAF00 30% -->
+      <div class="page__glow" aria-hidden="true"></div>
+      <!-- Khối hồng: 1402.97 × 1040.81 tại (−503.48, 1893.59), #FDDEDE, layer blur 600 -->
+      <div class="page__blob" aria-hidden="true"></div>
+
+      <header class="site-header">
+        <div class="container">
+          <nav class="nav" aria-label="Main">
+            <a href="index.html" class="nav__logo">Glo.</a>
+
+            <!-- Menu dựng bằng <details>: thao tác được bằng bàn phím, ở desktop
+                 luôn mở nhờ một rule trong css/components/nav.css. Không JavaScript. -->
+            <details class="nav__disclosure">
+              <summary class="nav__toggle">
+                <span class="visually-hidden">Menu</span>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                </svg>
+              </summary>
+
+              <div class="nav__panel">
+                <ul class="nav__list" role="list">
+                  <li>
+                    <a class="nav__link" href="index.html" aria-current="page">
+                      Shop
+                      <svg viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                        <path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                      </svg>
+                    </a>
+                  </li>
+                  <li><a class="nav__link" href="#">About</a></li>
+                  <li><a class="nav__link" href="#">Contact</a></li>
+                  <li><a class="nav__link" href="#">Offers</a></li>
+                </ul>
+              </div>
+            </details>
+
+            <div class="nav__actions">
+              <a class="nav__action" href="#"><img src="assets/icon/icon-search.png" alt="Search" width="36" height="36" /></a>
+              <a class="nav__action" href="#"><img src="assets/icon/icon-user.png" alt="Account" width="36" height="36" /></a>
+              <a class="nav__action" href="#"><img src="assets/icon/icon-heart.png" alt="Wishlist" width="36" height="36" /></a>
+              <a class="nav__action" href="#"><img src="assets/icon/icon-bag.png" alt="Cart" width="36" height="36" /></a>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <main id="main">
+        <section class="hero">
+          <!-- Chữ GLO. chìm: Butler, hộp 1035 × 480 tại (442.5, 189.62), #976F40 8% -->
+          <h1 class="hero__title">Your Skin Breathe</h1>
+        </section>
+
+        <div class="container">
+          <div class="shop">
+            <aside class="filter" aria-labelledby="filter-title">
+              <div class="filter__bar">
+                <h2 class="filter__title" id="filter-title">Filter</h2>
+                <button type="button" class="filter__clear">Clear all</button>
+              </div>
+
+              <form class="filter__groups">
+                  <fieldset class="filter__group">
+                    <legend class="filter__legend">Skin type</legend>
+                    <ul class="filter__options" role="list">
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="skin-type" value="normal" />Normal</label></li>
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="skin-type" value="dry" checked />Dry Skin</label></li>
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="skin-type" value="oily" />Oily Skin</label></li>
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="skin-type" value="combination" />Combination Skin</label></li>
+                    </ul>
+                  </fieldset>
+
+                  <fieldset class="filter__group">
+                    <legend class="filter__legend">Skin Concerns</legend>
+                    <ul class="filter__options" role="list">
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="concern" value="normal" />Normal</label></li>
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="concern" value="dry" />Dry Skin</label></li>
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="concern" value="oily" />Oily Skin</label></li>
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="concern" value="combination" />Combination Skin</label></li>
+                    </ul>
+                  </fieldset>
+
+                  <fieldset class="filter__group">
+                    <legend class="filter__legend">Category</legend>
+                    <ul class="filter__options" role="list">
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="category" value="face-serum" />Face Serum</label></li>
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="category" value="lip-balm" />Lip balm</label></li>
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="category" value="face-oil" />Face oil</label></li>
+                      <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="category" value="face-scrub" />Face Scrub</label></li>
+                    </ul>
+                  </fieldset>
+
+                  <fieldset class="filter__group">
+                    <legend class="filter__legend filter__legend--rating">Rating</legend>
+                    <ul class="rating" role="list">
+                      <li>
+                        <label class="rating__row">
+                          <input class="filter__checkbox" type="radio" name="rating" value="5" />
+                          <span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /></span>
+                          <span class="rating__label">5 star</span>
+                        </label>
+                      </li>
+                      <li>
+                        <label class="rating__row">
+                          <input class="filter__checkbox" type="radio" name="rating" value="4" />
+                          <span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span>
+                          <span class="rating__label">4 star</span>
+                        </label>
+                      </li>
+                      <li>
+                        <label class="rating__row">
+                          <input class="filter__checkbox" type="radio" name="rating" value="3" />
+                          <span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span>
+                          <span class="rating__label">3 star</span>
+                        </label>
+                      </li>
+                      <li>
+                        <label class="rating__row">
+                          <input class="filter__checkbox" type="radio" name="rating" value="2" />
+                          <span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span>
+                          <span class="rating__label">2 star</span>
+                        </label>
+                      </li>
+                      <li>
+                        <label class="rating__row">
+                          <input class="filter__checkbox" type="radio" name="rating" value="1" />
+                          <span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span>
+                          <span class="rating__label">1 star</span>
+                        </label>
+                      </li>
+                    </ul>
+                  </fieldset>
+              </form>
+            </aside>
+
+            <section aria-label="Products">
+              <ul class="product-grid" role="list">
+                <li>
+                  <article class="card">
+                    <div class="card__media card__media--1">
+                      <img src="assets/img/product-jar-tilted.png" alt="Mixed Grapes Sulphate Free Face Cream in a glass jar" width="234" height="227" fetchpriority="high" />
+                    </div>
+                    <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
+                    <p class="card__price">₹230.00</p>
+                    <div class="card__actions">
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action">
+                        <span class="visually-hidden">Quick view</span>
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M1.6 12s4.2-8.5 10.4-8.5S22.4 12 22.4 12s-4.2 8.5-10.4 8.5S1.6 12 1.6 12Z" stroke="currentColor" stroke-width="1.4" />
+                          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4" />
+                        </svg>
+                      </button>
+                    </div>
+                  </article>
+                </li>
+
+                <li>
+                  <article class="card">
+                    <div class="card__media card__media--2">
+                      <img src="assets/img/product-jar-box.png" alt="Mixed Grapes Sulphate Free Face Cream with its carton" width="260" height="173" loading="lazy" />
+                    </div>
+                    <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
+                    <p class="card__price">₹230.00</p>
+                    <div class="card__actions">
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action">
+                        <span class="visually-hidden">Quick view</span>
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M1.6 12s4.2-8.5 10.4-8.5S22.4 12 22.4 12s-4.2 8.5-10.4 8.5S1.6 12 1.6 12Z" stroke="currentColor" stroke-width="1.4" />
+                          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4" />
+                        </svg>
+                      </button>
+                    </div>
+                  </article>
+                </li>
+
+                <li>
+                  <article class="card">
+                    <div class="card__media card__media--3">
+                      <img src="assets/img/product-serum.png" alt="Mixed Grapes Sulphate Free Face Cream serum dropper bottle" width="70" height="218" loading="lazy" />
+                    </div>
+                    <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
+                    <p class="card__price">₹230.00</p>
+                    <div class="card__actions">
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action">
+                        <span class="visually-hidden">Quick view</span>
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M1.6 12s4.2-8.5 10.4-8.5S22.4 12 22.4 12s-4.2 8.5-10.4 8.5S1.6 12 1.6 12Z" stroke="currentColor" stroke-width="1.4" />
+                          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4" />
+                        </svg>
+                      </button>
+                    </div>
+                  </article>
+                </li>
+
+                <li>
+                  <article class="card">
+                    <div class="card__media card__media--4">
+                      <img src="assets/img/product-serum-alt.png" alt="Mixed Grapes Sulphate Free Face Cream serum bottle" width="70" height="218" loading="lazy" />
+                    </div>
+                    <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
+                    <p class="card__price">₹230.00</p>
+                    <div class="card__actions">
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action">
+                        <span class="visually-hidden">Quick view</span>
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M1.6 12s4.2-8.5 10.4-8.5S22.4 12 22.4 12s-4.2 8.5-10.4 8.5S1.6 12 1.6 12Z" stroke="currentColor" stroke-width="1.4" />
+                          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4" />
+                        </svg>
+                      </button>
+                    </div>
+                  </article>
+                </li>
+
+                <li>
+                  <article class="card">
+                    <div class="card__media card__media--5">
+                      <img src="assets/img/product-jar-upright.png" alt="Mixed Grapes Sulphate Free Face Cream jar" width="186" height="181" loading="lazy" />
+                    </div>
+                    <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
+                    <p class="card__price">₹230.00</p>
+                    <div class="card__actions">
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action">
+                        <span class="visually-hidden">Quick view</span>
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M1.6 12s4.2-8.5 10.4-8.5S22.4 12 22.4 12s-4.2 8.5-10.4 8.5S1.6 12 1.6 12Z" stroke="currentColor" stroke-width="1.4" />
+                          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4" />
+                        </svg>
+                      </button>
+                    </div>
+                  </article>
+                </li>
+
+                <li>
+                  <article class="card">
+                    <div class="card__media card__media--6">
+                      <img src="assets/img/product-jar-box.png" alt="Mixed Grapes Sulphate Free Face Cream with its carton" width="260" height="173" loading="lazy" />
+                    </div>
+                    <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
+                    <p class="card__price">₹230.00</p>
+                    <div class="card__actions">
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
+                      <button type="button" class="card__action">
+                        <span class="visually-hidden">Quick view</span>
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M1.6 12s4.2-8.5 10.4-8.5S22.4 12 22.4 12s-4.2 8.5-10.4 8.5S1.6 12 1.6 12Z" stroke="currentColor" stroke-width="1.4" />
+                          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4" />
+                        </svg>
+                      </button>
+                    </div>
+                  </article>
+                </li>
+              </ul>
+
+              <nav class="pagination" aria-label="Pagination">
+                <a class="pagination__arrow pagination__arrow--prev" href="#" aria-label="Previous page">
+                  <svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 1.5 3.5 7 9 12.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" /></svg>
+                </a>
+                <ul class="pagination__list" role="list">
+                  <li><a class="pagination__link" href="#" aria-current="page">1</a></li>
+                  <li><a class="pagination__link" href="#">2</a></li>
+                  <li><a class="pagination__link" href="#">3</a></li>
+                </ul>
+                <a class="pagination__arrow" href="#" aria-label="Next page">
+                  <svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M5 1.5 10.5 7 5 12.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" /></svg>
+                </a>
+              </nav>
+            </section>
+          </div>
+        </div>
+
+        <!-- Dải ribbon: độ nghiêng đo từ ảnh export, mép y2028 tại x5 → y1953 tại x1914 -->
+        <section class="marquee" aria-label="New arrivals">
+          <div class="marquee__track">
+            <span class="marquee__item">New Arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+
+            <span class="marquee__item">New Arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container">
+          <div class="site-footer__grid">
+            <div>
+              <h2 class="site-footer__heading">Products</h2>
+              <ul class="site-footer__list" role="list">
+                <li><a href="#">Serums</a></li>
+                <li><a href="#">Lip balm</a></li>
+                <li><a href="#">Sun protection</a></li>
+                <li><a href="#">Body Care</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h2 class="site-footer__heading">Quick Links</h2>
+              <ul class="site-footer__list" role="list">
+                <li><a href="#">Track orders</a></li>
+                <li><a href="#">Shipping Polices</a></li>
+                <li><a href="#">Refund &amp; Cancellation</a></li>
+                <li><a href="#">Terms &amp; Condition</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Site map</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h2 class="site-footer__heading">About</h2>
+              <ul class="site-footer__list" role="list">
+                <li><a href="#">Our Story</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contactu Us</a></li>
+              </ul>
+            </div>
+
+            <div class="updates">
+              <h2 class="updates__heading">Get updates</h2>
+              <p class="updates__copy">On Offers and updates ! We have something to share.</p>
+
+              <form class="updates__form">
+                <label class="visually-hidden" for="newsletter-email">Email address</label>
+                <input class="updates__input" id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="Enter email address" required />
+                <button type="submit" class="updates__submit">Subscribe</button>
+              </form>
+
+              <div class="updates__social">
+                <a href="#"><img src="assets/icon/icon-facebook.png" alt="Glo. on Facebook" width="48" height="48" loading="lazy" /></a>
+                <a href="#"><img src="assets/icon/icon-twitter.png" alt="Glo. on Twitter" width="48" height="48" loading="lazy" /></a>
+                <a href="#"><img src="assets/icon/icon-linkedin.png" alt="Glo. on LinkedIn" width="48" height="48" loading="lazy" /></a>
+                <span class="updates__divider" aria-hidden="true"></span>
+                <p class="updates__phone"><a href="tel:011111223444442">011-111223444442</a></p>
+              </div>
+
+              <p class="updates__email"><a href="mailto:Wecare@glo.com">Wecare@glo.com</a></p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

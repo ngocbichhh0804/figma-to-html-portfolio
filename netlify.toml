@@ -1,0 +1,26 @@
+# Deploy tĩnh thuần: không có bước build. Trang gồm index.html + css/ + assets/,
+# Netlify chỉ việc phục vụ nguyên thư mục.
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"
+
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/icon/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

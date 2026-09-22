@@ -1,0 +1,174 @@
+@layer components {
+  .site-footer {
+    position: relative;
+    padding-block: var(--footer-pt) var(--footer-pb);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    gap: 48px;
+  }
+
+  @media (width >= 64rem) {
+    .site-footer__grid {
+      grid-template-columns:
+        var(--footer-col-1) var(--footer-col-2) var(--footer-col-3) minmax(0, 1fr);
+      column-gap: 0;
+    }
+  }
+
+  /* Heading footer dùng leading thường chứ không phải leading-tight của h1–h3:
+     bản thiết kế cách từ nét heading xuống link đầu tiên đúng 60px. */
+  .site-footer__heading {
+    font-family: var(--font-display); /* [FIGMA] Butler */
+    font-size: var(--text-foot);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-normal);
+    margin-block-end: 23px;   /* [ĐO] link đầu tiên bắt đầu ở y2395 */
+  }
+
+  /* [FIGMA] Link footer, ô nhập, số điện thoại, email: Century Gothic. */
+  .site-footer__list,
+  .updates__copy,
+  .updates__input,
+  .updates__phone,
+  .updates__email { font-family: var(--font-sans); }
+
+  .site-footer__list {
+    display: grid;
+    gap: var(--footer-row);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .site-footer__list a { transition: opacity var(--duration-fast) var(--ease-out); }
+
+  .site-footer__list a:hover { opacity: 0.6; text-decoration: underline; }
+
+  .updates__heading {
+    font-family: var(--font-display); /* [FIGMA] Butler */
+    font-size: var(--text-foot);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-normal);
+    letter-spacing: 0.048em; /* [ĐO] "GET UPDATES" rộng 173px (x1354–1526) */
+    text-transform: uppercase;
+    text-align: center;
+    /* Trong Figma hộp chữ này được đặt tay, lệch trái so với tâm cột. */
+    position: relative;
+    inset-inline-start: var(--updates-heading-shift);
+    margin-block-end: 24px;  /* [ĐO] dòng mô tả bắt đầu ở y2396 */
+  }
+
+  .updates__copy {
+    font-size: var(--text-body);  /* [ĐO] khối chữ rộng 431px (x1194–1625) */
+    margin-block-end: 13px;
+  }
+
+  /* Trong bản thiết kế nút Subscribe kết thúc ở x1726, thiếu 14px so với container. */
+  .updates__form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding-inline-end: 14px;
+  }
+
+  .updates__input {
+    flex: 1 1 280px;
+    min-inline-size: 0;
+    block-size: var(--updates-input-h);
+    padding-inline: var(--updates-input-pad);  /* [ĐO] chữ bắt đầu ở x1228 */
+    font-size: var(--text-body);
+    background-color: transparent;
+    border: 1px solid var(--color-brown);      /* [ĐO] viền #58360D đậm nguyên */
+    border-radius: var(--radius-pill);
+  }
+
+  /* [ĐO] Bản thiết kế để chữ gợi ý cùng màu nâu đậm như chữ thường. */
+  .updates__input::placeholder { color: var(--text-primary); opacity: 1; }
+
+  /* Hai ellipse vẽ tay 137.53 × 60.76, nét 1px #CD794A nằm trong, xoay
+     −16.4° và −7.17°. Dùng pseudo-element nên không phải thêm thẻ nào. */
+  .updates__submit {
+    font-family: var(--font-card);   /* [FIGMA] Gotham */
+    font-weight: var(--weight-medium);
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    inline-size: var(--scribble-w);
+    block-size: var(--scribble-h);
+    font-size: var(--text-subscribe);  /* [ĐO] chữ "Subscribe" rộng 88px */
+  }
+
+  .updates__submit::before,
+  .updates__submit::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--accent-stroke);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .updates__submit::before { rotate: var(--scribble-rot-a); }
+
+  .updates__submit::after { rotate: var(--scribble-rot-b); }
+
+  /* Hàng mạng xã hội nằm giữa hai đường kẻ ngang chạy từ x1197 đến x1734,
+     hẹp hơn cột một chút ở cả hai bên. [ĐO] icon 48px, bước lặp 96px. */
+  .updates__social {
+    display: flex;
+    align-items: center;
+    margin-block-start: var(--social-top);
+    margin-inline: var(--social-inset-start) var(--social-inset-end);
+    padding-block: var(--social-pad-top) var(--social-pad-bottom);
+    padding-inline-start: var(--social-pad-start);
+    border-block: 1px solid var(--border-hairline);
+  }
+
+  .updates__social a + a { margin-inline-start: var(--social-gap); }
+
+  .updates__social img {
+    inline-size: var(--social-icon);
+    block-size: var(--social-icon);
+  }
+
+  /* [ĐO] gạch phân cách ở x1465–1466, số điện thoại bắt đầu ở x1532. */
+  .updates__divider {
+    inline-size: 2px;
+    block-size: 41px;
+    margin-inline: 22px 65px;
+    background-color: var(--border-control);
+  }
+
+  .updates__phone { font-size: var(--text-phone); }
+
+  .updates__email { font-size: var(--text-body); }
+
+  /* [ĐO] "Wecare@glo.com" nằm ở x1394–1535, tức canh giữa cột chứ không phải
+     canh phải. */
+  .updates__email { margin-block-start: 15px; text-align: center; }
+
+  /* Dưới 1024px những con số đặt tay đo từ bản desktop không còn hợp lý:
+     trả tiêu đề về đúng tâm cột và cho hàng mạng xã hội xuống dòng. */
+  @media (width < 64rem) {
+    .updates__heading { inset-inline-start: 0; }
+
+    .updates__social {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-inline: 0;
+      padding-inline-start: 0;
+    }
+
+    .updates__social a + a { margin-inline-start: 0; }
+
+    /* Số điện thoại xuống dòng riêng nên không còn gì để phân cách. */
+    .updates__divider { display: none; }
+
+    .updates__phone { flex: 1 0 100%; text-align: center; }
+  }
+}

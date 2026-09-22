@@ -1,0 +1,37 @@
+@layer components {
+  /* Dải ribbon nghiêng, tràn qua cả hai mép màn hình. Bản thiết kế là tĩnh
+     nên ở đây cũng tĩnh — không animation, để ảnh so sánh đối chiếu được. */
+  .marquee {
+    position: relative;
+    inline-size: 106vw;
+    margin-inline-start: -3vw;
+    margin-block-start: var(--marquee-gap);
+    rotate: var(--marquee-tilt);
+    /* [ĐO] Dải băng không có nền riêng — chỉ hai đường kẻ trên dưới; màu bên
+       trong đo được trùng đúng màu nền trang phía sau. */
+    border-block: 1px solid var(--border-hairline);
+    padding-block: var(--marquee-band);
+    overflow: hidden;
+  }
+
+  .marquee__track {
+    display: flex;
+    align-items: center;
+    gap: var(--marquee-item-gap);
+    inline-size: max-content;
+    margin-inline-start: var(--marquee-offset);
+  }
+
+  .marquee__item {
+    display: flex;
+    align-items: center;
+    gap: var(--marquee-item-gap);
+    font-family: var(--font-display); /* [FIGMA] Butler */
+    font-size: var(--text-marquee);
+    letter-spacing: var(--marquee-track);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .marquee__star { inline-size: var(--marquee-star); block-size: var(--marquee-star); }
+}

@@ -1,0 +1,67 @@
+/* Cấu trúc cấp trang: container, hai lớp trang trí, lưới Shop. */
+@layer layout {
+  .container {
+    width: 100%;
+    max-width: var(--container-w);
+    margin-inline: auto;
+    padding-inline: var(--container-pad);
+  }
+
+  /* Trang có hai lớp trang trí đã làm mờ, nằm dưới mọi thứ.
+     overflow: clip giữ chúng và dải ribbon nghiêng không tạo scroll. */
+  .page {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+  }
+
+  .page__glow,
+  .page__blob {
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* Toạ độ tính theo tâm khung để phần trang trí giữ đúng vị trí so với bản
+     thiết kế ngay cả khi viewport không đúng 1920. */
+  .page__glow {
+    inline-size: var(--glow-w);
+    block-size: var(--glow-h);
+    inset-block-start: var(--glow-y);
+    inset-inline-start: calc(50% + var(--glow-x) - var(--frame-w) / 2);
+    background-color: var(--color-amber);
+    opacity: var(--glow-opacity);
+    filter: blur(var(--glow-blur));
+  }
+
+  .page__blob {
+    inline-size: var(--blob-w);
+    block-size: var(--blob-h);
+    inset-block-start: var(--blob-y);
+    inset-inline-start: calc(50% + var(--blob-x) - var(--frame-w) / 2);
+    background-color: var(--color-blush);
+    filter: blur(var(--blob-blur));
+  }
+
+  .shop {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  @media (width >= 64rem) {
+    :root { --container-pad: 64px; }
+
+    .shop {
+      grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+      column-gap: var(--sidebar-gap);
+    }
+  }
+
+  /* Từ 1440px container thôi padding: 1560px canh giữa là ra đúng lề 180px
+     của bản thiết kế khi màn hình rộng 1920. */
+  @media (width >= 90rem) {
+    :root { --container-pad: 0px; }
+  }
+}

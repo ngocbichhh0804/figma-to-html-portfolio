@@ -1,0 +1,42 @@
+@layer components {
+  /* [ĐO] Chữ số là sans hình học giống phần UI còn lại (Century Gothic). */
+  .pagination {
+    font-family: var(--font-sans);
+    font-size: var(--text-pagination);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--pagination-arrow-gap);
+    margin-block-start: var(--pagination-gap);
+  }
+
+  .pagination__list {
+    display: flex;
+    align-items: center;
+    gap: var(--pagination-item-gap);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Bản thiết kế chỉ tô đậm trang đang mở; hai số còn lại và mũi tên lùi
+     dùng tông nhạt hơn. Xem README mục "Những quyết định tôi tự đưa ra"
+     về việc chỉnh tông nhạt này cho đạt tương phản WCAG AA. */
+  .pagination__link,
+  .pagination__arrow--prev {
+    color: var(--text-idle);
+    padding-inline: 4px;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  /* Trang đang mở chỉ đậm màu chứ không đậm nét — đúng như bản thiết kế. */
+  .pagination__link[aria-current="page"] { color: var(--color-brown); }
+
+  .pagination__link:hover,
+  .pagination__arrow:hover { color: var(--color-brown); }
+
+  .pagination__arrow svg {
+    inline-size: var(--pagination-arrow);
+    block-size: var(--pagination-arrow);
+  }
+}

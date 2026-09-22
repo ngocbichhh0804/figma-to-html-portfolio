@@ -1,0 +1,25 @@
+/* Thiết lập mặc định cho thẻ và nhịp chữ. Cố ý không dùng class ở đây. */
+@layer base {
+  /* Khai báo @font-face nằm ở css/fonts.css, file woff2 tự lưu trong
+     assets/fonts/. Bốn họ chữ này là bản thay thế miễn phí (SIL OFL) cho
+     Roghiska / Butler / Gotham / Century Gothic của bản thiết kế — xem bảng
+     đối chiếu trong fonts.css và README.
+
+     Nếu sau này mua được giấy phép webfont thật, chỉ cần thêm @font-face vào
+     fonts.css rồi đặt tên font đó lên đầu stack trong tokens.css; không phải
+     sửa dòng nào trong component. */
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--leading-normal);
+    color: var(--text-primary);
+    background-color: var(--surface-page);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-logo);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-tight);
+  }
+}

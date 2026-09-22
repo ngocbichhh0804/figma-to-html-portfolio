@@ -1,0 +1,42 @@
+/* Reset hiện đại. Toàn bộ nằm ở layer thấp nhất nên không quy tắc nào
+   bên dưới phải dùng !important để thắng. */
+@layer reset {
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
+
+  * { margin: 0; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body { min-height: 100dvh; -webkit-font-smoothing: antialiased; }
+
+  img, picture, svg, video { display: block; max-width: 100%; height: auto; }
+
+  input, button, textarea, select { font: inherit; color: inherit; }
+
+  button { cursor: pointer; background: none; border: none; padding: 0; }
+
+  fieldset { border: 0; padding: 0; margin: 0; min-inline-size: 0; }
+
+  legend { padding: 0; }
+
+  ul[role="list"] { list-style: none; padding: 0; margin: 0; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* Viền focus dùng chung cho mọi phần tử bấm được — điều kiện của WCAG. */
+  :focus-visible {
+    outline: 2px solid var(--accent-stroke);
+    outline-offset: 3px;
+  }
+
+  /* Tôn trọng thiết lập "giảm chuyển động" của hệ điều hành. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
