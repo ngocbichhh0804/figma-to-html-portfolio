@@ -44,19 +44,36 @@
     filter: blur(var(--blob-blur));
   }
 
-  .shop {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
+  /* Hai cột của trang Shop dựng bằng float. Cột filter float trái với bề
+     ngang cố định, phần lưới sản phẩm chỉ cần chừa lề trái đúng bằng bề
+     ngang đó cộng khoảng hở — cách này giữ được chiều cao tự nhiên của từng
+     cột mà không cần flex hay grid. */
+  .shop::after {
+    content: "";
+    display: block;
+    clear: both;
   }
 
   @media (width >= 64rem) {
     :root { --container-pad: 64px; }
 
-    .shop {
-      grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
-      column-gap: var(--sidebar-gap);
+    .filter {
+      float: left;
+      inline-size: var(--sidebar-w);
     }
+
+    .shop__main {
+      /* flow-root tạo một ngữ cảnh định dạng riêng: nhờ vậy clear của các
+         thẻ sản phẩm bên trong chỉ nhìn thấy float của chính lưới, không
+         bị cột filter bên cạnh đẩy xuống. */
+      display: flow-root;
+      margin-inline-start: calc(var(--sidebar-w) + var(--sidebar-gap));
+    }
+  }
+
+  /* Dưới 1024px hai khối xếp dọc, cột filter nằm trên. */
+  @media (width < 64rem) {
+    .shop__main { margin-block-start: 40px; }
   }
 
   /* Từ 1440px container thôi padding: 1560px canh giữa là ra đúng lề 180px

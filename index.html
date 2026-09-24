@@ -17,9 +17,9 @@
     <!-- Font tự lưu trong assets/fonts/ — không gọi ra máy chủ ngoài.
          Bốn file dưới đây là bốn kiểu chữ xuất hiện ngay màn hình đầu nên
          tải trước; số còn lại để fonts.css nạp theo nhu cầu. -->
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/marcellus-latin-400-normal.woff2" />
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/playfair-display-latin-400-normal.woff2" />
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/poppins-latin-400-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/cormorant-garamond-latin-400-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/fraunces-latin-opsz-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/mulish-latin-400-normal.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/montserrat-latin-400-normal.woff2" />
 
     <!-- Thứ tự cascade layer khai báo một lần, trước mọi stylesheet, nhờ đó
@@ -70,12 +70,10 @@
               <div class="nav__panel">
                 <ul class="nav__list" role="list">
                   <li>
-                    <a class="nav__link" href="index.html" aria-current="page">
-                      Shop
-                      <svg viewBox="0 0 12 8" fill="none" aria-hidden="true">
-                        <path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-                      </svg>
-                    </a>
+                    <!-- Chữ và mũi tên viết liền nhau, không xuống dòng: chúng là
+                         nội dung inline nên mỗi khoảng trắng trong HTML sẽ thành
+                         một khoảng hở thật, làm lệch vị trí các link phía sau. -->
+                    <a class="nav__link" href="index.html" aria-current="page">Shop<svg viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" /></svg></a>
                   </li>
                   <li><a class="nav__link" href="#">About</a></li>
                   <li><a class="nav__link" href="#">Contact</a></li>
@@ -182,7 +180,7 @@
               </form>
             </aside>
 
-            <section aria-label="Products">
+            <section class="shop__main" aria-label="Products">
               <ul class="product-grid" role="list">
                 <li>
                   <article class="card">

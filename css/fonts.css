@@ -5,32 +5,32 @@
    người xem sang bên thứ ba (GDPR), và chữ hiện ra sớm hơn vì bớt một vòng
    kết nối. Mỗi file chỉ chứa bảng mã latin — đủ cho toàn bộ nội dung trang.
 
-   Roghiska      -> Marcellus           (logo, tiêu đề hero)
-   Butler        -> Playfair Display    (glo. chìm, "New arrivals", heading)
+   Roghiska      -> Cormorant Garamond  (logo, tiêu đề hero)
+   Butler        -> Fraunces            (glo. chìm, "New arrivals", heading, giá)
    Gotham        -> Montserrat          (tên sản phẩm, nút Subscribe)
-   Century Gothic-> Poppins             (nav, filter, chữ body)
+   Century Gothic-> Mulish              (nav, filter, chữ body)
+
+   Chỉ nạp đúng những độ đậm mà trang thật sự dùng:
+     Cormorant Garamond 400 · Fraunces 100–900 (biến thiên) · Montserrat 400/700 · Mulish 400/500/600
    ========================================================================= */
 @layer reset {
   @font-face {
-    font-family: "Marcellus";
-    src: url("../assets/fonts/marcellus-latin-400-normal.woff2") format("woff2");
+    font-family: "Cormorant Garamond";
+    src: url("../assets/fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
 
+  /* Fraunces dùng bản biến thiên (một file cho mọi độ đậm) vì cần trục
+     optical size "opsz" cho chữ "GLO." chìm. Bản tĩnh cố định ở opsz 14 —
+     dáng dành cho chữ nhỏ — nên chữ to nhìn mập và tròn, khác Figma.
+     base.css đặt opsz 14 cho mọi chữ Fraunces (đúng dáng bản tĩnh cũ, khớp
+     Figma); chỉ "GLO." được đặt opsz 144 trong hero.css. */
   @font-face {
-    font-family: "Playfair Display";
-    src: url("../assets/fonts/playfair-display-latin-400-normal.woff2") format("woff2");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: "Playfair Display";
-    src: url("../assets/fonts/playfair-display-latin-700-normal.woff2") format("woff2");
-    font-weight: 700;
+    font-family: "Fraunces";
+    src: url("../assets/fonts/fraunces-latin-opsz-normal.woff2") format("woff2");
+    font-weight: 100 900;
     font-style: normal;
     font-display: swap;
   }
@@ -45,39 +45,31 @@
 
   @font-face {
     font-family: "Montserrat";
-    src: url("../assets/fonts/montserrat-latin-500-normal.woff2") format("woff2");
-    font-weight: 500;
+    src: url("../assets/fonts/montserrat-latin-700-normal.woff2") format("woff2");
+    font-weight: 700;
     font-style: normal;
     font-display: swap;
   }
 
   @font-face {
-    font-family: "Poppins";
-    src: url("../assets/fonts/poppins-latin-300-normal.woff2") format("woff2");
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: "Poppins";
-    src: url("../assets/fonts/poppins-latin-400-normal.woff2") format("woff2");
+    font-family: "Mulish";
+    src: url("../assets/fonts/mulish-latin-400-normal.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
 
   @font-face {
-    font-family: "Poppins";
-    src: url("../assets/fonts/poppins-latin-500-normal.woff2") format("woff2");
+    font-family: "Mulish";
+    src: url("../assets/fonts/mulish-latin-500-normal.woff2") format("woff2");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
   }
 
   @font-face {
-    font-family: "Poppins";
-    src: url("../assets/fonts/poppins-latin-600-normal.woff2") format("woff2");
+    font-family: "Mulish";
+    src: url("../assets/fonts/mulish-latin-600-normal.woff2") format("woff2");
     font-weight: 600;
     font-style: normal;
     font-display: swap;

@@ -8,17 +8,29 @@
     max-inline-size: var(--header-w);
   }
 
-  /* Cả hàng logo + link trong bản thiết kế nằm thấp hơn tâm header một chút,
-     nên thêm phần đệm trên và trừ lại vào chiều cao để header vẫn đúng 200px. */
+  /* Cả hàng header căn dọc bằng kỹ thuật line-height: hộp .nav cao đúng
+     --header-h và line-height bằng chiều cao phần nội dung, nên mọi phần tử
+     inline-block bên trong (đặt vertical-align: middle) tự nằm giữa hàng.
+     font-size: 0 để khoảng trắng xuống dòng giữa các thẻ trong HTML không
+     tạo thành khe hở — mỗi phần tử con tự khai lại cỡ chữ của nó.
+
+     Bản thiết kế đặt hàng này thấp hơn tâm header một chút, nên thêm phần
+     đệm trên rồi trừ lại vào line-height để tổng vẫn đúng 200px. */
   .nav {
-    display: flex;
-    align-items: center;
-    gap: 32px;
+    position: relative;
+    block-size: var(--header-h);
     padding-block-start: var(--nav-drop);
-    min-block-size: var(--header-h);
+    line-height: calc(var(--header-h) - var(--nav-drop));
+    font-size: 0;
   }
 
+  /* Chữ logo lớn hơn hẳn chữ link nên canh giữa theo hộp chữ thì nhìn bị
+     cao; bản thiết kế hạ nó xuống thêm một chút. */
   .nav__logo {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    inset-block-start: var(--nav-logo-drop);
     margin-inline-start: var(--nav-logo-inset);
     font-family: var(--font-logo);   /* [FIGMA] Roghiska */
     font-size: var(--text-logo);
@@ -26,18 +38,29 @@
   }
 
   /* Menu dựng bằng <details> nên không cần JavaScript. */
-  .nav__disclosure { position: static; }
+  .nav__disclosure {
+    display: inline-block;
+    vertical-align: middle;
+    position: static;
+    margin-inline-start: var(--nav-item-gap);
+    line-height: normal;
+  }
 
   .nav__toggle {
-    display: inline-flex;
-    align-items: center;
+    display: inline-block;
+    vertical-align: middle;
     list-style: none;
     cursor: pointer;
+    font-size: 0;
   }
 
   .nav__toggle::-webkit-details-marker { display: none; }
 
-  .nav__toggle svg { inline-size: 26px; block-size: 26px; }
+  .nav__toggle svg {
+    display: block;
+    inline-size: 26px;
+    block-size: 26px;
+  }
 
   /* Mobile: panel là ngăn kéo trượt xuống dưới header. */
   .nav__panel {
@@ -51,21 +74,22 @@
   }
 
   .nav__list {
-    display: grid;
-    gap: 16px;
     list-style: none;
     padding: 0;
     margin: 0;
+    font-size: 0;
   }
+
+  .nav__list li + li { margin-block-start: 16px; }
 
   /* [FIGMA] Century Gothic — kế thừa từ body, ghi rõ cho khỏi nhầm. */
   .nav__link {
+    display: inline-block;
+    vertical-align: middle;
     font-family: var(--font-sans);
-    display: inline-flex;
-    align-items: center;
-    gap: var(--nav-chevron);
     font-size: var(--text-nav);
-    font-weight: var(--weight-medium);  /* [ĐO] nét chữ nav đậm hơn chữ body */
+    font-weight: var(--weight-semibold);  /* [ĐO] nét chữ nav đậm hơn chữ body */
+    line-height: normal;
     transition: opacity var(--duration-fast) var(--ease-out);
   }
 
@@ -74,39 +98,50 @@
   /* [ĐO] Nét mũi tên rộng 8px, nhưng trong bản thiết kế hộp chứa nó còn
      thừa 8px bên phải nên "About" mới rơi đúng x597. */
   .nav__link svg {
+    display: inline-block;
+    vertical-align: middle;
     inline-size: 9px;
-    margin-inline-end: 8px;
+    block-size: 9px;
+    margin-inline: var(--nav-chevron) 8px;
   }
 
+  /* Bốn icon bên phải đặt tuyệt đối: chúng phải bám mép phải bất kể hàng
+     link bên trái dài bao nhiêu, mà không có flexbox thì đây là cách gọn
+     nhất. Tâm hàng lệch xuống nửa phần đệm trên cho khớp phần còn lại. */
   .nav__actions {
-    display: flex;
-    align-items: center;
-    gap: var(--nav-action-gap);
-    margin-inline-start: auto;
-    /* Trong bản thiết kế bốn icon nhích ra ngoài lề phải một chút. */
-    margin-inline-end: var(--nav-action-shift);
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: var(--nav-action-shift);
+    margin-block-start: calc(var(--nav-drop) / 2);
+    translate: 0 -50%;
+    font-size: 0;
+    line-height: 0;
   }
 
-  .nav__action { flex: none; }
+  .nav__action {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .nav__action + .nav__action { margin-inline-start: var(--nav-action-gap); }
 
   .nav__action img {
+    display: block;
     inline-size: var(--nav-action-size);
     block-size: var(--nav-action-size);
   }
 
   /* Bản thiết kế không có bản mobile. Dưới 768px logo và bốn icon cùng nhỏ
      lại, khoảng hở hẹp hơn, để cả hàng vừa đúng màn hình 320px mà không icon
-     nào bị cắt hay bị flexbox bóp méo tỉ lệ. */
+     nào bị cắt. */
   @media (width < 48rem) {
-    .nav { gap: 16px; }
+    .nav__disclosure { margin-inline-start: 16px; }
 
     .nav__logo { font-size: var(--text-logo-sm); }
 
-    .nav__actions {
-      flex: none;
-      gap: var(--nav-action-gap-sm);
-      margin-inline-end: 0;
-    }
+    .nav__actions { inset-inline-end: 0; }
+
+    .nav__action + .nav__action { margin-inline-start: var(--nav-action-gap-sm); }
 
     .nav__action img {
       inline-size: var(--nav-action-size-sm);
@@ -139,10 +174,14 @@
       overflow: visible;
     }
 
-    .nav__list {
-      display: flex;
-      align-items: center;
-      gap: var(--nav-gap);
+    .nav__list li {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .nav__list li + li {
+      margin-block-start: 0;
+      margin-inline-start: var(--nav-gap);
     }
   }
 }

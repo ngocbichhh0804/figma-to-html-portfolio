@@ -1,37 +1,56 @@
 @layer components {
   .product-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--card-row-gap) var(--grid-gap);
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
+  .product-grid::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  /* Lưới ba cột dựng bằng float. Mỗi thẻ rộng một phần ba phần còn lại sau
+     khi trừ hai khoảng hở; thẻ đầu mỗi hàng đặt clear để hàng mới luôn bắt
+     đầu bên dưới hàng cũ dù các thẻ cao thấp khác nhau. */
   @media (width >= 48rem) {
-    .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .product-grid > li {
+      float: left;
+      inline-size: calc((100% - 2 * var(--grid-gap)) / 3);
+      margin-inline-start: var(--grid-gap);
+    }
+
+    .product-grid > li:nth-child(3n + 1) {
+      clear: left;
+      margin-inline-start: 0;
+    }
+
+    .product-grid > li:nth-child(n + 4) { margin-block-start: var(--card-row-gap); }
   }
 
-  .card {
-    display: grid;
-    grid-template-rows: var(--card-media-h) auto auto auto;
-    justify-items: center;
-    align-content: start;
-    text-align: center;
+  /* Một cột: các thẻ xếp dọc, khoảng cách bằng đúng bước giữa hai hàng. */
+  @media (width < 48rem) {
+    .product-grid > li + li { margin-block-start: var(--card-row-gap); }
   }
 
+  .card { text-align: center; }
+
+  /* Ô ảnh cao cố định, line-height bằng chính chiều cao đó nên tấm ảnh
+     (inline-block, vertical-align: middle) tự nằm giữa ô. font-size: 0 để
+     khoảng trắng trong HTML không đẩy ảnh lệch. */
   .card__media {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    inline-size: 100%;
     block-size: var(--card-media-h);
+    line-height: var(--card-media-h);
+    font-size: 0;
   }
 
   /* File PNG đã cắt sát mép sản phẩm, và trong bản thiết kế mỗi ảnh được
      đặt đúng kích thước gốc của nó — không thu phóng. Ở màn hình hẹp hơn
      thì mới cho phép co lại theo bề ngang cột. */
   .card__media img {
+    display: inline-block;
+    vertical-align: middle;
     inline-size: auto;
     block-size: auto;
     max-inline-size: 100%;
@@ -56,6 +75,7 @@
 
   .card__title {
     margin-block-start: var(--card-title-gap);
+    margin-inline: auto;
     max-inline-size: var(--card-title-w);
     font-family: var(--font-card);   /* [FIGMA] Gotham */
     font-size: var(--text-card);
@@ -70,8 +90,8 @@
     font-family: var(--font-display);  /* [FIGMA] Butler */
     font-weight: var(--weight-bold);
     font-size: var(--text-price);
-    /* Playfair Display mặc định dùng chữ số kiểu cũ (có nét thò xuống);
-       bản thiết kế dùng chữ số đều hàng nên bật lining-nums. */
+    /* Một số font serif mặc định dùng chữ số kiểu cũ (nét thò xuống dưới
+       đường kẻ); bản thiết kế dùng chữ số đều hàng nên bật lining-nums. */
     font-variant-numeric: lining-nums;
   }
 
@@ -80,9 +100,8 @@
      luôn chiếm sẵn chỗ (nên không thẻ nào nhảy khi rê chuột) và chỉ hiện ra
      khi hover hoặc khi bàn phím tab vào trong thẻ. */
   .card__actions {
-    display: flex;
-    gap: var(--card-action-gap);
     margin-block-start: var(--card-actions-gap);
+    font-size: 0;
     opacity: 0;
     transition: opacity var(--duration-fast) var(--ease-out);
   }
@@ -96,27 +115,37 @@
     margin-block-start: calc(var(--card-title-gap) + var(--card-title-gap-row2));
   }
 
+  /* Vòng tròn cũng căn giữa bằng line-height: trừ đi hai lần độ dày viền
+     để phần ruột cao đúng bằng khoảng trống bên trong. */
   .card__action {
-    display: grid;
-    place-items: center;
+    display: inline-block;
+    vertical-align: middle;
     inline-size: var(--card-action-size);
     block-size: var(--card-action-size);
+    line-height: calc(var(--card-action-size) - 2 * var(--card-action-ring));
+    text-align: center;
     border: var(--card-action-ring) solid var(--color-brown);
     border-radius: var(--radius-pill);
     transition: background-color var(--duration-fast) var(--ease-out);
   }
+
+  .card__action + .card__action { margin-inline-start: var(--card-action-gap); }
 
   .card__action:hover { background-color: rgb(88 54 13 / 6%); }
 
   /* File PNG icon có sẵn lề trong suốt quanh nét vẽ, bản thiết kế dùng
      nguyên khung 36px nên nét vẽ ra đúng 20–24px. */
   .card__action img {
+    display: inline-block;
+    vertical-align: middle;
     inline-size: var(--card-action-icon);
     block-size: var(--card-action-icon);
   }
 
   /* Icon con mắt là SVG tự vẽ nên khung nhỏ hơn, nét đã vừa sẵn. */
   .card__action svg {
+    display: inline-block;
+    vertical-align: middle;
     inline-size: var(--card-action-eye);
     block-size: var(--card-action-eye);
   }

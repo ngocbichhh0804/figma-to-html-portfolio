@@ -14,24 +14,31 @@
     overflow: hidden;
   }
 
+  /* Các cụm chữ nối nhau trên một dòng duy nhất: white-space: nowrap giữ
+     chúng không xuống hàng, font-size: 0 khử khoảng trắng giữa các thẻ
+     trong HTML để khoảng lặp đúng bằng con số đã đo. */
   .marquee__track {
-    display: flex;
-    align-items: center;
-    gap: var(--marquee-item-gap);
-    inline-size: max-content;
     margin-inline-start: var(--marquee-offset);
+    white-space: nowrap;
+    font-size: 0;
   }
 
   .marquee__item {
-    display: flex;
-    align-items: center;
-    gap: var(--marquee-item-gap);
+    display: inline-block;
+    vertical-align: middle;
     font-family: var(--font-display); /* [FIGMA] Butler */
     font-size: var(--text-marquee);
     letter-spacing: var(--marquee-track);
     line-height: 1;
-    white-space: nowrap;
   }
 
-  .marquee__star { inline-size: var(--marquee-star); block-size: var(--marquee-star); }
+  .marquee__item + .marquee__item { margin-inline-start: var(--marquee-item-gap); }
+
+  .marquee__star {
+    display: inline-block;
+    vertical-align: middle;
+    margin-inline-start: var(--marquee-item-gap);
+    inline-size: var(--marquee-star);
+    block-size: var(--marquee-star);
+  }
 }

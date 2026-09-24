@@ -1,8 +1,6 @@
 @layer components {
   .hero {
     position: relative;
-    display: grid;
-    place-items: center;
     padding-block: var(--hero-pt) var(--hero-pb);
     text-align: center;
 
@@ -31,31 +29,55 @@
        đối so với chữ — nửa bước dòng đưa mốc xuống tâm dòng đầu. */
     inset-block-start: 0;
     inset-inline-start: 50%;
-    translate: -50%
+    /* Bù lại phần lệch trái của thẻ h1 để chữ chìm vẫn nằm giữa trang. */
+    translate:
+      calc(-50% + var(--hero-size) * var(--hero-nudge, 0))
       calc(-50% + var(--hero-size) * (var(--leading-tight) / 2 + var(--watermark-drop)));
     font-family: var(--font-display); /* [FIGMA] Butler */
     font-size: calc(var(--hero-size) * var(--watermark-scale));
-    font-weight: var(--weight-bold);
-    line-height: 1.2;
-    letter-spacing: 2%;
+    /* [ĐO] đậm 900 thì nét dọc của G, L, O dày đúng như Figma. Đặt riêng ở
+       đây, không đụng tới token --weight-bold dùng chung cả trang. */
+    font-weight: 900;
+    line-height: 100%;
+    /* Giá trị % cho letter-spacing bị Chrome bỏ qua, nên dùng em. */
+    letter-spacing: 0.0108em;
     text-indent: 0;
     color: var(--color-brown-mid);
     opacity: 0.08;
     white-space: nowrap;
     user-select: none;
     pointer-events: none;
-
+    text-transform: uppercase;
+    /* Fraunces có trục optical size: số nhỏ cho chữ nhỏ (nét dày, chân tròn),
+       số lớn cho chữ to (nét mảnh, chân nhọn). Figma vẽ "GLO." ở mức lớn
+       nhất, còn mọi chữ Fraunces khác ở opsz 14 (đặt trên body, xem
+       base.css). Chỉ ghi đè trên pseudo-element này nên không chữ nào khác
+       bị ảnh hưởng. */
+    font-variation-settings: "opsz" var(--watermark-opsz);
   }
 
   .hero__title {
     font-family: var(--font-logo);   /* [FIGMA] Roghiska */
     position: relative;
     font-size: var(--hero-size);
-    font-weight: var(--weight-regular);  /* Marcellus chỉ có một độ đậm */
+    font-weight: var(--weight-regular);
     /* Bản thiết kế giãn chữ khá rộng: khối "Your Skin Breathe" chiếm 933px.
        text-indent bù lại phần khoảng hở thừa sau ký tự cuối, nếu không căn
        giữa sẽ lệch trái nửa bước giãn. */
     letter-spacing: var(--hero-track);
     text-indent: var(--hero-track);
+  }
+
+  /* Từ 1440px trở lên — khổ mà bản thiết kế thật sự mô tả — câu tiêu đề
+     không nằm giữa trang mà lệch trái, mép trái thẳng hàng với mép trái chữ
+     chìm "GLO.". Thẻ h1 là block chiếm hết bề ngang và chữ bên trong căn
+     giữa, nên cắt bớt margin bên phải là tâm chữ dịch sang trái đúng một
+     nửa phần cắt; chữ chìm được bù lại bằng --hero-nudge để nó vẫn ở giữa
+     trang. Dưới 1440px tiêu đề xuống nhiều dòng nên trả về căn giữa. */
+  @media (width >= 90rem) {
+    .hero__title {
+      margin-inline-end: calc(var(--hero-size) * var(--hero-shift) * 2);
+      --hero-nudge: var(--hero-shift);
+    }
   }
 }

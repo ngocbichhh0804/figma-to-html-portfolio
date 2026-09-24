@@ -1,23 +1,30 @@
 @layer components {
-  /* [ĐO] Chữ số là sans hình học giống phần UI còn lại (Century Gothic). */
+  /* [ĐO] Chữ số là sans hình học giống phần UI còn lại (Century Gothic).
+     Cả hàng căn giữa bằng text-align, các phần tử con là inline-block nên
+     không cần flexbox; font-size: 0 để khoảng trắng trong HTML không cộng
+     thêm khe hở ngoài khoảng cách đã đo. */
   .pagination {
-    font-family: var(--font-sans);
-    font-size: var(--text-pagination);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--pagination-arrow-gap);
     margin-block-start: var(--pagination-gap);
+    font-family: var(--font-sans);
+    font-size: 0;
+    text-align: center;
   }
 
   .pagination__list {
-    display: flex;
-    align-items: center;
-    gap: var(--pagination-item-gap);
+    display: inline-block;
+    vertical-align: middle;
+    margin-inline: var(--pagination-arrow-gap);
     list-style: none;
     padding: 0;
-    margin: 0;
+    font-size: 0;
   }
+
+  .pagination__list li {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .pagination__list li + li { margin-inline-start: var(--pagination-item-gap); }
 
   /* Bản thiết kế chỉ tô đậm trang đang mở; hai số còn lại và mũi tên lùi
      dùng tông nhạt hơn. Xem README mục "Những quyết định tôi tự đưa ra"
@@ -25,8 +32,13 @@
   .pagination__link,
   .pagination__arrow--prev {
     color: var(--text-idle);
-    padding-inline: 4px;
     transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .pagination__link {
+    display: inline-block;
+    padding-inline: 4px;
+    font-size: var(--text-pagination);
   }
 
   /* Trang đang mở chỉ đậm màu chứ không đậm nét — đúng như bản thiết kế. */
@@ -35,7 +47,13 @@
   .pagination__link:hover,
   .pagination__arrow:hover { color: var(--color-brown); }
 
+  .pagination__arrow {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
   .pagination__arrow svg {
+    display: block;
     inline-size: var(--pagination-arrow);
     block-size: var(--pagination-arrow);
   }

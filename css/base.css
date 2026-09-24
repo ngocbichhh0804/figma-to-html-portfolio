@@ -15,6 +15,11 @@
     line-height: var(--leading-normal);
     color: var(--text-primary);
     background-color: var(--surface-page);
+    /* [ĐO] Figma để Fraunces ở opsz 14 cho ribbon "New arrivals", heading
+       footer và giá — khớp hơn hẳn opsz tự động theo cỡ chữ. Thuộc tính này
+       kế thừa xuống mọi thẻ; font không có trục opsz thì bỏ qua. Riêng chữ
+       "GLO." chìm ghi đè thành opsz 144 trong hero.css. */
+    font-variation-settings: "opsz" var(--display-opsz);
   }
 
   h1, h2, h3 {

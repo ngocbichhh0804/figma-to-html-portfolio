@@ -14,12 +14,15 @@
 
   .bar {
     position: fixed; inset-block-start: 0; inset-inline: 0; z-index: 10;
-    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
     padding: 10px 16px; background: #111; border-block-end: 1px solid #333;
   }
-  .bar strong { font-weight: 600; }
-  .bar label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
-  .bar .hint { margin-inline-start: auto; opacity: .6; }
+  .bar strong { display: inline-block; vertical-align: middle; font-weight: 600; }
+  .bar label {
+    display: inline-block; vertical-align: middle;
+    margin-inline-start: 20px; cursor: pointer;
+  }
+  .bar label input { vertical-align: middle; margin-inline-end: 6px; }
+  .bar .hint { float: right; opacity: .6; }
 
   .stage { position: relative; width: var(--frame-w); margin: 56px auto 0; }
   .stage iframe { display: block; width: var(--frame-w); height: var(--frame-h); border: 0; }

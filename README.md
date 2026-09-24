@@ -18,15 +18,21 @@ Khung gốc trong Figma là **1920 × 2748**. Bản dựng render ra đúng **19
 
 | Cách kiểm | Kết quả |
 | --- | --- |
-| Sai lệch màu trung bình trên toàn trang | **10.9 / 765** (tổng 3 kênh RGB) |
-| Tỉ lệ pixel lệch ≤ 30 / 765 | **95.4 %** |
-| Tỉ lệ pixel lệch ≤ 60 / 765 | **97.3 %** |
-| 19 mốc đo (logo, nav, hero, ảnh, tiêu đề, giá, ribbon, footer…) | lệch tối đa **4 px** |
-| Vị trí ảnh sản phẩm, hàng nút, mép dải ribbon, heading footer | **0 px** |
+| Sai lệch màu trung bình trên toàn trang | **10.0 / 765** (tổng 3 kênh RGB) |
+| Tỉ lệ pixel lệch ≤ 30 / 765 | **96.7 %** |
+| Tỉ lệ pixel lệch ≤ 60 / 765 | **97.5 %** |
+| 19 mốc đo (logo, nav, hero, ảnh, tiêu đề, giá, ribbon, footer…) | lệch tối đa **5 px** |
+| Logo, icon header, hero, ảnh sản phẩm, tên/giá sản phẩm, pagination, sao ribbon, heading footer | **0–1 px** |
 
-Phần lệch còn lại gần như chỉ nằm ở nét chữ, vì bản thiết kế dùng font thương
-mại mà dự án phải thay bằng font miễn phí (xem mục dưới). Bố cục, khoảng cách
-và màu thì trùng.
+Phần lệch còn lại gần như chỉ nằm ở nét chữ — cùng một font nhưng Figma và
+Chromium dựng chữ theo hai engine khác nhau. Bố cục, khoảng cách và màu thì
+trùng.
+
+Hai chỗ trong bản thiết kế không tái tạo được bằng CSS mà cũng không nên tái
+tạo: chữ "Our Story" ở cột *About* trong Figma bị ngắt thành hai dòng do hộp
+chữ được kéo hẹp bằng tay, và giá sản phẩm lệch phải 4px so với tâm thẻ. Cả
+hai đều là dấu vết thao tác tay trong file thiết kế chứ không phải quy tắc
+bố cục.
 
 ### Ảnh đối chiếu
 
@@ -76,14 +82,18 @@ trong `assets/fonts/`** thay vì gọi Google Fonts: trang không phụ thuộc 
 ngoài, không gửi IP người xem sang bên thứ ba (GDPR), và chữ hiện sớm hơn vì
 bớt một vòng DNS + TLS.
 
-| Phần tử | Font gốc | Font đang dùng | Vì sao |
+| Phần tử | Font gốc | Font đang dùng | Độ đậm nạp |
 | --- | --- | --- | --- |
-| Logo "Glo.", tiêu đề hero | Roghiska | **Marcellus** | Thắng 15 họ serif khác khi so pixel trên dòng hero |
-| Chữ "GLO." chìm, dải ribbon, heading footer, giá | Butler | **Playfair Display** | Didone, chân chữ vuông dày, cùng hình dáng |
-| Tên sản phẩm, nút Subscribe | Gotham | **Montserrat** | Geometric sans, bề ngang chỉ lệch 2 % |
-| Nav, cột filter, link footer, ô nhập, pagination | Century Gothic | **Poppins** | Bốn link nav rơi đúng x460/599/722/866 so với x460/599/722/867 của thiết kế |
+| Logo "Glo.", tiêu đề hero | Roghiska | **Cormorant Garamond** | 400 |
+| Chữ "GLO." chìm, dải ribbon, heading footer, giá | Butler | **Fraunces** (biến thiên, có trục opsz) | 100–900 |
+| Tên sản phẩm, nút Subscribe | Gotham | **Montserrat** | 400, 700 |
+| Nav, cột filter, link footer, ô nhập, pagination | Century Gothic | **Mulish** | 400, 500, 600 |
 
-Mỗi file chỉ chứa bảng mã latin; tổng 9 file ≈ 160 KB. Nếu sau này mua được giấy
+Bốn font này do khách chốt theo bảng đối chiếu weight — điểm quan trọng là mỗi
+họ đều có sẵn đủ các độ đậm bản thiết kế cần, nên không chỗ nào phải để trình
+duyệt tự làm giả nét đậm (chữ sẽ bệt và rộng ra).
+
+Mỗi file chỉ chứa bảng mã latin; tổng 8 file ≈ 145 KB. Nếu sau này mua được giấy
 phép font thật, chỉ cần thêm `@font-face` vào `css/fonts.css` rồi đặt tên font
 đó lên đầu stack trong `css/tokens.css` — không phải sửa dòng nào trong
 component.
@@ -95,12 +105,12 @@ Chạy trên bản tĩnh, Chromium headless.
 | | Performance | Accessibility | Best practices | SEO |
 | --- | --- | --- | --- | --- |
 | Desktop | **100** | **100** | **100** | **100** |
-| Mobile | **94** | **100** | **100** | **100** |
+| Mobile | **93** | **100** | **100** | **100** |
 
 **axe-core: 0 lỗi.** Tương phản chữ đạt WCAG AA, viền ô tick và ô nhập đạt 3:1
 theo tiêu chí non-text contrast.
 
-6 điểm performance thiếu ở mobile đến từ bộ icon PNG khách cung cấp chỉ có bản
+7 điểm performance thiếu ở mobile đến từ bộ icon PNG khách cung cấp chỉ có bản
 1x (36 px): trên màn hình DPR 2, Lighthouse coi là thiếu độ phân giải. Xin được
 bản SVG hoặc @2x là hết.
 
@@ -168,6 +178,32 @@ layout, components, utilities` — thứ tự khai báo một lần trong `<head
 
 Đặt tên theo BEM, specificity phẳng, không selector nào lồng quá một cấp, không
 dùng ID để style.
+
+## Không flexbox, không grid
+
+Theo yêu cầu, toàn bộ bố cục dựng bằng kỹ thuật CSS trước thời flexbox —
+trong `css/` không có một dòng `display: flex`, `display: grid` hay thuộc
+tính `gap` nào:
+
+| Chỗ cần bố cục | Cách làm |
+| --- | --- |
+| Hai cột trang Shop, lưới sản phẩm 3 cột, 4 cột chân trang | `float` + bề ngang tính bằng `calc()`, tự dọn float bằng `::after { clear: both }` |
+| Hàng mới của lưới sản phẩm | `clear: left` trên thẻ đầu mỗi hàng, nên hàng sau luôn nằm dưới thẻ cao nhất của hàng trước |
+| Cột sản phẩm không bị cột filter đẩy xuống | `display: flow-root` tạo ngữ cảnh định dạng riêng |
+| Căn dọc hàng header, ô ảnh sản phẩm, nút tròn, hàng mạng xã hội | `line-height` bằng đúng chiều cao hộp + `vertical-align: middle` |
+| Hàng ngang: link nav, icon, nút thẻ, pagination, dải ribbon | `display: inline-block` + `margin` |
+| Bốn icon bám mép phải header | `position: absolute` |
+| "Filter" trái — "Clear all" phải | hai `float` ngược chiều |
+| Ô nhập email — nút Subscribe | `float` trái/phải, nút đẩy xuống nửa phần chênh chiều cao |
+| Dấu tick trong ô checkbox | `position: absolute` trong ô |
+
+Chỗ dùng `inline-block` đều đặt `font-size: 0` ở phần tử cha rồi khai lại cỡ
+chữ ở từng con — nếu không, mỗi lần xuống dòng trong HTML sẽ thành một khoảng
+trắng thật và làm sai khoảng cách đã đo. Cùng lý do đó, chữ "Shop" và mũi tên
+cạnh nó trong `index.html` phải viết liền nhau trên một dòng.
+
+Đổi cách dựng nhưng **không đổi một con số đo nào**: trang vẫn cao đúng
+2748px và 19 mốc đo vẫn nằm trong 5px.
 
 ## Không JavaScript — làm thế nào
 

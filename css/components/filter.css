@@ -3,12 +3,23 @@
      đầu ở x198 trong khi heading footer bắt đầu ở x182. */
   .filter { padding-inline-start: var(--sidebar-pad); }
 
+  /* Hai nhãn đầu cột: một float trái, một float phải, rồi tự dọn float.
+     Cả hai cùng cỡ chữ và cùng line-height nên đường chân chữ trùng nhau. */
   .filter__bar {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
     padding-block-end: var(--filter-bar-pb);
+    /* [ĐO] "Clear all" kết thúc ở x535, thụt vào 13px so với đường kẻ. */
+    padding-inline-end: var(--filter-bar-pe);
   }
+
+  .filter__bar::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .filter__title { float: left; }
+
+  .filter__clear { float: right; }
 
   /* [FIGMA] Cột filter dùng Century Gothic toàn bộ. */
   .filter__title,
@@ -17,19 +28,24 @@
   .filter__option,
   .rating__row { font-family: var(--font-sans); }
 
+  /* Hai nhãn phải cùng line-height thì khi float mới thẳng hàng chân chữ —
+     "Filter" là thẻ h2 nên mặc định nhận leading-tight của h1–h3. */
   .filter__title,
-  .filter__clear { font-size: var(--text-filter); }
+  .filter__clear {
+    font-size: var(--text-filter);
+    line-height: var(--leading-normal);
+  }
 
   .filter__clear { transition: opacity var(--duration-fast) var(--ease-out); }
 
   .filter__clear:hover { opacity: 0.6; }
 
   .filter__groups {
-    display: grid;
-    gap: var(--filter-group-gap);
     border-block: 1px solid var(--border-hairline);
     padding-block: 20px 28px;
   }
+
+  .filter__group + .filter__group { margin-block-start: var(--filter-group-gap); }
 
   .filter__legend {
     display: block;
@@ -45,16 +61,16 @@
 
   .filter__options,
   .rating {
-    display: grid;
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
+  /* Mỗi dòng tùy chọn cao đúng --filter-row và line-height bằng chiều cao
+     đó, nên ô tick (inline-block, vertical-align: middle) tự nằm giữa dòng
+     mà không cần flexbox. */
   .filter__option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: block;
     block-size: var(--filter-row);
     line-height: var(--filter-row);
     font-size: var(--text-option);
@@ -66,24 +82,28 @@
      hơn hẳn ở cỡ 12px nên đây là chỗ cố ý làm khác bản thiết kế. */
   .filter__checkbox {
     appearance: none;
-    flex: none;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
     inline-size: 12px;
     block-size: 12px;
+    margin-inline-end: var(--filter-option-gap);
     border: 1px solid var(--border-control);
     border-radius: 2px;
-    display: grid;
-    place-content: center;
     transition:
       background-color var(--duration-fast) var(--ease-out),
       border-color var(--duration-fast) var(--ease-out);
   }
 
-  /* Dấu tick vẽ bằng hai cạnh của một hộp rỗng rồi xoay 45°. */
+  /* Dấu tick vẽ bằng hai cạnh của một hộp rỗng rồi xoay 45°, đặt tuyệt đối
+     vào giữa ô — trước đây canh bằng grid. */
   .filter__checkbox::after {
     content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 3px;
     inline-size: 4px;
     block-size: 7px;
-    margin-block-start: -1.5px;
     border: 0 solid var(--color-white);
     border-inline-end-width: 1.7px;
     border-block-end-width: 1.7px;
@@ -100,9 +120,7 @@
   .filter__checkbox:checked::after { scale: 1; }
 
   .rating__row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: block;
     block-size: var(--rating-row);
     line-height: var(--rating-row);
     font-size: var(--text-option);
@@ -112,17 +130,25 @@
   /* [ĐO] sao 16px, tâm cách nhau 20px; khối sao kết thúc x315, nhãn bắt
      đầu x332 nên cần thêm 5px so với khoảng hở chung của hàng. */
   .rating__stars {
-    display: flex;
-    gap: var(--rating-star-gap);
-    margin-inline-end: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-inline-end: calc(var(--filter-option-gap) + 5px);
+    font-size: 0;
   }
 
   .rating__stars img {
+    display: inline-block;
+    vertical-align: middle;
     inline-size: var(--rating-star);
     block-size: var(--rating-star);
   }
 
+  .rating__stars img + img { margin-inline-start: var(--rating-star-gap); }
+
   /* Figma để nhãn ở #A9967F (tương phản 2.66:1 — dưới chuẩn WCAG AA).
      Ở đây đậm hơn một chút cho đạt 4.62:1, xem README. */
-  .rating__label { color: var(--text-idle); }
+  .rating__label {
+    vertical-align: middle;
+    color: var(--text-idle);
+  }
 }

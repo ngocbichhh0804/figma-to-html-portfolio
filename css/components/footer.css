@@ -4,17 +4,32 @@
     padding-block: var(--footer-pt) var(--footer-pb);
   }
 
-  .site-footer__grid {
-    display: grid;
-    gap: 48px;
+  .site-footer__grid::after {
+    content: "";
+    display: block;
+    clear: both;
   }
 
+  /* Bốn cột chân trang dựng bằng float với bề ngang đo từ bản thiết kế; cột
+     cuối lấy phần còn lại. Chúng dính sát nhau đúng như trong Figma, khoảng
+     cách giữa các cột nằm sẵn trong bề ngang từng cột. */
   @media (width >= 64rem) {
-    .site-footer__grid {
-      grid-template-columns:
-        var(--footer-col-1) var(--footer-col-2) var(--footer-col-3) minmax(0, 1fr);
-      column-gap: 0;
+    .site-footer__grid > * { float: left; }
+
+    .site-footer__grid > :nth-child(1) { inline-size: var(--footer-col-1); }
+    .site-footer__grid > :nth-child(2) { inline-size: var(--footer-col-2); }
+    .site-footer__grid > :nth-child(3) { inline-size: var(--footer-col-3); }
+
+    .site-footer__grid > :nth-child(4) {
+      inline-size: calc(
+        100% - var(--footer-col-1) - var(--footer-col-2) - var(--footer-col-3)
+      );
     }
+  }
+
+  /* Dưới 1024px bốn cột xếp dọc. */
+  @media (width < 64rem) {
+    .site-footer__grid > * + * { margin-block-start: 48px; }
   }
 
   /* Heading footer dùng leading thường chứ không phải leading-tight của h1–h3:
@@ -24,7 +39,7 @@
     font-size: var(--text-foot);
     font-weight: var(--weight-bold);
     line-height: var(--leading-normal);
-    margin-block-end: 23px;   /* [ĐO] link đầu tiên bắt đầu ở y2395 */
+    margin-block-end: 19px;   /* [ĐO] link đầu tiên bắt đầu ở y2395 */
   }
 
   /* [FIGMA] Link footer, ô nhập, số điện thoại, email: Century Gothic. */
@@ -35,12 +50,12 @@
   .updates__email { font-family: var(--font-sans); }
 
   .site-footer__list {
-    display: grid;
-    gap: var(--footer-row);
     list-style: none;
     padding: 0;
     margin: 0;
   }
+
+  .site-footer__list li + li { margin-block-start: var(--footer-row); }
 
   .site-footer__list a { transition: opacity var(--duration-fast) var(--ease-out); }
 
@@ -48,16 +63,16 @@
 
   .updates__heading {
     font-family: var(--font-display); /* [FIGMA] Butler */
-    font-size: var(--text-foot);
+    font-size: var(--text-updates-heading);
     font-weight: var(--weight-bold);
     line-height: var(--leading-normal);
-    letter-spacing: 0.048em; /* [ĐO] "GET UPDATES" rộng 173px (x1354–1526) */
+    letter-spacing: 0.01em;  /* [ĐO] "GET UPDATES" rộng 181px (x1350–1531) */
     text-transform: uppercase;
     text-align: center;
     /* Trong Figma hộp chữ này được đặt tay, lệch trái so với tâm cột. */
     position: relative;
     inset-inline-start: var(--updates-heading-shift);
-    margin-block-end: 24px;  /* [ĐO] dòng mô tả bắt đầu ở y2396 */
+    margin-block-end: 21px;  /* [ĐO] dòng mô tả bắt đầu ở y2396 */
   }
 
   .updates__copy {
@@ -65,18 +80,23 @@
     margin-block-end: 13px;
   }
 
-  /* Trong bản thiết kế nút Subscribe kết thúc ở x1726, thiếu 14px so với container. */
+  /* Ô nhập float trái, nút Subscribe float phải. Nút thấp hơn ô nhập nên
+     đẩy xuống đúng nửa phần chênh lệch để hai cái cùng tâm.
+     [ĐO] Trong bản thiết kế nút Subscribe kết thúc ở x1726, thiếu 14px so
+     với container. */
   .updates__form {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 24px;
     padding-inline-end: 14px;
   }
 
+  .updates__form::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
   .updates__input {
-    flex: 1 1 280px;
-    min-inline-size: 0;
+    float: left;
+    inline-size: calc(100% - var(--scribble-w) - var(--updates-form-gap));
     block-size: var(--updates-input-h);
     padding-inline: var(--updates-input-pad);  /* [ĐO] chữ bắt đầu ở x1228 */
     font-size: var(--text-body);
@@ -91,14 +111,15 @@
   /* Hai ellipse vẽ tay 137.53 × 60.76, nét 1px #CD794A nằm trong, xoay
      −16.4° và −7.17°. Dùng pseudo-element nên không phải thêm thẻ nào. */
   .updates__submit {
-    font-family: var(--font-card);   /* [FIGMA] Gotham */
-    font-weight: var(--weight-medium);
+    float: right;
     position: relative;
-    display: inline-grid;
-    place-items: center;
-    flex: none;
     inline-size: var(--scribble-w);
     block-size: var(--scribble-h);
+    margin-block-start: calc((var(--updates-input-h) - var(--scribble-h)) / 2);
+    line-height: var(--scribble-h);
+    text-align: center;
+    font-family: var(--font-card);   /* [FIGMA] Gotham */
+    font-weight: var(--weight-bold);
     font-size: var(--text-subscribe);  /* [ĐO] chữ "Subscribe" rộng 88px */
   }
 
@@ -117,39 +138,71 @@
   .updates__submit::after { rotate: var(--scribble-rot-b); }
 
   /* Hàng mạng xã hội nằm giữa hai đường kẻ ngang chạy từ x1197 đến x1734,
-     hẹp hơn cột một chút ở cả hai bên. [ĐO] icon 48px, bước lặp 96px. */
+     hẹp hơn cột một chút ở cả hai bên. [ĐO] icon 48px, bước lặp 96px.
+     Căn dọc bằng line-height đúng bằng chiều cao icon. */
   .updates__social {
-    display: flex;
-    align-items: center;
     margin-block-start: var(--social-top);
     margin-inline: var(--social-inset-start) var(--social-inset-end);
     padding-block: var(--social-pad-top) var(--social-pad-bottom);
     padding-inline-start: var(--social-pad-start);
     border-block: 1px solid var(--border-hairline);
+    line-height: var(--social-icon);
+    font-size: 0;
+  }
+
+  .updates__social a {
+    display: inline-block;
+    vertical-align: middle;
   }
 
   .updates__social a + a { margin-inline-start: var(--social-gap); }
 
   .updates__social img {
+    display: block;
     inline-size: var(--social-icon);
     block-size: var(--social-icon);
   }
 
   /* [ĐO] gạch phân cách ở x1465–1466, số điện thoại bắt đầu ở x1532. */
   .updates__divider {
+    display: inline-block;
+    vertical-align: middle;
     inline-size: 2px;
     block-size: 41px;
     margin-inline: 22px 65px;
     background-color: var(--border-control);
   }
 
-  .updates__phone { font-size: var(--text-phone); }
-
-  .updates__email { font-size: var(--text-body); }
+  .updates__phone {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    font-size: var(--text-phone);
+  }
 
   /* [ĐO] "Wecare@glo.com" nằm ở x1394–1535, tức canh giữa cột chứ không phải
      canh phải. */
-  .updates__email { margin-block-start: 15px; text-align: center; }
+  .updates__email {
+    margin-block-start: 15px;
+    text-align: center;
+    font-size: var(--text-body);
+  }
+
+  /* Dưới 512px ô nhập email còn chưa tới 280px nếu vẫn đứng cạnh nút, nên
+     cho nút xuống hàng riêng — trước đây flex-wrap lo việc này. */
+  @media (width < 32rem) {
+    .updates__input {
+      float: none;
+      inline-size: 100%;
+    }
+
+    .updates__submit {
+      float: none;
+      display: block;
+      margin-block-start: 16px;
+      margin-inline: auto;
+    }
+  }
 
   /* Dưới 1024px những con số đặt tay đo từ bản desktop không còn hợp lý:
      trả tiêu đề về đúng tâm cột và cho hàng mạng xã hội xuống dòng. */
@@ -157,18 +210,20 @@
     .updates__heading { inset-inline-start: 0; }
 
     .updates__social {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
       margin-inline: 0;
       padding-inline-start: 0;
+      text-align: center;
     }
 
-    .updates__social a + a { margin-inline-start: 0; }
+    .updates__social a + a { margin-inline-start: 16px; }
 
     /* Số điện thoại xuống dòng riêng nên không còn gì để phân cách. */
     .updates__divider { display: none; }
 
-    .updates__phone { flex: 1 0 100%; text-align: center; }
+    .updates__phone {
+      display: block;
+      margin-block-start: 16px;
+      text-align: center;
+    }
   }
 }

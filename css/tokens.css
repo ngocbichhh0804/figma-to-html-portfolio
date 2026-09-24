@@ -35,40 +35,54 @@
        thương mại. Dự án thay bằng bốn font giấy phép SIL Open Font License
        (dùng thương mại thoải mái), tự lưu trong assets/fonts/:
 
-         Roghiska       → Marcellus          (serif rộng, nét đều, chân mảnh)
-         Butler         → Playfair Display   (didone, chân chữ vuông dày)
+         Roghiska       → Cormorant Garamond (serif mảnh, đủ Regular/Medium/Bold)
+         Butler         → Fraunces           (soft serif, đủ Regular → Black)
          Gotham         → Montserrat         (geometric sans, bề ngang sát nhất)
-         Century Gothic → Poppins            (chữ a một tầng, bầu tròn, rất sát)
+         Century Gothic → Mulish             (đủ Regular/Medium/Bold)
 
-       Cả bốn đều được chọn bằng cách đo chứ không bằng cảm tính: render thử
-       16 font serif cho dòng hero rồi so từng pixel với ảnh export — Marcellus
-       lệch ít nhất. Với Poppins, bốn link nav rơi đúng x460/599/722/866 so với
-       x460/599/722/867 của bản thiết kế. */
-    --font-logo: "Marcellus", "Times New Roman", serif;   /* thay Roghiska */
-    --font-display: "Playfair Display", serif;             /* thay Butler         */
+       Bốn font này do khách chốt theo bảng đối chiếu weight: mỗi font đều có
+       đủ các độ đậm mà bản thiết kế cần (Fraunces và Mulish có Regular/Medium/
+       Bold thật, không phải để trình duyệt tự làm giả nét đậm).
+
+       Vì mỗi họ chữ có bề ngang khác nhau, các token letter-spacing và khoảng
+       hở bên dưới đã được giải lại để khối chữ vẫn rơi đúng vị trí đo được từ
+       ảnh export. */
+    --font-logo: "Cormorant Garamond", "Times New Roman", serif; /* thay Roghiska */
+    --font-display: "Fraunces", Georgia, serif;            /* thay Butler         */
     --font-card: "Montserrat", system-ui, sans-serif;      /* thay Gotham         */
-    --font-sans: "Poppins", system-ui, sans-serif;         /* thay Century Gothic */
-    --hero-size:100px;
-    --text-hero: 96px;              /* [ĐO]    nét chữ cao 72px (y311–383)     */
-    --hero-track: 0.1068em;           /* [ĐO]    khối chữ rộng 933px (x491–1424) */
-    --watermark-scale: 4.1667;       /* [FIGMA] chữ chìm 400px ÷ hero 96px     */
-    --watermark-drop: 0.1;        /* [ĐO]    tâm chữ chìm thấp hơn tâm tiêu
-                                               đề 80px, tức 0.8333 lần cỡ hero */
-    --text-logo: 59px;               /* [ĐO]    nét chữ "Glo." rộng 99px       */
+    --font-sans: "Mulish", system-ui, sans-serif;          /* thay Century Gothic */
+
+    --text-hero: 100px;              /* [ĐO]    nét chữ cao 72px (y311–383)     */
+    --hero-track: 0.041em;           /* [ĐO]    khối chữ rộng 933px (x491–1424) */
+    --watermark-scale: 4.02;         /* [ĐO]    nét "GLO." rộng 929px ứng với
+                                               cỡ hero 100px (đo theo Fraunces
+                                               opsz 144, đậm 900)               */
+    --hero-shift: 0.86;              /* [ĐO]    câu tiêu đề lệch trái 86px so với
+                                               tâm trang, mép trái thẳng hàng với
+                                               mép trái chữ chìm                */
+    --watermark-drop: 0.12;          /* [ĐO]    nét "GLO." bắt đầu ở y233, tức
+                                               thấp hơn tâm dòng đầu 0.12 lần
+                                               cỡ hero                          */
+    --watermark-opsz: 144;           /* [ĐO]    nét mảnh, chân nhọn như ảnh
+                                               export Figma — xem hero.css      */
+    --display-opsz: 14;              /* [ĐO]    các chữ Fraunces còn lại — xem
+                                               base.css                         */
+    --text-logo: 63px;               /* [ĐO]    nét chữ "Glo." rộng 99px       */
     --text-logo-sm: 40px;            /* dưới 768px cho vừa hàng nav           */
-    --text-nav: 24px;                /* [ĐO]    "Contact" rộng 94px (x720–814)  */
+    --text-nav: 25px;                /* [ĐO]    "Contact" rộng 94px (x720–814)  */
     --text-card: 24px;               /* [ĐO]    bước dòng 31px                 */
     --text-price: 20px;              /* [ĐO]    "₹230.00" rộng 76px, cao 14px  */
     --text-marquee: 50px;            /* [ĐO]    khớp bề ngang chữ bản thiết kế */
-    --text-foot: 24px;               /* [ĐO]    "Products" rộng 99px           */
-    --text-filter: 18px;
-    --text-option: 15px;
+    --text-foot: 25px;               /* [ĐO]    "Products" rộng 99px           */
+    --text-filter: 19px;
+    --text-option: 16px;
     --text-body: 16px;
+    --text-updates-heading: 24px;    /* [ĐO]    "GET UPDATES" rộng 181px      */
     --text-phone: 17px;              /* [ĐO]    số điện thoại rộng 140px       */
     --text-small: 14px;
 
     --leading-tight: 1.15;
-    --leading-card: 1.25;            /* [ĐO]    bước dòng 30px (y906→936)      */
+    --leading-card: 1.625;            /* [ĐO]    bước dòng 30px (y906→936)      */
     --leading-normal: 1.7;
 
     --weight-regular: 400;
@@ -80,21 +94,27 @@
     --frame-w: 1920px;               /* [FIGMA] khung thiết kế                 */
     --container-w: 1560px;           /* [ĐO]    1920 − 2 × 180                 */
     --header-w: 1584px;              /* [FIGMA] khung header: lề 168px mỗi bên */
-    --nav-logo-inset: 20px;          /* [ĐO]    trong Figma hộp logo có lề trong
-                                               ~20px, nét "Glo." mới bắt đầu 190 */
+    --nav-item-gap: 32px;            /* [ĐO]    logo → khối link trong header  */
+    --nav-logo-inset: 21.5px;          /* [ĐO]    khung header bắt đầu ở x168 (lề Figma)
+                                               nhưng nét chữ "Glo." trong ảnh export
+                                               bắt đầu ở x193 — đây là khoảng thụt
+                                               để chữ rơi đúng chỗ đó             */
     --container-pad: 24px;           /* mobile; desktop ghi đè trong layout.css */
     --sidebar-w: 370px;              /* [ĐO]    cột filter 180 → 550           */
     --sidebar-pad: 16px;             /* [ĐO]    chữ "Filter" bắt đầu ở x198    */
     --sidebar-gap: 24px;             /* [ĐO]                                   */
     --grid-gap: 16px;                /* [ĐO]    bước cột 394 − 378             */
-    --nav-drop: 2px;                 /* [ĐO]    chữ nav nằm ở y93 chứ không y89 */
-    --header-h: 200px;               /* [ĐO]    chữ nav nằm ở y79–121          */
-    --hero-pt: 95px;                 /* [ĐO]    nét chữ h1 bắt đầu y314        */
-    --hero-pb: 168px;                /* [ĐO]    lưới sản phẩm bắt đầu y570     */
-    --nav-offset: 131px;             /* [ĐO]    "Shop" bắt đầu ở x459; Figma đo
+    --header-h: 200px;               /* [ĐO]    hero bắt đầu ngay dưới y200     */
+    --nav-drop: 4px;                 /* [ĐO]    tâm hàng nav + icon ở y102, thấp
+                                               hơn tâm header 2px              */
+    --nav-logo-drop: 5px;            /* [ĐO]    riêng "Glo." thấp hơn hàng link:
+                                               nét chữ y82–126 so với y93–115  */
+    --hero-pt: 103px;                 /* [ĐO]    nét chữ h1 bắt đầu y314        */
+    --hero-pb: 155px;                /* [ĐO]    lưới sản phẩm bắt đầu y570     */
+    --nav-offset: 135px;             /* [ĐO]    "Shop" bắt đầu ở x459; Figma đo
                                                161.5px là khoảng cách giữa hai
                                                khung, khung "Shop" có lề trong   */
-    --nav-gap: 47px;                 /* [ĐO]    Figma đo 41px giữa hai khung;
+    --nav-gap: 50px;                 /* [ĐO]    Figma đo 41px giữa hai khung;
                                                mỗi khung link có ~4.5px lề trong
                                                nên nét chữ cách nhau 50px        */
     --nav-chevron: 12px;             /* [ĐO]    "Shop" hết ở 516, mũi tên 531  */
@@ -114,12 +134,14 @@
     --img-dx-4: 0; --img-dy-4: -10px;
     --img-dx-5: -8px; --img-dy-5: 33px;
     --img-dx-6: -4px; --img-dy-6: 16px;
-    --card-title-gap: 90px;          /* [ĐO]    ảnh 809 → hộp tiêu đề 900      */
+    --card-title-gap: 87px;          /* [ĐO]    ảnh 809 → hộp tiêu đề 900      */
     --card-title-w: 280px;           /* [ĐO]    khối chữ x624–901 là 277px, nới
                                                3px để font dự phòng Montserrat còn
                                                ngắt đúng 2 dòng. Có Gotham thì trả
                                                về 277px.                            */
-    --card-price-gap: 8px;           /* [ĐO]    tiêu đề hết 962 → hộp giá 970  */
+    --card-price-gap: -5px;          /* [ĐO]    giá ở y982. Số âm vì line-height
+                                               1.625 để thừa nửa bước dòng dưới
+                                               dòng cuối của tên sản phẩm      */
     --card-actions-gap: 12px;        /* [ĐO]    hộp giá hết 1005 → vòng 1017   */
     --card-action-size: 64px;        /* [ĐO]    vòng tròn nút nhanh y1017–1080 */
     --card-action-icon: 36px;        /* [ĐO]    khung icon; nét vẽ 20–24px     */
@@ -127,7 +149,9 @@
     --card-action-ring: 2px;         /* [ĐO]    nét vòng tròn dày 2px, #58360D */
     --card-action-gap: 16px;         /* [ĐO]    vòng 1 hết 714, vòng 2 từ 731  */
     --card-title-gap-row2: 17px;     /* [ĐO]    chữ hàng 2 bắt đầu ở y1557     */
-    --card-row-gap: 124px;           /* [ĐO]    ảnh hàng 1 y585 → hàng 2 y1207 */
+    --card-row-gap: 122px;           /* [ĐO]    ảnh hàng 1 y585 → hàng 2 y1207 */
+    --filter-option-gap: 12px;       /* [ĐO]    ô tick → nhãn trong mỗi dòng    */
+    --filter-bar-pe: 13px;           /* [ĐO]    "Clear all" hết ở x535          */
     --filter-bar-pb: 8px;            /* [ĐO]    đường kẻ nằm ở y614            */
     --filter-row: 31.67px;              /* [ĐO]    bước dòng tùy chọn y680→709    */
     --filter-legend-gap: 12px;       /* [ĐO]    legend y639 → tùy chọn y678    */
@@ -140,21 +164,22 @@
     --pagination-item-gap: 31px;     /* [ĐO]    tâm số cách nhau 48px          */
     --pagination-arrow-gap: 40px;    /* [ĐO]    mũi tên hết 1056, số 1 từ 1105 */
     --pagination-arrow: 9px;         /* [ĐO]    nét mũi tên 5 × 8px            */
-    --pagination-gap: 62px;           /* [ĐO]    nét chữ pagination ở y1801     */
-    --marquee-gap: 167px;            /* [ĐO]    mép trên ribbon y1990 tại x960 */
+    --pagination-gap: 60px;           /* [ĐO]    nét chữ pagination ở y1801     */
+    --marquee-gap: 169px;            /* [ĐO]    mép trên ribbon y1990 tại x960 */
     --marquee-tilt: -2.25deg;        /* [ĐO]    y2028@x5 → y1953@x1914         */
     --marquee-band: 25px;            /* [ĐO]    dải băng dày 105px             */
-    --marquee-item-gap: 29.25px;     /* [ĐO]    khoảng lặp 400px               */
+    --marquee-item-gap: 21.25px;     /* [ĐO]    khoảng lặp 400px               */
     --marquee-track: 0.016em;         /* [ĐO]    "New arrivals" rộng 285px      */
     --marquee-star: 54px;            /* [ĐO]    ngôi sao cam rộng 50px          */
-    --marquee-offset: 28.5px;          /* [ĐO]    sao đầu tiên rơi đúng x320     */
-    --footer-pt: 230px;              /* [ĐO]    heading footer ở y2335         */
+    --marquee-offset: 15.5px;        /* [ĐO]    sao đầu tiên rơi đúng x294     */
+    --footer-pt: 227px;              /* [ĐO]    heading footer ở y2335         */
     --footer-pb: 96px;               /* [ĐO]    khung kết thúc ở y2748         */
     --footer-row: 18px;              /* [ĐO]    bước dòng link footer 45px     */
     --footer-col-1: 285px;           /* [ĐO]    bước cột 183→468               */
     --footer-col-2: 281px;           /* [ĐO]    468→749                        */
     --updates-heading-shift: -26px;  /* [ĐO]    "GET UPDATES" nằm ở x1354–1526 */
     --updates-input-h: 72px;
+    --updates-form-gap: 24px;        /* [ĐO]    ô nhập → nút Subscribe         */
     --updates-input-pad: 34px;       /* [ĐO]    chữ gợi ý bắt đầu ở x1228      */
     --text-subscribe: 18px;          /* [ĐO]    chữ Subscribe 88 × 13px        */
     --social-top: 36px;              /* [ĐO]    kẻ trên hàng mạng XH ở y2537   */
@@ -188,8 +213,9 @@
     /* Vòng quanh Subscribe: hai ellipse 137.53 × 60.76, nét 1px #CD794A bên trong */
     --scribble-w: 137.53px;          /* [FIGMA] */
     --scribble-h: 60.76px;           /* [FIGMA] */
-    --scribble-rot-a: -16.4deg;      /* [FIGMA] */
-    --scribble-rot-b: -7.17deg;      /* [FIGMA] */
+    --scribble-rot-a: 16.4deg;       /* [FIGMA] Figma ghi −16.4°; Figma quay
+                                               ngược chiều CSS nên đổi dấu    */
+    --scribble-rot-b: 7.17deg;       /* [FIGMA] Figma ghi −7.17°, cùng lý do  */
 
     --radius-sm: 4px;
     --radius-pill: 999px;
