@@ -73,7 +73,7 @@
                     <!-- Chữ và mũi tên viết liền nhau, không xuống dòng: chúng là
                          nội dung inline nên mỗi khoảng trắng trong HTML sẽ thành
                          một khoảng hở thật, làm lệch vị trí các link phía sau. -->
-                    <a class="nav__link" href="index.html" aria-current="page">Shop<svg viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" /></svg></a>
+                    <a class="nav__link" href="index.html" aria-current="page">Shop<svg viewBox="0 0 9 9" overflow="visible" fill="none" aria-hidden="true"><path d="M1.45 -1 5 2.55 8.55 -1" stroke="currentColor" stroke-width="1.95" /></svg></a>
                   </li>
                   <li><a class="nav__link" href="#">About</a></li>
                   <li><a class="nav__link" href="#">Contact</a></li>
@@ -128,7 +128,7 @@
                   </fieldset>
 
                   <fieldset class="filter__group">
-                    <legend class="filter__legend">Category</legend>
+                    <legend class="filter__legend filter__legend--tight">Category</legend>
                     <ul class="filter__options" role="list">
                       <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="category" value="face-serum" />Face Serum</label></li>
                       <li><label class="filter__option"><input class="filter__checkbox" type="checkbox" name="category" value="lip-balm" />Lip balm</label></li>
@@ -141,39 +141,19 @@
                     <legend class="filter__legend filter__legend--rating">Rating</legend>
                     <ul class="rating" role="list">
                       <li>
-                        <label class="rating__row">
-                          <input class="filter__checkbox" type="radio" name="rating" value="5" />
-                          <span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /></span>
-                          <span class="rating__label">5 star</span>
-                        </label>
+                        <label class="rating__row"><input class="filter__checkbox" type="radio" name="rating" value="5" /><span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /></span><span class="rating__label">5 star</span></label>
                       </li>
                       <li>
-                        <label class="rating__row">
-                          <input class="filter__checkbox" type="radio" name="rating" value="4" />
-                          <span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span>
-                          <span class="rating__label">4 star</span>
-                        </label>
+                        <label class="rating__row"><input class="filter__checkbox" type="radio" name="rating" value="4" /><span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span><span class="rating__label">4 star</span></label>
                       </li>
                       <li>
-                        <label class="rating__row">
-                          <input class="filter__checkbox" type="radio" name="rating" value="3" />
-                          <span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span>
-                          <span class="rating__label">3 star</span>
-                        </label>
+                        <label class="rating__row"><input class="filter__checkbox" type="radio" name="rating" value="3" /><span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span><span class="rating__label">3 star</span></label>
                       </li>
                       <li>
-                        <label class="rating__row">
-                          <input class="filter__checkbox" type="radio" name="rating" value="2" />
-                          <span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span>
-                          <span class="rating__label">2 star</span>
-                        </label>
+                        <label class="rating__row"><input class="filter__checkbox" type="radio" name="rating" value="2" /><span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span><span class="rating__label">2 star</span></label>
                       </li>
                       <li>
-                        <label class="rating__row">
-                          <input class="filter__checkbox" type="radio" name="rating" value="1" />
-                          <span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span>
-                          <span class="rating__label">1 star</span>
-                        </label>
+                        <label class="rating__row"><input class="filter__checkbox" type="radio" name="rating" value="1" /><span class="rating__stars" aria-hidden="true"><img src="assets/icon/icon-star-fill.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /><img src="assets/icon/icon-star-outline.png" alt="" width="16" height="16" loading="lazy" /></span><span class="rating__label">1 star</span></label>
                       </li>
                     </ul>
                   </fieldset>
@@ -188,7 +168,7 @@
                       <img src="assets/img/product-jar-tilted.png" alt="Mixed Grapes Sulphate Free Face Cream in a glass jar" width="234" height="227" fetchpriority="high" />
                     </div>
                     <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
-                    <p class="card__price">₹230.00</p>
+                    <p class="card__price"><span class="card__currency">₹</span>230.00</p>
                     <div class="card__actions">
                       <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
                       <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
@@ -209,7 +189,7 @@
                       <img src="assets/img/product-jar-box.png" alt="Mixed Grapes Sulphate Free Face Cream with its carton" width="260" height="173" loading="lazy" />
                     </div>
                     <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
-                    <p class="card__price">₹230.00</p>
+                    <p class="card__price"><span class="card__currency">₹</span>230.00</p>
                     <div class="card__actions">
                       <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
                       <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
@@ -230,7 +210,7 @@
                       <img src="assets/img/product-serum.png" alt="Mixed Grapes Sulphate Free Face Cream serum dropper bottle" width="70" height="218" loading="lazy" />
                     </div>
                     <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
-                    <p class="card__price">₹230.00</p>
+                    <p class="card__price"><span class="card__currency">₹</span>230.00</p>
                     <div class="card__actions">
                       <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
                       <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
@@ -251,7 +231,7 @@
                       <img src="assets/img/product-serum-alt.png" alt="Mixed Grapes Sulphate Free Face Cream serum bottle" width="70" height="218" loading="lazy" />
                     </div>
                     <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
-                    <p class="card__price">₹230.00</p>
+                    <p class="card__price"><span class="card__currency">₹</span>230.00</p>
                     <div class="card__actions">
                       <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
                       <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
@@ -272,7 +252,7 @@
                       <img src="assets/img/product-jar-upright.png" alt="Mixed Grapes Sulphate Free Face Cream jar" width="186" height="181" loading="lazy" />
                     </div>
                     <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
-                    <p class="card__price">₹230.00</p>
+                    <p class="card__price"><span class="card__currency">₹</span>230.00</p>
                     <div class="card__actions">
                       <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
                       <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
@@ -293,7 +273,7 @@
                       <img src="assets/img/product-jar-box.png" alt="Mixed Grapes Sulphate Free Face Cream with its carton" width="260" height="173" loading="lazy" />
                     </div>
                     <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
-                    <p class="card__price">₹230.00</p>
+                    <p class="card__price"><span class="card__currency">₹</span>230.00</p>
                     <div class="card__actions">
                       <button type="button" class="card__action"><span class="visually-hidden">Add to cart</span><img src="assets/icon/icon-bag.png" alt="" width="36" height="36" loading="lazy" /></button>
                       <button type="button" class="card__action"><span class="visually-hidden">Add to wishlist</span><img src="assets/icon/icon-heart.png" alt="" width="36" height="36" loading="lazy" /></button>
@@ -334,7 +314,7 @@
             <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
             <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
 
-            <span class="marquee__item">New Arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
             <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
             <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
             <span class="marquee__item">New arrivals<img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
@@ -357,10 +337,10 @@
 
             <div>
               <h2 class="site-footer__heading">Quick Links</h2>
-              <ul class="site-footer__list" role="list">
+              <ul class="site-footer__list site-footer__list--inset" role="list">
                 <li><a href="#">Track orders</a></li>
                 <li><a href="#">Shipping Polices</a></li>
-                <li><a href="#">Refund &amp; Cancellation</a></li>
+                <li class="site-footer__item--nudge"><a href="#">Refund &amp; Cancellation</a></li>
                 <li><a href="#">Terms &amp; Condition</a></li>
                 <li><a href="#">Privacy Policy</a></li>
                 <li><a href="#">Site map</a></li>
@@ -368,11 +348,11 @@
             </div>
 
             <div>
-              <h2 class="site-footer__heading">About</h2>
-              <ul class="site-footer__list" role="list">
-                <li><a href="#">Our Story</a></li>
+              <h2 class="site-footer__heading site-footer__heading--near">About</h2>
+              <ul class="site-footer__list site-footer__list--outset" role="list">
+                <li><a class="site-footer__link--wrap" href="#">Our Story</a></li>
                 <li><a href="#">FAQ</a></li>
-                <li><a href="#">Contactu Us</a></li>
+                <li class="site-footer__item--lift"><a href="#">Contactu Us</a></li>
               </ul>
             </div>
 

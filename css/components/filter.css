@@ -17,7 +17,10 @@
     clear: both;
   }
 
-  .filter__title { float: left; }
+  .filter__title {
+    float: left;
+    font-weight: var(--weight-bold);
+  }
 
   .filter__clear { float: right; }
 
@@ -33,16 +36,27 @@
   .filter__title,
   .filter__clear {
     font-size: var(--text-filter);
-    line-height: var(--leading-normal);
+    line-height: var(--leading-filter);
   }
 
   .filter__clear { transition: opacity var(--duration-fast) var(--ease-out); }
 
   .filter__clear:hover { opacity: 0.6; }
 
+  /* [ĐO] Đường kẻ trong Figma dày 2px, hai sắc độ: trên nhạt, dưới đậm (ở
+     cả hai đường). Viền 1px vẽ một dòng, bóng inset vẽ dòng còn lại —
+     bóng không chiếm chỗ nên không đẩy bố cục. Đường kẻ bắt đầu x194 và
+     kết thúc x547, tức lùi trái 2px so với nội dung cột; padding bù lại để
+     chữ bên trong không dịch. */
   .filter__groups {
-    border-block: 1px solid var(--border-hairline);
-    padding-block: 20px 28px;
+    margin-inline: calc(-1 * var(--filter-rule-shift)) var(--filter-rule-shift);
+    padding-inline-start: var(--filter-rule-shift);
+    border-block-start: 1px solid var(--filter-rule-light);
+    border-block-end: 1px solid var(--filter-rule-dark);
+    box-shadow:
+      inset 0 1px 0 var(--filter-rule-dark),
+      inset 0 -1px 0 var(--filter-rule-light);
+    padding-block: var(--filters-pt) var(--filters-pb);
   }
 
   .filter__group + .filter__group { margin-block-start: var(--filter-group-gap); }
@@ -50,10 +64,15 @@
   .filter__legend {
     display: block;
     font-size: var(--text-filter);
-    font-weight: var(--weight-medium);
-    line-height: 22px;
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-filter);
+    letter-spacing: var(--filter-legend-tracking);
     margin-block-end: var(--filter-legend-gap);
   }
+
+  /* [ĐO] Figma để nhóm Category sát tiêu đề hơn 4px so với các nhóm khác —
+     không đồng đều trong bản thiết kế, nhưng giữ đúng để ảnh đè khớp. */
+  .filter__legend--tight { margin-block-end: var(--filter-legend-gap-tight); }
 
   /* Các dòng rating đã có leading riêng, nếu dùng chung khoảng hở của
      legend sẽ bị đẩy xuống thấp hơn bản thiết kế. */
@@ -87,7 +106,7 @@
     vertical-align: middle;
     inline-size: 12px;
     block-size: 12px;
-    margin-inline-end: var(--filter-option-gap);
+    margin-inline: var(--filter-check-inset) var(--filter-option-gap);
     border: 1px solid var(--border-control);
     border-radius: 2px;
     transition:
@@ -127,12 +146,18 @@
     cursor: pointer;
   }
 
-  /* [ĐO] sao 16px, tâm cách nhau 20px; khối sao kết thúc x315, nhãn bắt
-     đầu x332 nên cần thêm 5px so với khoảng hở chung của hàng. */
+  /* [ĐO] Figma canh đỉnh ô tick bằng đỉnh chữ hoa, cao hơn giữa dòng 2px.
+     Hàng rating không cần vì ô tick ở đó canh theo khối sao. */
+  .filter__option .filter__checkbox { inset-block-start: var(--filter-check-lift); }
+
+  /* Hàng rating: ô tick → sao hẹp hơn ô tick → chữ ở các nhóm trên. */
+  .rating__row .filter__checkbox { margin-inline-end: var(--rating-check-gap); }
+
+  /* [ĐO] sao 16px, tâm cách nhau 20px. */
   .rating__stars {
     display: inline-block;
     vertical-align: middle;
-    margin-inline-end: calc(var(--filter-option-gap) + 5px);
+    margin-inline-end: var(--rating-label-gap);
     font-size: 0;
   }
 
@@ -149,6 +174,7 @@
      Ở đây đậm hơn một chút cho đạt 4.62:1, xem README. */
   .rating__label {
     vertical-align: middle;
+    letter-spacing: var(--rating-label-tracking);
     color: var(--text-idle);
   }
 }

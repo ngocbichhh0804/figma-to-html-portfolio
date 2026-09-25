@@ -81,6 +81,7 @@
     font-size: var(--text-card);
     font-weight: var(--weight-regular);
     line-height: var(--leading-card);
+    letter-spacing: var(--card-title-track);
   }
 
   /* Giá tiền trong bản thiết kế là chữ serif đậm, không cùng họ với tên sản
@@ -90,9 +91,22 @@
     font-family: var(--font-display);  /* [FIGMA] Butler */
     font-weight: var(--weight-bold);
     font-size: var(--text-price);
+    letter-spacing: var(--card-price-track);
+    /* [ĐO] Glyph "₹" của Fraunces lệch lề hơn Butler nên cả dòng giá rơi
+       lệch trái; dịch bằng position để không đụng tới bố cục. */
+    position: relative;
+    inset-inline-start: var(--card-price-nudge);
     /* Một số font serif mặc định dùng chữ số kiểu cũ (nét thò xuống dưới
        đường kẻ); bản thiết kế dùng chữ số đều hàng nên bật lining-nums. */
     font-variant-numeric: lining-nums;
+  }
+
+  /* [ĐO] "₹" của Fraunces rộng hơn của Butler 2px; co ngang bằng scale
+     (không đổi bố cục), khoảng hở sau nó chỉnh bằng margin. */
+  .card__currency {
+    display: inline-block;
+    scale: var(--currency-scale) 1;
+    margin-inline-end: var(--currency-gap);
   }
 
   /* Trong khung Figma chỉ thẻ đầu tiên hiện ba nút tròn — đó là trạng thái

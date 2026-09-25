@@ -39,8 +39,14 @@
     font-size: var(--text-foot);
     font-weight: var(--weight-bold);
     line-height: var(--leading-normal);
-    margin-block-end: 19px;   /* [ĐO] link đầu tiên bắt đầu ở y2395 */
+    letter-spacing: var(--footer-heading-track);
+    position: relative;
+    inset-inline-start: var(--footer-heading-shift);
+    margin-block-end: var(--footer-heading-gap);
   }
+
+  /* [ĐO] Riêng heading "About" lệch ít hơn hai heading còn lại. */
+  .site-footer__heading--near { inset-inline-start: var(--footer-heading-shift-3); }
 
   /* [FIGMA] Link footer, ô nhập, số điện thoại, email: Century Gothic. */
   .site-footer__list,
@@ -53,9 +59,47 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    letter-spacing: var(--footer-link-track);
+  }
+
+  /* [ĐO] Figma đặt khối link cột Quick Links thụt vào hơn heading của nó. */
+  @media (width >= 64rem) {
+    .site-footer__list--inset {
+      padding-inline-start: var(--footer-list-2-inset);
+    }
+
+    /* [ĐO] Còn cột About thì ngược lại: link lùi ra trái hơn cột 2px. */
+    .site-footer__list--outset {
+      margin-inline-start: var(--footer-list-3-inset);
+    }
   }
 
   .site-footer__list li + li { margin-block-start: var(--footer-row); }
+
+  /* [ĐO] Trong Figma hộp chữ "Our Story" hẹp hơn chữ 1px nên bị ngắt thành
+     hai dòng, căn giữa. Giữ đúng như vậy; margin âm để hai dòng này không
+     đẩy các link bên dưới. */
+  .site-footer__link--wrap {
+    display: inline-block;
+    vertical-align: top;
+    inline-size: var(--footer-story-w);
+    margin-block: var(--footer-story-mt) var(--footer-story-mb);
+    line-height: var(--footer-story-leading);
+    text-align: center;
+  }
+
+  /* [ĐO] Trong Figma dòng "Refund & Cancellation" thụt vào hơn các link
+     cùng cột 5px. */
+  .site-footer__item--nudge {
+    position: relative;
+    inset-inline-start: var(--footer-item-nudge);
+  }
+
+  /* [ĐO] Link cuối cột About trong Figma cao hơn nhịp chung 3px. */
+  .site-footer__item--lift {
+    position: relative;
+    inset-block-start: var(--footer-item-lift);
+  }
 
   .site-footer__list a { transition: opacity var(--duration-fast) var(--ease-out); }
 
@@ -78,6 +122,7 @@
   .updates__copy {
     font-size: var(--text-body);  /* [ĐO] khối chữ rộng 431px (x1194–1625) */
     margin-block-end: 13px;
+    letter-spacing: var(--updates-copy-track);
   }
 
   /* Ô nhập float trái, nút Subscribe float phải. Nút thấp hơn ô nhập nên
@@ -85,7 +130,7 @@
      [ĐO] Trong bản thiết kế nút Subscribe kết thúc ở x1726, thiếu 14px so
      với container. */
   .updates__form {
-    padding-inline-end: 14px;
+    padding-inline-end: var(--updates-form-pe);
   }
 
   .updates__form::after {
@@ -100,6 +145,7 @@
     block-size: var(--updates-input-h);
     padding-inline: var(--updates-input-pad);  /* [ĐO] chữ bắt đầu ở x1228 */
     font-size: var(--text-body);
+    letter-spacing: var(--updates-input-track);
     background-color: transparent;
     border: 1px solid var(--color-brown);      /* [ĐO] viền #58360D đậm nguyên */
     border-radius: var(--radius-pill);
@@ -121,6 +167,9 @@
     font-family: var(--font-card);   /* [FIGMA] Gotham */
     font-weight: var(--weight-bold);
     font-size: var(--text-subscribe);  /* [ĐO] chữ "Subscribe" rộng 88px */
+    /* Chỉ đẩy chữ; hai vòng elip là pseudo-element inset: 0 nên đứng yên. */
+    padding-block-start: var(--subscribe-dy);
+    padding-inline-start: var(--subscribe-dx);
   }
 
   .updates__submit::before,
@@ -176,8 +225,11 @@
   .updates__phone {
     display: inline-block;
     vertical-align: middle;
+    position: relative;
+    inset-inline-start: var(--phone-nudge);
     line-height: normal;
     font-size: var(--text-phone);
+    letter-spacing: var(--phone-track);
   }
 
   /* [ĐO] "Wecare@glo.com" nằm ở x1394–1535, tức canh giữa cột chứ không phải
@@ -186,6 +238,7 @@
     margin-block-start: 15px;
     text-align: center;
     font-size: var(--text-body);
+    letter-spacing: var(--email-track);
   }
 
   /* Dưới 512px ô nhập email còn chưa tới 280px nếu vẫn đứng cạnh nút, nên

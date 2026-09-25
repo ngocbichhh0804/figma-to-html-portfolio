@@ -7,10 +7,11 @@
     margin-inline-start: -3vw;
     margin-block-start: var(--marquee-gap);
     rotate: var(--marquee-tilt);
+    translate: 0 var(--marquee-drop);
     /* [ĐO] Dải băng không có nền riêng — chỉ hai đường kẻ trên dưới; màu bên
        trong đo được trùng đúng màu nền trang phía sau. */
-    border-block: 1px solid var(--border-hairline);
-    padding-block: var(--marquee-band);
+    border-block: 1px solid var(--text-primary);  /* [ĐO] nâu đậm nguyên màu */
+    padding-block: var(--marquee-band-top) var(--marquee-band-bottom);
     overflow: hidden;
   }
 
@@ -40,5 +41,9 @@
     margin-inline-start: var(--marquee-item-gap);
     inline-size: var(--marquee-star);
     block-size: var(--marquee-star);
+    /* [ĐO] Trong Figma ngôi sao đứng thẳng theo trang, không nghiêng theo dải
+       băng: xoay ngược lại đúng góc nghiêng. Sao nằm cao hơn tâm dòng chữ. */
+    rotate: calc(-1 * var(--marquee-tilt));
+    translate: var(--marquee-star-dx) var(--marquee-star-dy);
   }
 }

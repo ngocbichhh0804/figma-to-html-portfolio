@@ -96,13 +96,15 @@
   .nav__link:hover { opacity: 0.65; }
 
   /* [ĐO] Nét mũi tên rộng 8px, nhưng trong bản thiết kế hộp chứa nó còn
-     thừa 8px bên phải nên "About" mới rơi đúng x597. */
+     thừa 8px bên phải nên "About" mới rơi đúng x597. Đường vẽ trong SVG
+     (index.html) dùng hệ toạ độ 1 đơn vị = 1px, nét 1.95px, đầu nét vuông
+     vát 45° — dò từng pixel theo ảnh export (y99–104, x533–540). */
   .nav__link svg {
     display: inline-block;
     vertical-align: middle;
     inline-size: 9px;
     block-size: 9px;
-    margin-inline: var(--nav-chevron) 8px;
+    margin-inline: var(--nav-chevron) var(--nav-chevron-after);
   }
 
   /* Bốn icon bên phải đặt tuyệt đối: chúng phải bám mép phải bất kể hàng
