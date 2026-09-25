@@ -1,15 +1,19 @@
 /* Cấu trúc cấp trang: container, hai lớp trang trí, lưới Shop. */
 @layer layout {
+  /* [ĐO] 1920 − 2 × 180 = 1560px. Lề hai bên: 24px trên mobile, 64px từ
+     1024px, bỏ hẳn từ 1440px (xem các media query cuối file). */
   .container {
     width: 100%;
-    max-width: var(--container-w);
+    max-width: 1560px;
     margin-inline: auto;
-    padding-inline: var(--container-pad);
+    padding-inline: 24px;
   }
 
   /* Trang có hai lớp trang trí đã làm mờ, nằm dưới mọi thứ.
      overflow: clip giữ chúng và dải ribbon nghiêng không tạo scroll. */
   .page {
+    --frame-w: 1920px;   /* [FIGMA] khung thiết kế, gốc toạ độ của hai lớp trang trí */
+
     position: relative;
     isolation: isolate;
     overflow: clip;
@@ -24,30 +28,40 @@
   }
 
   /* Toạ độ tính theo tâm khung để phần trang trí giữ đúng vị trí so với bản
-     thiết kế ngay cả khi viewport không đúng 1920. */
+     thiết kế ngay cả khi viewport không đúng 1920.
+     [FIGMA] Vầng sáng hero: ellipse 992.77 × 1040.81 tại (1170.5, −388.69),
+     #FFAF00 30%. */
   .page__glow {
-    inline-size: var(--glow-w);
-    block-size: var(--glow-h);
-    inset-block-start: var(--glow-y);
-    inset-inline-start: calc(50% + var(--glow-x) - var(--frame-w) / 2);
+    inline-size: 992.77px;
+    block-size: 1040.81px;
+    inset-block-start: -388.69px;
+    inset-inline-start: calc(50% + 1170.5px - var(--frame-w) / 2);
     background-color: var(--color-amber);
-    opacity: var(--glow-opacity);
-    filter: blur(var(--glow-blur));
+    opacity: 0.3;
+    /* [ĐO] Figma ghi blur 600 nhưng thang blur của Figma khác CSS; 260px là
+       giá trị khớp nhất với ảnh export (cả hai lớp trang trí). */
+    filter: blur(260px);
   }
 
+  /* [FIGMA] Khối hồng chân trang: 1402.97 × 1040.81 tại (−503.48, 1893.59),
+     #FDDEDE. */
   .page__blob {
-    inline-size: var(--blob-w);
-    block-size: var(--blob-h);
-    inset-block-start: var(--blob-y);
-    inset-inline-start: calc(50% + var(--blob-x) - var(--frame-w) / 2);
+    inline-size: 1402.97px;
+    block-size: 1040.81px;
+    inset-block-start: 1893.59px;
+    inset-inline-start: calc(50% + -503.48px - var(--frame-w) / 2);
     background-color: var(--color-blush);
-    filter: blur(var(--blob-blur));
+    filter: blur(260px);   /* [ĐO] xem .page__glow */
   }
 
   /* Hai cột của trang Shop dựng bằng float. Cột filter float trái với bề
      ngang cố định, phần lưới sản phẩm chỉ cần chừa lề trái đúng bằng bề
      ngang đó cộng khoảng hở — cách này giữ được chiều cao tự nhiên của từng
      cột mà không cần flex hay grid. */
+  .shop {
+    --sidebar-w: 370px;   /* [ĐO] cột filter x180 → 550 */
+  }
+
   .shop::after {
     content: "";
     display: block;
@@ -55,7 +69,7 @@
   }
 
   @media (width >= 64rem) {
-    :root { --container-pad: 64px; }
+    .container { padding-inline: 64px; }
 
     .filter {
       float: left;
@@ -67,7 +81,7 @@
          thẻ sản phẩm bên trong chỉ nhìn thấy float của chính lưới, không
          bị cột filter bên cạnh đẩy xuống. */
       display: flow-root;
-      margin-inline-start: calc(var(--sidebar-w) + var(--sidebar-gap));
+      margin-inline-start: calc(var(--sidebar-w) + 24px);   /* [ĐO] khe 24px */
     }
   }
 
@@ -79,6 +93,6 @@
   /* Từ 1440px container thôi padding: 1560px canh giữa là ra đúng lề 180px
      của bản thiết kế khi màn hình rộng 1920. */
   @media (width >= 90rem) {
-    :root { --container-pad: 0px; }
+    .container { padding-inline: 0px; }
   }
 }

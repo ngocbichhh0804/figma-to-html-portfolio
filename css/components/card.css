@@ -1,5 +1,8 @@
 @layer components {
   .product-grid {
+    /* [ĐO] ảnh hàng 1 y585 → hàng 2 y1207. Dùng cho cả lưới 3 cột lẫn 1 cột. */
+    --card-row-gap: 124px;
+
     list-style: none;
     padding: 0;
     margin: 0;
@@ -17,8 +20,8 @@
   @media (width >= 48rem) {
     .product-grid > li {
       float: left;
-      inline-size: calc((100% - 2 * var(--grid-gap)) / 3);
-      margin-inline-start: var(--grid-gap);
+      inline-size: calc((100% - 2 * 16px) / 3);  /* [ĐO] khe 16px: bước cột 394 − 378 */
+      margin-inline-start: 16px;
     }
 
     .product-grid > li:nth-child(3n + 1) {
@@ -34,14 +37,19 @@
     .product-grid > li + li { margin-block-start: var(--card-row-gap); }
   }
 
-  .card { text-align: center; }
+  .card {
+    /* [ĐO] ảnh hết y809 → hộp tiêu đề y900. Hàng 2 cộng thêm, xem bên dưới. */
+    --card-title-gap: 87px;
+
+    text-align: center;
+  }
 
   /* Ô ảnh cao cố định, line-height bằng chính chiều cao đó nên tấm ảnh
      (inline-block, vertical-align: middle) tự nằm giữa ô. font-size: 0 để
      khoảng trắng trong HTML không đẩy ảnh lệch. */
   .card__media {
-    block-size: var(--card-media-h);
-    line-height: var(--card-media-h);
+    block-size: 240px;   /* [ĐO] dải ảnh sản phẩm y570–809 */
+    line-height: 240px;
     font-size: 0;
   }
 
@@ -58,55 +66,62 @@
   }
 
   /* Trong Figma sáu tấm ảnh được kéo thả bằng tay nên không tấm nào căn
-     giữa ô hoàn toàn. Hai biến dưới là độ lệch đo được so với tâm ô; dùng
-     translate nên không tấm nào làm xê dịch phần chữ bên dưới. */
+     giữa ô hoàn toàn. [ĐO] độ lệch so với tâm ô, tính bằng cách so trọng tâm
+     vùng tối của ảnh export 1:1 với bản dựng. Dùng translate nên không tấm
+     nào làm xê dịch phần chữ bên dưới. */
   @media (width >= 90rem) {
     .card__media img {
       translate: var(--img-dx, 0) var(--img-dy, 0);
     }
 
-    .card__media--1 img { --img-dx: var(--img-dx-1); --img-dy: var(--img-dy-1); }
-    .card__media--2 img { --img-dx: var(--img-dx-2); --img-dy: var(--img-dy-2); }
-    .card__media--3 img { --img-dx: var(--img-dx-3); --img-dy: var(--img-dy-3); }
-    .card__media--4 img { --img-dx: var(--img-dx-4); --img-dy: var(--img-dy-4); }
-    .card__media--5 img { --img-dx: var(--img-dx-5); --img-dy: var(--img-dy-5); }
-    .card__media--6 img { --img-dx: var(--img-dx-6); --img-dy: var(--img-dy-6); }
+    .card__media--1 img { --img-dx: 1px;  --img-dy: 2px; }
+    .card__media--2 img { --img-dx: -4px; --img-dy: -6px; }
+    .card__media--3 img { --img-dx: 0;    --img-dy: -15px; }
+    .card__media--4 img { --img-dx: 0;    --img-dy: -10px; }
+    .card__media--5 img { --img-dx: -8px; --img-dy: 33px; }
+    .card__media--6 img { --img-dx: -4px; --img-dy: 16px; }
   }
 
   .card__title {
     margin-block-start: var(--card-title-gap);
     margin-inline: auto;
-    max-inline-size: var(--card-title-w);
+    /* [ĐO] khối chữ x622–904; nới vài px để Montserrat vẫn ngắt đúng 2 dòng.
+       Có Gotham thì trả về 277px. */
+    max-inline-size: 290px;
     font-family: var(--font-card);   /* [FIGMA] Gotham */
-    font-size: var(--text-card);
+    font-size: 24px;                 /* [ĐO] bước dòng 31px */
     font-weight: var(--weight-regular);
-    line-height: var(--leading-card);
-    letter-spacing: var(--card-title-track);
+    line-height: 1.625;              /* [ĐO] bước dòng 39px (y911→950) */
+    letter-spacing: 0.5px;           /* [ĐO] dòng 1 rộng 282px (x622–904) */
   }
 
   /* Giá tiền trong bản thiết kế là chữ serif đậm, không cùng họ với tên sản
      phẩm — nét chân chữ thấy rõ ở ảnh export. */
   .card__price {
-    margin-block-start: var(--card-price-gap);
+    /* [ĐO] giá ở y982. Số âm vì line-height 1.625 để thừa nửa bước dòng dưới
+       dòng cuối của tên sản phẩm. */
+    margin-block-start: -5px;
     font-family: var(--font-display);  /* [FIGMA] Butler */
     font-weight: var(--weight-bold);
-    font-size: var(--text-price);
-    letter-spacing: var(--card-price-track);
+    font-size: 20px;                   /* [ĐO] nét số cao 14px */
+    letter-spacing: 0.35px;            /* [ĐO] số "2" x737 → "0" cuối x798 */
     /* [ĐO] Glyph "₹" của Fraunces lệch lề hơn Butler nên cả dòng giá rơi
-       lệch trái; dịch bằng position để không đụng tới bố cục. */
+       lệch trái; dịch bằng position để không đụng tới bố cục. "₹" bắt đầu
+       ở x725. */
     position: relative;
-    inset-inline-start: var(--card-price-nudge);
+    inset-inline-start: 3px;
     /* Một số font serif mặc định dùng chữ số kiểu cũ (nét thò xuống dưới
        đường kẻ); bản thiết kế dùng chữ số đều hàng nên bật lining-nums. */
     font-variant-numeric: lining-nums;
   }
 
   /* [ĐO] "₹" của Fraunces rộng hơn của Butler 2px; co ngang bằng scale
-     (không đổi bố cục), khoảng hở sau nó chỉnh bằng margin. */
+     (không đổi bố cục) cho đúng 10px (x725–734), khoảng hở sau nó chỉnh bằng
+     margin để số "2" bắt đầu ở x737. */
   .card__currency {
     display: inline-block;
-    scale: var(--currency-scale) 1;
-    margin-inline-end: var(--currency-gap);
+    scale: 0.85 1;
+    margin-inline-end: -1px;
   }
 
   /* Trong khung Figma chỉ thẻ đầu tiên hiện ba nút tròn — đó là trạng thái
@@ -114,7 +129,7 @@
      luôn chiếm sẵn chỗ (nên không thẻ nào nhảy khi rê chuột) và chỉ hiện ra
      khi hover hoặc khi bàn phím tab vào trong thẻ. */
   .card__actions {
-    margin-block-start: var(--card-actions-gap);
+    margin-block-start: 10px;   /* [ĐO] vòng nút nhanh bắt đầu ở y1017 */
     font-size: 0;
     opacity: 0;
     transition: opacity var(--duration-fast) var(--ease-out);
@@ -123,27 +138,29 @@
   .card:hover .card__actions,
   .card:focus-within .card__actions { opacity: 1; }
 
-  /* [ĐO] Hàng thứ hai trong bản thiết kế để khối chữ thấp hơn hàng đầu 17px
-     (ảnh sản phẩm hàng này được đặt cao hơn trong ô). */
+  /* [ĐO] Hàng thứ hai trong bản thiết kế để khối chữ thấp hơn hàng đầu 20px
+     (ảnh sản phẩm hàng này được đặt cao hơn trong ô): chữ bắt đầu ở y1563. */
   .product-grid > li:nth-child(n + 4) .card__title {
-    margin-block-start: calc(var(--card-title-gap) + var(--card-title-gap-row2));
+    margin-block-start: calc(var(--card-title-gap) + 20px);
   }
 
-  /* Vòng tròn cũng căn giữa bằng line-height: trừ đi hai lần độ dày viền
-     để phần ruột cao đúng bằng khoảng trống bên trong. */
+  /* [ĐO] Vòng tròn y1017–1080, viền 2px #58360D. Căn giữa bằng line-height:
+     trừ đi hai lần độ dày viền để phần ruột cao đúng bằng khoảng trống bên
+     trong (64 − 2 × 2 = 60). */
   .card__action {
     display: inline-block;
     vertical-align: middle;
-    inline-size: var(--card-action-size);
-    block-size: var(--card-action-size);
-    line-height: calc(var(--card-action-size) - 2 * var(--card-action-ring));
+    inline-size: 64px;
+    block-size: 64px;
+    line-height: 60px;
     text-align: center;
-    border: var(--card-action-ring) solid var(--color-brown);
+    border: 2px solid var(--color-brown);
     border-radius: var(--radius-pill);
     transition: background-color var(--duration-fast) var(--ease-out);
   }
 
-  .card__action + .card__action { margin-inline-start: var(--card-action-gap); }
+  /* [ĐO] vòng 1 hết x714, vòng 2 từ x731 */
+  .card__action + .card__action { margin-inline-start: 16px; }
 
   .card__action:hover { background-color: rgb(88 54 13 / 6%); }
 
@@ -152,15 +169,16 @@
   .card__action img {
     display: inline-block;
     vertical-align: middle;
-    inline-size: var(--card-action-icon);
-    block-size: var(--card-action-icon);
+    inline-size: 36px;
+    block-size: 36px;
   }
 
-  /* Icon con mắt là SVG tự vẽ nên khung nhỏ hơn, nét đã vừa sẵn. */
+  /* Icon con mắt là SVG tự vẽ nên khung nhỏ hơn, nét đã vừa sẵn.
+     [ĐO] nét icon con mắt 22 × 19px. */
   .card__action svg {
     display: inline-block;
     vertical-align: middle;
-    inline-size: var(--card-action-eye);
-    block-size: var(--card-action-eye);
+    inline-size: 24px;
+    block-size: 24px;
   }
 }

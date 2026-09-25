@@ -1,14 +1,15 @@
 @layer components {
   .hero {
     position: relative;
-    padding-block: var(--hero-pt) var(--hero-pb);
+    /* [ĐO] nét chữ h1 bắt đầu y314; lưới sản phẩm bắt đầu y570 */
+    padding-block: 103px 155px;
     text-align: center;
 
     /* Cỡ chữ hero là gốc của cả khối hero. Bản thiết kế chỉ có desktop nên
        cỡ này co theo bề ngang màn hình; từ 1456px trở lên nó dừng đúng ở con
        số đo được từ Figma. Chữ chìm "GLO." neo hẳn vào biến này nên hai lớp
        luôn giữ đúng tỉ lệ và câu tiêu đề luôn nằm giữa chữ chìm. */
-    --hero-size: clamp(2.75rem, 6.6vw, var(--text-hero));
+    --hero-size: clamp(2.75rem, 6.6vw, 100px);  /* [ĐO] nét chữ cao 72px (y311–383) */
   }
 
   /* Chữ GLO. chìm: [FIGMA] Butler, hộp 1035 × 480 tại (442.5, 189.62),
@@ -29,12 +30,16 @@
        đối so với chữ — nửa bước dòng đưa mốc xuống tâm dòng đầu. */
     inset-block-start: 0;
     inset-inline-start: 50%;
-    /* Bù lại phần lệch trái của thẻ h1 để chữ chìm vẫn nằm giữa trang. */
+    /* Bù lại phần lệch trái của thẻ h1 để chữ chìm vẫn nằm giữa trang.
+       [ĐO] 0.12: nét "GLO." bắt đầu ở y233, thấp hơn tâm dòng đầu 0.12 lần
+       cỡ hero. */
     translate:
       calc(-50% + var(--hero-size) * var(--hero-nudge, 0))
-      calc(-50% + var(--hero-size) * (var(--leading-tight) / 2 + var(--watermark-drop)));
+      calc(-50% + var(--hero-size) * (var(--leading-tight) / 2 + 0.12));
     font-family: var(--font-display); /* [FIGMA] Butler */
-    font-size: calc(var(--hero-size) * var(--watermark-scale));
+    /* [ĐO] nét "GLO." rộng 929px ứng với cỡ hero 100px (Fraunces opsz 144,
+       đậm 900). */
+    font-size: calc(var(--hero-size) * 4.02);
     /* [ĐO] đậm 900 thì nét dọc của G, L, O dày đúng như Figma. Đặt riêng ở
        đây, không đụng tới token --weight-bold dùng chung cả trang. */
     font-weight: 900;
@@ -53,7 +58,7 @@
        nhất, còn mọi chữ Fraunces khác ở opsz 14 (đặt trên body, xem
        base.css). Chỉ ghi đè trên pseudo-element này nên không chữ nào khác
        bị ảnh hưởng. */
-    font-variation-settings: "opsz" var(--watermark-opsz);
+    font-variation-settings: "opsz" 144;  /* [ĐO] nét mảnh, chân nhọn như ảnh export */
   }
 
   .hero__title {
@@ -64,8 +69,8 @@
     /* Bản thiết kế giãn chữ khá rộng: khối "Your Skin Breathe" chiếm 933px.
        text-indent bù lại phần khoảng hở thừa sau ký tự cuối, nếu không căn
        giữa sẽ lệch trái nửa bước giãn. */
-    letter-spacing: var(--hero-track);
-    text-indent: var(--hero-track);
+    letter-spacing: 0.041em;  /* [ĐO] khối chữ rộng 933px (x491–1424) */
+    text-indent: 0.041em;
   }
 
   /* Từ 1440px trở lên — khổ mà bản thiết kế thật sự mô tả — câu tiêu đề
@@ -76,8 +81,10 @@
      trang. Dưới 1440px tiêu đề xuống nhiều dòng nên trả về căn giữa. */
   @media (width >= 90rem) {
     .hero__title {
-      margin-inline-end: calc(var(--hero-size) * var(--hero-shift) * 2);
-      --hero-nudge: var(--hero-shift);
+      /* [ĐO] 0.83: câu tiêu đề lệch trái 83px so với tâm trang (ở cỡ 100px),
+         mép trái thẳng hàng với mép trái chữ chìm. */
+      margin-inline-end: calc(var(--hero-size) * 0.83 * 2);
+      --hero-nudge: 0.83;
     }
   }
 }

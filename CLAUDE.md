@@ -19,13 +19,17 @@ sẽ chuyển sang tiếng Anh trước khi bàn giao.
 - **CSS chia theo cascade layer**, khai báo một lần trong `<head>` của
   `index.html`: `reset, tokens, base, layout, components, utilities`. Nhờ
   vậy không cần `!important` ở đâu (trừ khối `prefers-reduced-motion`).
-- **Mọi số đo là custom property trong `css/tokens.css`**, không phải số
-  rời trong component. Mỗi dòng ghi nhãn nguồn gốc:
+- **`css/tokens.css` chỉ chứa giá trị dùng chung** (màu, font, thang độ
+  đậm, leading, chuyển động, bo góc). Số đo riêng của một component ghi thẳng
+  vào thuộc tính trong file component đó. Số dùng ở nhiều rule trong cùng
+  component thì khai báo biến cục bộ trên selector gốc của component (vd.
+  `.card { --card-title-gap: 87px; }`), không đưa lên `:root`. Mọi con số đều
+  ghi nhãn nguồn gốc ngay bên cạnh:
   - `[FIGMA]` — đọc thẳng từ panel inspector
   - `[ĐO]` — đo bằng script quét pixel trên ảnh export 1:1
   - `[MẪU]` — lấy từ file asset được cung cấp
   - `[ƯỚC]` — ước lượng, chờ xác nhận lại
-  Sửa giá trị thì sửa ở `tokens.css`, không sửa trực tiếp trong component.
+  Token chung sửa ở `tokens.css`; số đo riêng sửa tại chỗ trong component.
 - Đặt tên BEM, specificity phẳng, không selector lồng quá một cấp, không
   dùng ID để style.
 - Đổi cách dựng (nếu có) nhưng **không được đổi số đo đã chốt**: trang Shop

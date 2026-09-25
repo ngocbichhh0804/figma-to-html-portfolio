@@ -1,14 +1,21 @@
 @layer components {
   /* [ĐO] Cả cột filter thụt vào 16px so với mép container: chữ "Filter" bắt
      đầu ở x198 trong khi heading footer bắt đầu ở x182. */
-  .filter { padding-inline-start: var(--sidebar-pad); }
+  .filter {
+    /* Dùng chung cho nhiều phần tử trong cột nên để thành biến cục bộ. */
+    --text-filter: 18px;       /* "Filter", "Clear all", tên nhóm */
+    --text-option: 16px;       /* các dòng tuỳ chọn và rating */
+    --leading-filter: 157%;    /* [ĐO] "Filter", "Clear all", tên nhóm */
+
+    padding-inline-start: 16px;
+  }
 
   /* Hai nhãn đầu cột: một float trái, một float phải, rồi tự dọn float.
      Cả hai cùng cỡ chữ và cùng line-height nên đường chân chữ trùng nhau. */
   .filter__bar {
-    padding-block-end: var(--filter-bar-pb);
+    padding-block-end: 11px;   /* [ĐO] đường kẻ nằm ở y612 */
     /* [ĐO] "Clear all" kết thúc ở x535, thụt vào 13px so với đường kẻ. */
-    padding-inline-end: var(--filter-bar-pe);
+    padding-inline-end: 13px;
   }
 
   .filter__bar::after {
@@ -43,40 +50,44 @@
 
   .filter__clear:hover { opacity: 0.6; }
 
-  /* [ĐO] Đường kẻ trong Figma dày 2px, hai sắc độ: trên nhạt, dưới đậm (ở
-     cả hai đường). Viền 1px vẽ một dòng, bóng inset vẽ dòng còn lại —
-     bóng không chiếm chỗ nên không đẩy bố cục. Đường kẻ bắt đầu x194 và
-     kết thúc x547, tức lùi trái 2px so với nội dung cột; padding bù lại để
-     chữ bên trong không dịch. */
+  /* [ĐO] Đường kẻ trong Figma dày 2px, hai sắc độ: trên nhạt (219,211,199),
+     dưới đậm (199,186,171) — ở cả hai đường. Viền 1px vẽ một dòng, bóng
+     inset vẽ dòng còn lại; bóng không chiếm chỗ nên không đẩy bố cục.
+     Đường kẻ bắt đầu x194 và kết thúc x547, tức lùi trái 2px so với nội
+     dung cột; padding bù lại để chữ bên trong không dịch. */
   .filter__groups {
-    margin-inline: calc(-1 * var(--filter-rule-shift)) var(--filter-rule-shift);
-    padding-inline-start: var(--filter-rule-shift);
-    border-block-start: 1px solid var(--filter-rule-light);
-    border-block-end: 1px solid var(--filter-rule-dark);
+    margin-inline: -2px 2px;
+    padding-inline-start: 2px;
+    border-block-start: 1px solid rgb(88 54 13 / 19%);
+    border-block-end: 1px solid rgb(88 54 13 / 31.5%);
     box-shadow:
-      inset 0 1px 0 var(--filter-rule-dark),
-      inset 0 -1px 0 var(--filter-rule-light);
-    padding-block: var(--filters-pt) var(--filters-pb);
+      inset 0 1px 0 rgb(88 54 13 / 31.5%),
+      inset 0 -1px 0 rgb(88 54 13 / 19%);
+    /* [ĐO] đường kẻ y612 → "Skin type" y637; dòng cuối y1305 → kẻ y1343 */
+    padding-block: 18.75px 35px;
   }
 
-  .filter__group + .filter__group { margin-block-start: var(--filter-group-gap); }
+  /* [ĐO] tên nhóm ở y637 / 814 / 991 / 1164 */
+  .filter__group + .filter__group { margin-block-start: 13px; }
 
   .filter__legend {
     display: block;
     font-size: var(--text-filter);
     font-weight: var(--weight-bold);
     line-height: var(--leading-filter);
-    letter-spacing: var(--filter-legend-tracking);
-    margin-block-end: var(--filter-legend-gap);
+    letter-spacing: 0.25px;      /* [ĐO] bù độ rộng Mulish so với Century Gothic */
+    margin-block-end: 7px;       /* [ĐO] tên nhóm y637 → dòng đầu y676 */
   }
 
   /* [ĐO] Figma để nhóm Category sát tiêu đề hơn 4px so với các nhóm khác —
-     không đồng đều trong bản thiết kế, nhưng giữ đúng để ảnh đè khớp. */
-  .filter__legend--tight { margin-block-end: var(--filter-legend-gap-tight); }
+     không đồng đều trong bản thiết kế, nhưng giữ đúng để ảnh đè khớp:
+     "Category" y991 → dòng đầu y1026. */
+  .filter__legend--tight { margin-block-end: 3px; }
 
   /* Các dòng rating đã có leading riêng, nếu dùng chung khoảng hở của
-     legend sẽ bị đẩy xuống thấp hơn bản thiết kế. */
-  .filter__legend--rating { margin-block-end: var(--rating-legend-gap); }
+     legend sẽ bị đẩy xuống thấp hơn bản thiết kế. [ĐO] "Rating" y1164 →
+     dòng đầu y1195. */
+  .filter__legend--rating { margin-block-end: 4px; }
 
   .filter__options,
   .rating {
@@ -85,20 +96,21 @@
     margin: 0;
   }
 
-  /* Mỗi dòng tùy chọn cao đúng --filter-row và line-height bằng chiều cao
-     đó, nên ô tick (inline-block, vertical-align: middle) tự nằm giữa dòng
-     mà không cần flexbox. */
+  /* Mỗi dòng tùy chọn cao đúng 32px và line-height bằng chiều cao đó, nên ô
+     tick (inline-block, vertical-align: middle) tự nằm giữa dòng mà không
+     cần flexbox. [ĐO] chân chữ y688 → y784 qua 3 dòng. */
   .filter__option {
     display: block;
-    block-size: var(--filter-row);
-    line-height: var(--filter-row);
+    block-size: 32px;
+    line-height: 32px;
     font-size: var(--text-option);
     cursor: pointer;
   }
 
   /* Ô tick vuông viền mảnh. Khi chọn thì tô kín nâu và hiện dấu tick trắng.
      Figma vẽ trạng thái chọn là một ô vuông nhỏ đặc ở giữa; dấu tick dễ đọc
-     hơn hẳn ở cỡ 12px nên đây là chỗ cố ý làm khác bản thiết kế. */
+     hơn hẳn ở cỡ 12px nên đây là chỗ cố ý làm khác bản thiết kế.
+     [ĐO] ô tick bắt đầu ở x198; ô tick → nhãn cách 13px. */
   .filter__checkbox {
     appearance: none;
     position: relative;
@@ -106,7 +118,7 @@
     vertical-align: middle;
     inline-size: 12px;
     block-size: 12px;
-    margin-inline: var(--filter-check-inset) var(--filter-option-gap);
+    margin-inline: 2px 13px;
     border: 1px solid var(--border-control);
     border-radius: 2px;
     transition:
@@ -138,43 +150,45 @@
 
   .filter__checkbox:checked::after { scale: 1; }
 
+  /* [ĐO] bước dòng rating y1198 → 1223 */
   .rating__row {
     display: block;
-    block-size: var(--rating-row);
-    line-height: var(--rating-row);
+    block-size: 24px;
+    line-height: 24px;
     font-size: var(--text-option);
     cursor: pointer;
   }
 
-  /* [ĐO] Figma canh đỉnh ô tick bằng đỉnh chữ hoa, cao hơn giữa dòng 2px.
+  /* [ĐO] Figma canh đỉnh ô tick bằng đỉnh chữ hoa, cao hơn giữa dòng 3px.
      Hàng rating không cần vì ô tick ở đó canh theo khối sao. */
-  .filter__option .filter__checkbox { inset-block-start: var(--filter-check-lift); }
+  .filter__option .filter__checkbox { inset-block-start: -3px; }
 
-  /* Hàng rating: ô tick → sao hẹp hơn ô tick → chữ ở các nhóm trên. */
-  .rating__row .filter__checkbox { margin-inline-end: var(--rating-check-gap); }
+  /* Hàng rating: ô tick → sao hẹp hơn ô tick → chữ ở các nhóm trên.
+     [ĐO] ô tick hết x209, sao từ x220. */
+  .rating__row .filter__checkbox { margin-inline-end: 10px; }
 
-  /* [ĐO] sao 16px, tâm cách nhau 20px. */
+  /* [ĐO] sao 16px, tâm cách nhau 20px; sao hết x315, nhãn từ x333. */
   .rating__stars {
     display: inline-block;
     vertical-align: middle;
-    margin-inline-end: var(--rating-label-gap);
+    margin-inline-end: 16px;
     font-size: 0;
   }
 
   .rating__stars img {
     display: inline-block;
     vertical-align: middle;
-    inline-size: var(--rating-star);
-    block-size: var(--rating-star);
+    inline-size: 16px;
+    block-size: 16px;
   }
 
-  .rating__stars img + img { margin-inline-start: var(--rating-star-gap); }
+  .rating__stars img + img { margin-inline-start: 4px; }
 
   /* Figma để nhãn ở #A9967F (tương phản 2.66:1 — dưới chuẩn WCAG AA).
      Ở đây đậm hơn một chút cho đạt 4.62:1, xem README. */
   .rating__label {
     vertical-align: middle;
-    letter-spacing: var(--rating-label-tracking);
+    letter-spacing: -0.8px;      /* [ĐO] "5 star" x333 → 370 */
     color: var(--text-idle);
   }
 }

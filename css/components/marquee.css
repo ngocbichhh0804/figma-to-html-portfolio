@@ -2,16 +2,20 @@
   /* Dải ribbon nghiêng, tràn qua cả hai mép màn hình. Bản thiết kế là tĩnh
      nên ở đây cũng tĩnh — không animation, để ảnh so sánh đối chiếu được. */
   .marquee {
+    /* Dùng ở nhiều rule nên để thành biến cục bộ. */
+    --marquee-tilt: -2.25deg;       /* [ĐO] mép y2028 tại x5 → y1953 tại x1914 */
+    --marquee-item-gap: 20.75px;    /* [ĐO] khoảng lặp ~399px, không trôi */
+
     position: relative;
     inline-size: 106vw;
     margin-inline-start: -3vw;
-    margin-block-start: var(--marquee-gap);
+    margin-block-start: 169px;      /* [ĐO] mép trên ribbon y1990 tại x960 */
     rotate: var(--marquee-tilt);
-    translate: 0 var(--marquee-drop);
+    translate: 0 0.75px;            /* [ĐO] chữ ribbon khớp theo trục dọc */
     /* [ĐO] Dải băng không có nền riêng — chỉ hai đường kẻ trên dưới; màu bên
        trong đo được trùng đúng màu nền trang phía sau. */
     border-block: 1px solid var(--text-primary);  /* [ĐO] nâu đậm nguyên màu */
-    padding-block: var(--marquee-band-top) var(--marquee-band-bottom);
+    padding-block: 27px 18px;       /* [ĐO] kẻ trên y1991, kẻ dưới y2095 tại x960 */
     overflow: hidden;
   }
 
@@ -19,7 +23,7 @@
      chúng không xuống hàng, font-size: 0 khử khoảng trắng giữa các thẻ
      trong HTML để khoảng lặp đúng bằng con số đã đo. */
   .marquee__track {
-    margin-inline-start: var(--marquee-offset);
+    margin-inline-start: 14.5px;    /* [ĐO] sao đầu tiên rơi đúng x294 */
     white-space: nowrap;
     font-size: 0;
   }
@@ -28,8 +32,8 @@
     display: inline-block;
     vertical-align: middle;
     font-family: var(--font-display); /* [FIGMA] Butler */
-    font-size: var(--text-marquee);
-    letter-spacing: var(--marquee-track);
+    font-size: 50px;                  /* [ĐO] khớp bề ngang chữ bản thiết kế */
+    letter-spacing: 0.016em;          /* [ĐO] "New arrivals" rộng 285px */
     line-height: 1;
   }
 
@@ -39,11 +43,12 @@
     display: inline-block;
     vertical-align: middle;
     margin-inline-start: var(--marquee-item-gap);
-    inline-size: var(--marquee-star);
-    block-size: var(--marquee-star);
+    inline-size: 54px;                /* [ĐO] ngôi sao cam rộng 50px */
+    block-size: 54px;
     /* [ĐO] Trong Figma ngôi sao đứng thẳng theo trang, không nghiêng theo dải
-       băng: xoay ngược lại đúng góc nghiêng. Sao nằm cao hơn tâm dòng chữ. */
+       băng: xoay ngược lại đúng góc nghiêng. Sao nằm cao hơn tâm dòng chữ:
+       tâm sao đầu tiên ở (318.4, 2068.6). */
     rotate: calc(-1 * var(--marquee-tilt));
-    translate: var(--marquee-star-dx) var(--marquee-star-dy);
+    translate: -0.5px -5.4px;
   }
 }

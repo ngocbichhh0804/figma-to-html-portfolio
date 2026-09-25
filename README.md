@@ -59,15 +59,17 @@ JavaScript — nút bấm là radio input đọc bằng `:has()`.
    trong panel inspector (màu, toạ độ, kích thước lớp trang trí) thì lấy thẳng;
    phần còn lại đo bằng script quét pixel trên ảnh export — mép nét chữ, bề
    ngang khối, bước dòng.
-2. **Dựng token.** Mỗi con số đo được thành một custom property trong
-   `css/tokens.css`, kèm nhãn nguồn gốc: `[FIGMA]` đọc từ inspector, `[ĐO]` đo
-   từ ảnh export, `[MẪU]` lấy từ file asset. Markup và component không chứa số
-   rời — mọi thứ truy ngược được về một dòng trong file token.
+2. **Dựng token.** Giá trị dùng chung (màu, font, thang độ đậm, leading,
+   chuyển động) là custom property trong `css/tokens.css`. Số đo riêng của từng
+   component ghi thẳng trong file component đó. Mọi con số đều kèm nhãn nguồn
+   gốc ngay bên cạnh: `[FIGMA]` đọc từ inspector, `[ĐO]` đo từ ảnh export,
+   `[MẪU]` lấy từ file asset. Số nào dùng ở nhiều rule trong cùng component thì
+   làm biến cục bộ trên selector gốc của component, để chỉ phải sửa một chỗ.
 3. **Viết HTML semantic trước, CSS sau.** Landmark đầy đủ, một `h1` duy nhất,
    `fieldset`/`legend` thật cho nhóm filter, `label` gắn đúng input, nút là
    `<button>`.
 4. **Vòng lặp đo – sửa.** Render bằng Playwright ở 1920, quét pixel, so với ảnh
-   export, sửa **một** token, render lại. Lặp tới khi 19 mốc đo đều nằm trong
+   export, sửa **một** số đo, render lại. Lặp tới khi 19 mốc đo đều nằm trong
    vài pixel. Riêng font hero thì render thử 16 họ chữ serif, mỗi họ tự giải cỡ
    chữ và letter-spacing sao cho khối chữ đúng 934 × 72 px, rồi chọn họ có sai
    lệch pixel nhỏ nhất.
@@ -140,16 +142,18 @@ quyết định của tôi chứ không suy ra được từ file Figma:
   giá trị rồi chọn giá trị khớp ảnh export nhất: **260px** cho cả vầng sáng vàng
   lẫn khối hồng.
 - **Sáu ảnh sản phẩm được đặt tay trong Figma**, không tấm nào căn giữa ô hoàn
-  toàn. Tôi đo độ lệch từng tấm bằng cách so trọng tâm vùng tối, rồi ghi thành
-  12 biến `--img-dx-*` / `--img-dy-*`; dùng `translate` nên không tấm nào làm xê
-  dịch phần chữ bên dưới.
-- **Hàng sản phẩm thứ hai** để khối chữ thấp hơn hàng đầu 17px — cũng là do đặt
-  tay trong Figma, nên tôi ghi thành một token riêng thay vì làm tròn cho đều.
+  toàn. Tôi đo độ lệch từng tấm bằng cách so trọng tâm vùng tối, rồi ghi vào
+  sáu modifier `.card__media--1…6` (cặp `--img-dx` / `--img-dy`); dùng
+  `translate` nên không tấm nào làm xê dịch phần chữ bên dưới.
+- **Hàng sản phẩm thứ hai** để khối chữ thấp hơn hàng đầu 20px — cũng là do đặt
+  tay trong Figma, nên tôi ghi thành một số đo riêng thay vì làm tròn cho đều.
 - **Dải ribbon để tĩnh, không chạy.** Bản thiết kế là khung tĩnh nên tôi giữ
   nguyên; muốn cho chạy thì thêm một `@keyframes` dịch ngang là đủ, vẫn không
   cần JavaScript.
-- **`--card-title-w` để 280px** thay vì 277px của bản thiết kế, để Montserrat
-  còn ngắt đúng hai dòng ở tên sản phẩm. Chênh 3px, không nhìn ra được.
+- **Bề ngang tên sản phẩm để 290px** thay vì 277px của bản thiết kế, để
+  Montserrat (đã giãn chữ 0.5px cho khớp bề ngang Gotham) còn ngắt đúng hai
+  dòng. Đây chỉ là giới hạn tối đa của hộp chữ, chữ vẫn căn giữa nên không nhìn
+  ra được.
 
 ## Cấu trúc
 
@@ -158,7 +162,7 @@ index.html              một file, không thẻ <script> nào
 css/
 ├── reset.css           reset hiện đại, layer thấp nhất
 ├── fonts.css           10 khai báo @font-face, trỏ vào assets/fonts/
-├── tokens.css          toàn bộ design token bóc từ Figma
+├── tokens.css          design token dùng chung (màu, font, leading, chuyển động)
 ├── base.css            mặc định cho thẻ, nhịp chữ
 ├── layout.css          container, hai lớp trang trí, lưới Shop
 ├── components/         nav, hero, filter, card, pagination, marquee, footer

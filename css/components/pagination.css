@@ -4,7 +4,7 @@
      không cần flexbox; font-size: 0 để khoảng trắng trong HTML không cộng
      thêm khe hở ngoài khoảng cách đã đo. */
   .pagination {
-    margin-block-start: var(--pagination-gap);
+    margin-block-start: 59px;   /* [ĐO] nét số pagination ở y1799 */
     font-family: var(--font-sans);
     font-size: 0;
     text-align: center;
@@ -13,7 +13,7 @@
   .pagination__list {
     display: inline-block;
     vertical-align: middle;
-    margin-inline: var(--pagination-arrow-gap);
+    margin-inline: 40px;        /* [ĐO] mũi tên hết x1056, số 1 từ x1105 */
     list-style: none;
     padding: 0;
     font-size: 0;
@@ -24,7 +24,8 @@
     vertical-align: middle;
   }
 
-  .pagination__list li + li { margin-inline-start: var(--pagination-item-gap); }
+  /* [ĐO] tâm số cách nhau 47.5px */
+  .pagination__list li + li { margin-inline-start: 30px; }
 
   /* Bản thiết kế chỉ tô đậm trang đang mở; hai số còn lại và mũi tên lùi
      dùng tông nhạt hơn. Xem README mục "Những quyết định tôi tự đưa ra"
@@ -38,7 +39,7 @@
   .pagination__link {
     display: inline-block;
     padding-inline: 4px;
-    font-size: var(--text-pagination);
+    font-size: 17px;            /* [ĐO] nét số cao 13px (y1799–1811) */
   }
 
   /* Trang đang mở chỉ đậm màu chứ không đậm nét — đúng như bản thiết kế. */
@@ -52,9 +53,10 @@
     vertical-align: middle;
   }
 
+  /* [ĐO] nét mũi tên 5 × 8px */
   .pagination__arrow svg {
     display: block;
-    inline-size: var(--pagination-arrow);
-    block-size: var(--pagination-arrow);
+    inline-size: 9px;
+    block-size: 9px;
   }
 }

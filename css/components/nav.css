@@ -1,11 +1,18 @@
 @layer components {
-  .site-header { position: relative; z-index: 10; }
+  .site-header {
+    /* Dùng ở nhiều rule nên để thành biến cục bộ. */
+    --header-h: 200px;   /* [ĐO] hero bắt đầu ngay dưới y200 */
+    --nav-drop: 4px;     /* [ĐO] tâm hàng nav + icon ở y102, thấp hơn tâm header 2px */
+
+    position: relative;
+    z-index: 10;
+  }
 
   /* [FIGMA] Hàng header có lề riêng 168px mỗi bên, rộng hơn container chung
      của phần thân trang (lề 180px). */
   .site-header .container {
     position: relative;
-    max-inline-size: var(--header-w);
+    max-inline-size: 1584px;
   }
 
   /* Cả hàng header căn dọc bằng kỹ thuật line-height: hộp .nav cao đúng
@@ -30,10 +37,13 @@
     display: inline-block;
     vertical-align: middle;
     position: relative;
-    inset-block-start: var(--nav-logo-drop);
-    margin-inline-start: var(--nav-logo-inset);
+    /* [ĐO] riêng "Glo." thấp hơn hàng link: nét chữ y82–126 so với y93–115. */
+    inset-block-start: 5px;
+    /* [ĐO] khung header bắt đầu ở x168 (lề Figma) nhưng nét chữ "Glo." trong
+       ảnh export bắt đầu ở x193 — đây là khoảng thụt để chữ rơi đúng chỗ đó. */
+    margin-inline-start: 21.5px;
     font-family: var(--font-logo);   /* [FIGMA] Roghiska */
-    font-size: var(--text-logo);
+    font-size: 63px;                 /* [ĐO] nét chữ "Glo." rộng 99px */
     line-height: 1;
   }
 
@@ -42,7 +52,7 @@
     display: inline-block;
     vertical-align: middle;
     position: static;
-    margin-inline-start: var(--nav-item-gap);
+    margin-inline-start: 32px;   /* [ĐO] logo → khối link trong header */
     line-height: normal;
   }
 
@@ -87,7 +97,7 @@
     display: inline-block;
     vertical-align: middle;
     font-family: var(--font-sans);
-    font-size: var(--text-nav);
+    font-size: 25px;                      /* [ĐO] "Contact" rộng 90px (x721–811) */
     font-weight: var(--weight-semibold);  /* [ĐO] nét chữ nav đậm hơn chữ body */
     line-height: normal;
     transition: opacity var(--duration-fast) var(--ease-out);
@@ -104,7 +114,8 @@
     vertical-align: middle;
     inline-size: 9px;
     block-size: 9px;
-    margin-inline: var(--nav-chevron) var(--nav-chevron-after);
+    /* [ĐO] "Shop" hết ở x518, mũi tên từ x533; "About" bắt đầu ở x598. */
+    margin-inline: 12px 7px;
   }
 
   /* Bốn icon bên phải đặt tuyệt đối: chúng phải bám mép phải bất kể hàng
@@ -113,7 +124,7 @@
   .nav__actions {
     position: absolute;
     inset-block-start: 50%;
-    inset-inline-end: var(--nav-action-shift);
+    inset-inline-end: 2px;   /* [ĐO] nét icon cuối kết thúc x1741 */
     margin-block-start: calc(var(--nav-drop) / 2);
     translate: 0 -50%;
     font-size: 0;
@@ -125,12 +136,13 @@
     vertical-align: middle;
   }
 
-  .nav__action + .nav__action { margin-inline-start: var(--nav-action-gap); }
+  .nav__action + .nav__action { margin-inline-start: 24px; }  /* [FIGMA] */
 
   .nav__action img {
     display: block;
-    inline-size: var(--nav-action-size);
-    block-size: var(--nav-action-size);
+    /* [ĐO] khung icon 36px; nét icon 20–26px */
+    inline-size: 36px;
+    block-size: 36px;
   }
 
   /* Bản thiết kế không có bản mobile. Dưới 768px logo và bốn icon cùng nhỏ
@@ -139,15 +151,15 @@
   @media (width < 48rem) {
     .nav__disclosure { margin-inline-start: 16px; }
 
-    .nav__logo { font-size: var(--text-logo-sm); }
+    .nav__logo { font-size: 40px; }
 
     .nav__actions { inset-inline-end: 0; }
 
-    .nav__action + .nav__action { margin-inline-start: var(--nav-action-gap-sm); }
+    .nav__action + .nav__action { margin-inline-start: 10px; }
 
     .nav__action img {
-      inline-size: var(--nav-action-size-sm);
-      block-size: var(--nav-action-size-sm);
+      inline-size: 24px;
+      block-size: 24px;
     }
   }
 
@@ -165,7 +177,9 @@
       position: static;
       display: block;
       padding: 0;
-      margin-inline-start: var(--nav-offset);
+      /* [ĐO] "Shop" bắt đầu ở x460. Figma đo 161.5px giữa hai khung, nhưng
+         khung "Shop" có lề trong. */
+      margin-inline-start: 134px;
       background: none;
       border: 0;
     }
@@ -183,7 +197,9 @@
 
     .nav__list li + li {
       margin-block-start: 0;
-      margin-inline-start: var(--nav-gap);
+      /* [ĐO] Figma đo 41px giữa hai khung; mỗi khung link có ~4.5px lề trong
+         nên nét chữ cách nhau 50px. */
+      margin-inline-start: 50px;
     }
   }
 }

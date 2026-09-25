@@ -1,7 +1,20 @@
 @layer components {
   .site-footer {
+    /* Dùng ở nhiều rule nên để thành biến cục bộ. */
+    --scribble-w: 137.53px;    /* [FIGMA] bề ngang vòng elip quanh Subscribe */
+    --updates-input-h: 72px;   /* ô nhập email */
+    --social-icon: 48px;       /* [ĐO] icon tròn y2549–2596 */
+
     position: relative;
-    padding-block: var(--footer-pt) var(--footer-pb);
+    /* [ĐO] heading footer ở y2335; khung kết thúc ở y2748 */
+    padding-block: 232px 96px;
+  }
+
+  /* Bề ngang ba cột đầu [ĐO]: bước cột x183 → 468 → 749 → 1196. */
+  .site-footer__grid {
+    --footer-col-1: 285px;
+    --footer-col-2: 281px;
+    --footer-col-3: 447px;
   }
 
   .site-footer__grid::after {
@@ -36,17 +49,18 @@
      bản thiết kế cách từ nét heading xuống link đầu tiên đúng 60px. */
   .site-footer__heading {
     font-family: var(--font-display); /* [FIGMA] Butler */
-    font-size: var(--text-foot);
+    font-size: 25px;                  /* [ĐO] "Products" rộng 110px */
     font-weight: var(--weight-bold);
     line-height: var(--leading-normal);
-    letter-spacing: var(--footer-heading-track);
+    letter-spacing: -0.25px;          /* [ĐO] "Products" rộng 110px */
+    /* [ĐO] "Products" bắt đầu x177 trong khi link bắt đầu x180. */
     position: relative;
-    inset-inline-start: var(--footer-heading-shift);
-    margin-block-end: var(--footer-heading-gap);
+    inset-inline-start: -4px;
+    margin-block-end: 18px;           /* [ĐO] link đầu tiên bắt đầu ở y2395 */
   }
 
-  /* [ĐO] Riêng heading "About" lệch ít hơn hai heading còn lại. */
-  .site-footer__heading--near { inset-inline-start: var(--footer-heading-shift-3); }
+  /* [ĐO] Riêng heading "About" lệch ít hơn hai heading còn lại: bắt đầu x744. */
+  .site-footer__heading--near { inset-inline-start: -2px; }
 
   /* [FIGMA] Link footer, ô nhập, số điện thoại, email: Century Gothic. */
   .site-footer__list,
@@ -59,46 +73,50 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    letter-spacing: var(--footer-link-track);
+    letter-spacing: 0.3px;   /* [ĐO] bù độ rộng Mulish so với Century Gothic */
   }
 
-  /* [ĐO] Figma đặt khối link cột Quick Links thụt vào hơn heading của nó. */
+  /* [ĐO] Figma đặt khối link cột Quick Links thụt vào hơn heading của nó:
+     link bắt đầu x470. */
   @media (width >= 64rem) {
     .site-footer__list--inset {
-      padding-inline-start: var(--footer-list-2-inset);
+      padding-inline-start: 5px;
     }
 
-    /* [ĐO] Còn cột About thì ngược lại: link lùi ra trái hơn cột 2px. */
+    /* [ĐO] Còn cột About thì ngược lại: link lùi ra trái hơn cột 2px
+       (bắt đầu x744–746). */
     .site-footer__list--outset {
-      margin-inline-start: var(--footer-list-3-inset);
+      margin-inline-start: -2px;
     }
   }
 
-  .site-footer__list li + li { margin-block-start: var(--footer-row); }
+  /* [ĐO] bước dòng link footer 45px */
+  .site-footer__list li + li { margin-block-start: 18px; }
 
   /* [ĐO] Trong Figma hộp chữ "Our Story" hẹp hơn chữ 1px nên bị ngắt thành
-     hai dòng, căn giữa. Giữ đúng như vậy; margin âm để hai dòng này không
-     đẩy các link bên dưới. */
+     hai dòng, căn giữa: "Our" y2382 → "Story" y2408. Giữ đúng như vậy; margin
+     âm để hai dòng này không đẩy "FAQ" (y2440) xuống. */
   .site-footer__link--wrap {
     display: inline-block;
     vertical-align: top;
-    inline-size: var(--footer-story-w);
-    margin-block: var(--footer-story-mt) var(--footer-story-mb);
-    line-height: var(--footer-story-leading);
+    inline-size: 71px;
+    margin-block: -14px -25px;
+    line-height: 26px;
     text-align: center;
   }
 
   /* [ĐO] Trong Figma dòng "Refund & Cancellation" thụt vào hơn các link
-     cùng cột 5px. */
+     cùng cột 5px: bắt đầu x476. */
   .site-footer__item--nudge {
     position: relative;
-    inset-inline-start: var(--footer-item-nudge);
+    inset-inline-start: 5px;
   }
 
-  /* [ĐO] Link cuối cột About trong Figma cao hơn nhịp chung 3px. */
+  /* [ĐO] Link cuối cột About trong Figma cao hơn nhịp chung 3px: "Contactu
+     Us" ở y2483. */
   .site-footer__item--lift {
     position: relative;
-    inset-block-start: var(--footer-item-lift);
+    inset-block-start: -3px;
   }
 
   .site-footer__list a { transition: opacity var(--duration-fast) var(--ease-out); }
@@ -107,30 +125,30 @@
 
   .updates__heading {
     font-family: var(--font-display); /* [FIGMA] Butler */
-    font-size: var(--text-updates-heading);
+    font-size: 24px;                  /* [ĐO] "GET UPDATES" rộng 181px */
     font-weight: var(--weight-bold);
     line-height: var(--leading-normal);
     letter-spacing: 0.01em;  /* [ĐO] "GET UPDATES" rộng 181px (x1350–1531) */
     text-transform: uppercase;
     text-align: center;
-    /* Trong Figma hộp chữ này được đặt tay, lệch trái so với tâm cột. */
+    /* Trong Figma hộp chữ này được đặt tay, lệch trái so với tâm cột.
+       [ĐO] "GET UPDATES" nằm ở x1350–1530. */
     position: relative;
-    inset-inline-start: var(--updates-heading-shift);
+    inset-inline-start: -26px;
     margin-block-end: 21px;  /* [ĐO] dòng mô tả bắt đầu ở y2396 */
   }
 
   .updates__copy {
-    font-size: var(--text-body);  /* [ĐO] khối chữ rộng 431px (x1194–1625) */
+    font-size: var(--text-body);
     margin-block-end: 13px;
-    letter-spacing: var(--updates-copy-track);
+    letter-spacing: 0.3px;   /* [ĐO] dòng mô tả rộng 409px (x1194–1603) */
   }
 
   /* Ô nhập float trái, nút Subscribe float phải. Nút thấp hơn ô nhập nên
      đẩy xuống đúng nửa phần chênh lệch để hai cái cùng tâm.
-     [ĐO] Trong bản thiết kế nút Subscribe kết thúc ở x1726, thiếu 14px so
-     với container. */
+     [ĐO] Vòng Subscribe kết thúc ở x1730, thiếu 9px so với container. */
   .updates__form {
-    padding-inline-end: var(--updates-form-pe);
+    padding-inline-end: 9px;
   }
 
   .updates__form::after {
@@ -141,11 +159,12 @@
 
   .updates__input {
     float: left;
-    inline-size: calc(100% - var(--scribble-w) - var(--updates-form-gap));
+    /* [ĐO] khe ô nhập → nút 27px: ô nhập hết ở x1565 */
+    inline-size: calc(100% - var(--scribble-w) - 27px);
     block-size: var(--updates-input-h);
-    padding-inline: var(--updates-input-pad);  /* [ĐO] chữ bắt đầu ở x1228 */
+    padding-inline: 33px;       /* [ĐO] chữ gợi ý bắt đầu ở x1228 */
     font-size: var(--text-body);
-    letter-spacing: var(--updates-input-track);
+    letter-spacing: 0.4px;      /* [ĐO] chữ gợi ý rộng 150px (x1228–1378) */
     background-color: transparent;
     border: 1px solid var(--color-brown);      /* [ĐO] viền #58360D đậm nguyên */
     border-radius: var(--radius-pill);
@@ -154,22 +173,23 @@
   /* [ĐO] Bản thiết kế để chữ gợi ý cùng màu nâu đậm như chữ thường. */
   .updates__input::placeholder { color: var(--text-primary); opacity: 1; }
 
-  /* Hai ellipse vẽ tay 137.53 × 60.76, nét 1px #CD794A nằm trong, xoay
-     −16.4° và −7.17°. Dùng pseudo-element nên không phải thêm thẻ nào. */
+  /* [FIGMA] Hai ellipse vẽ tay 137.53 × 60.76, nét 1px #CD794A nằm trong,
+     xoay −16.4° và −7.17°. Dùng pseudo-element nên không phải thêm thẻ nào. */
   .updates__submit {
     float: right;
     position: relative;
     inline-size: var(--scribble-w);
-    block-size: var(--scribble-h);
-    margin-block-start: calc((var(--updates-input-h) - var(--scribble-h)) / 2);
-    line-height: var(--scribble-h);
+    block-size: 60.76px;
+    margin-block-start: calc((var(--updates-input-h) - 60.76px) / 2);
+    line-height: 60.76px;
     text-align: center;
     font-family: var(--font-card);   /* [FIGMA] Gotham */
     font-weight: var(--weight-bold);
-    font-size: var(--text-subscribe);  /* [ĐO] chữ "Subscribe" rộng 88px */
-    /* Chỉ đẩy chữ; hai vòng elip là pseudo-element inset: 0 nên đứng yên. */
-    padding-block-start: var(--subscribe-dy);
-    padding-inline-start: var(--subscribe-dx);
+    font-size: 18px;                 /* [ĐO] chữ "Subscribe" 88 × 13px */
+    /* Chỉ đẩy chữ; hai vòng elip là pseudo-element inset: 0 nên đứng yên.
+       [ĐO] chữ bắt đầu x1618, đỉnh chữ S ở y2462. */
+    padding-block-start: 4px;
+    padding-inline-start: 4px;
   }
 
   .updates__submit::before,
@@ -182,18 +202,19 @@
     pointer-events: none;
   }
 
-  .updates__submit::before { rotate: var(--scribble-rot-a); }
+  /* [FIGMA] Figma ghi −16.4° và −7.17°; Figma quay ngược chiều CSS nên đổi dấu. */
+  .updates__submit::before { rotate: 16.4deg; }
 
-  .updates__submit::after { rotate: var(--scribble-rot-b); }
+  .updates__submit::after { rotate: 7.17deg; }
 
   /* Hàng mạng xã hội nằm giữa hai đường kẻ ngang chạy từ x1197 đến x1734,
      hẹp hơn cột một chút ở cả hai bên. [ĐO] icon 48px, bước lặp 96px.
      Căn dọc bằng line-height đúng bằng chiều cao icon. */
   .updates__social {
-    margin-block-start: var(--social-top);
-    margin-inline: var(--social-inset-start) var(--social-inset-end);
-    padding-block: var(--social-pad-top) var(--social-pad-bottom);
-    padding-inline-start: var(--social-pad-start);
+    margin-block-start: 36px;      /* [ĐO] kẻ trên ở y2537 */
+    margin-inline: 4px 6px;        /* [ĐO] kẻ ngang x1197 → 1734 */
+    padding-block: 11px 12px;      /* [ĐO] icon từ y2549, kẻ dưới ở y2609 */
+    padding-inline-start: 6px;     /* [ĐO] icon đầu tiên ở x1203 */
     border-block: 1px solid var(--border-hairline);
     line-height: var(--social-icon);
     font-size: 0;
@@ -204,7 +225,7 @@
     vertical-align: middle;
   }
 
-  .updates__social a + a { margin-inline-start: var(--social-gap); }
+  .updates__social a + a { margin-inline-start: 48px; }
 
   .updates__social img {
     display: block;
@@ -226,19 +247,19 @@
     display: inline-block;
     vertical-align: middle;
     position: relative;
-    inset-inline-start: var(--phone-nudge);
+    inset-inline-start: -2px;   /* [ĐO] số điện thoại bắt đầu x1531 */
     line-height: normal;
-    font-size: var(--text-phone);
-    letter-spacing: var(--phone-track);
+    font-size: 17px;
+    letter-spacing: -0.3px;     /* [ĐO] số điện thoại rộng 154px */
   }
 
-  /* [ĐO] "Wecare@glo.com" nằm ở x1394–1535, tức canh giữa cột chứ không phải
+  /* [ĐO] "Wecare@glo.com" nằm ở x1399–1530, tức canh giữa cột chứ không phải
      canh phải. */
   .updates__email {
     margin-block-start: 15px;
     text-align: center;
     font-size: var(--text-body);
-    letter-spacing: var(--email-track);
+    letter-spacing: 0.3px;      /* [ĐO] email rộng 131px */
   }
 
   /* Dưới 512px ô nhập email còn chưa tới 280px nếu vẫn đứng cạnh nút, nên
