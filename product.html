@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="css/components/nav.css" />
     <link rel="stylesheet" href="css/components/breadcrumb.css" />
     <link rel="stylesheet" href="css/components/product.css" />
+    <link rel="stylesheet" href="css/components/cart.css" />
     <link rel="stylesheet" href="css/utilities.css" />
   </head>
 
@@ -73,7 +74,7 @@
               <a class="nav__action" href="#"><img src="assets/icon/icon-search-light.png" alt="Search" width="36" height="36" /></a>
               <a class="nav__action" href="#"><img src="assets/icon/icon-user-light.png" alt="Account" width="36" height="36" /></a>
               <a class="nav__action" href="#"><img src="assets/icon/icon-heart-light.png" alt="Wishlist" width="36" height="36" /></a>
-              <a class="nav__action" href="index.html"><img src="assets/icon/icon-bag-light.png" alt="Cart" width="36" height="36" /></a>
+              <a class="nav__action" href="#cart"><img src="assets/icon/icon-bag-light.png" alt="Cart" width="36" height="36" /></a>
             </div>
           </nav>
         </div>
@@ -128,6 +129,74 @@
           </section>
         </article>
       </main>
+    </div>
+    <!-- Giỏ hàng dạng ngăn kéo, mở bằng :target (#cart) — không JavaScript.
+         Nền mờ phía sau là một link "#" nên bấm ra ngoài là đóng. -->
+    <div class="cart" id="cart">
+      <a class="cart__scrim" href="#" tabindex="-1" aria-hidden="true"></a>
+      <aside class="cart__panel" aria-labelledby="cart-title">
+        <div class="cart__head">
+          <img class="cart__icon" src="assets/icon/icon-bag.png" alt="" width="36" height="36" />
+          <h2 class="cart__title" id="cart-title">Cart (2)</h2>
+          <a class="cart__close" href="#"><img src="assets/icon/close-circle-line.png" alt="Close cart" width="24" height="24" /></a>
+        </div>
+
+        <form class="cart__form" action="#" method="post">
+          <ul class="cart__list" role="list">
+              <li class="cart-item">
+                <div class="cart-item__media">
+                  <img src="assets/img/product-jar-upright.png" alt="" width="62" height="60" loading="lazy" />
+                </div>
+                <h3 class="cart-item__title">Mixed Grapes Sulphate Free Night Crem</h3>
+                <div class="cart-item__options">
+                  <label class="visually-hidden" for="size-1">Size</label>
+                  <select class="cart-item__select cart-item__select--size" id="size-1" name="size-1">
+                    <option selected>30ml</option>
+                    <option>50ml</option>
+                  </select>
+                  <label class="cart-item__qty" for="qty-1">Qty :</label>
+                  <select class="cart-item__select cart-item__select--qty" id="qty-1" name="qty-1">
+                    <option selected>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                </div>
+                <p class="cart-item__price">
+                  <s class="cart-item__was"><span class="visually-hidden">Was </span><span class="rupee rupee--old">₹</span>300.00</s>
+                  <span class="cart-item__now"><span class="visually-hidden">Now </span><span class="rupee rupee--cart">₹</span>230.00</span>
+                </p>
+              </li>
+              <li class="cart-item">
+                <div class="cart-item__media">
+                  <img src="assets/img/product-jar-upright.png" alt="" width="62" height="60" loading="lazy" />
+                </div>
+                <h3 class="cart-item__title">Mixed Grapes Sulphate Free Night Crem</h3>
+                <div class="cart-item__options">
+                  <label class="visually-hidden" for="size-2">Size</label>
+                  <select class="cart-item__select cart-item__select--size" id="size-2" name="size-2">
+                    <option selected>30ml</option>
+                    <option>50ml</option>
+                  </select>
+                  <label class="cart-item__qty" for="qty-2">Qty :</label>
+                  <select class="cart-item__select cart-item__select--qty" id="qty-2" name="qty-2">
+                    <option selected>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                </div>
+                <p class="cart-item__price">
+                  <s class="cart-item__was"><span class="visually-hidden">Was </span><span class="rupee rupee--old">₹</span>300.00</s>
+                  <span class="cart-item__now"><span class="visually-hidden">Now </span><span class="rupee rupee--cart">₹</span>230.00</span>
+                </p>
+              </li>
+          </ul>
+
+          <div class="cart__foot">
+            <p class="cart__subtotal">Subtotal: <strong class="cart__total"><span class="rupee rupee--total">₹</span>460.00</strong></p>
+            <a class="cart__checkout" href="checkout.html">Go to Cart</a>
+          </div>
+        </form>
+      </aside>
     </div>
   </body>
 </html>

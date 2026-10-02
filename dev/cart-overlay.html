@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="UTF-8" />
-<title>Overlay — Glo. shop vs Figma</title>
+<title>Overlay — Glo. cart vs Figma</title>
 <style>
-  /* Công cụ dành cho lúc code, không nằm trong bản giao cho khách: nó nạp
-     trang thật vào iframe ở đúng khổ khung thiết kế rồi đè ảnh export Figma
-     lên trên. Nút điều khiển là radio input đọc bằng :has() — không JavaScript. */
-  :root { --frame-w: 1920px; --frame-h: 2748px; }
+  /* Công cụ nội bộ, không giao cho khách: nạp product.html#cart (giỏ hàng mở) vào iframe
+     đúng khổ khung thiết kế (1920 × 1128) rồi đè ảnh export Figma lên trên.
+     Nút điều khiển là radio input đọc bằng :has() — không JavaScript.
+     Chế độ "Kéo trượt" dùng resize: horizontal của CSS: kéo góc phải dưới
+     của lớp Figma để mở rộng / thu hẹp. */
+  :root { --frame-w: 1920px; --frame-h: 1128px; }
 
   * { box-sizing: border-box; }
   body { margin: 0; background: #1e1e1e; font: 14px/1.4 system-ui, sans-serif; color: #eee; }
@@ -27,17 +29,24 @@
 
   .stage { position: relative; width: var(--frame-w); margin: 56px auto 0; }
   .stage iframe { display: block; width: var(--frame-w); height: var(--frame-h); border: 0; }
-  .stage .ov {
+  .ov {
     position: absolute; inset-block-start: 0; inset-inline-start: 0;
     width: var(--frame-w); pointer-events: none; opacity: .5;
   }
+  .ov img { display: block; width: var(--frame-w); max-width: none; }
 
   body:has(#m-build:checked)  .ov { opacity: 0; }
   body:has(#m-50:checked)     .ov { opacity: .5; }
   body:has(#m-figma:checked)  .ov { opacity: 1; }
-  /* Chế độ difference: pixel nào trùng khít thì thành đen, chỗ lệch sẽ phát sáng. */
+  /* Difference: pixel nào trùng khít thành đen, chỗ lệch sẽ phát sáng. */
   body:has(#m-diff:checked)   .ov { opacity: 1; mix-blend-mode: difference; }
   body:has(#m-diff:checked)   .stage { background: #fff; }
+  /* Kéo trượt: trái là Figma, phải là bản code. */
+  body:has(#m-slide:checked)  .ov {
+    opacity: 1; width: 50%; min-width: 40px; max-width: var(--frame-w);
+    height: var(--frame-h); overflow: hidden; resize: horizontal;
+    pointer-events: auto; border-inline-end: 2px solid #ff3b30;
+  }
 
   body:has(#grid:checked) .stage::after {
     content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -49,21 +58,22 @@
 </head>
 <body>
   <div class="bar">
-    <strong>Glo. — trang Shop</strong>
+    <strong>Glo. — Cart</strong>
     <label><input type="radio" name="mode" id="m-build" /> Chỉ bản code</label>
     <label><input type="radio" name="mode" id="m-50" checked /> Đè 50%</label>
     <label><input type="radio" name="mode" id="m-figma" /> Chỉ Figma</label>
     <label><input type="radio" name="mode" id="m-diff" /> Difference</label>
+    <label><input type="radio" name="mode" id="m-slide" /> Kéo trượt</label>
     <label><input type="checkbox" id="grid" /> Lưới 100px</label>
+    <a href="overlay.html">Trang Shop →</a>
     <a href="landing-overlay.html">Landing page →</a>
     <a href="product-overlay.html">Trang sản phẩm →</a>
-    <a href="cart-overlay.html">Giỏ hàng →</a>
-    <span class="hint">1920 × 2748 — zoom trình duyệt để xem vừa màn hình, lớp đè co theo</span>
+    <span class="hint">1920 × 1128 — zoom trình duyệt để xem vừa màn hình. Kéo trượt: kéo góc dưới cùng bên phải của lớp Figma</span>
   </div>
 
   <div class="stage">
-    <iframe src="../index.html" title="Bản code" scrolling="no"></iframe>
-    <img class="ov" src="../docs/comparison/shop/shop-figma.png" alt="Ảnh export từ Figma" />
+    <iframe src="../product.html#cart" title="Bản code" scrolling="no"></iframe>
+    <div class="ov"><img src="../docs/comparison/cart/cart-figma.png" alt="Ảnh export từ Figma" /></div>
   </div>
 </body>
 </html>

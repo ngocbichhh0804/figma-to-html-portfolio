@@ -63,7 +63,7 @@ css/
 ├── reset.css / fonts.css / tokens.css / base.css / layout.css
 ├── components/          nav, hero, filter, card, pagination, marquee, footer,
 │                        showcase, discover, bestsellers, feature, button,
-│                        breadcrumb, product
+│                        breadcrumb, product, cart
 │                        (form.css, table.css hiện đang trống)
 └── utilities.css
 assets/fonts/            10 file woff2, bảng mã latin
@@ -73,7 +73,8 @@ assets/img/                ảnh sản phẩm; có vài file nháp cũ nên dọ
 dev/overlay.html         công cụ đè ảnh Figma lên bản code, đọc README trước khi dùng
 dev/landing-overlay.html như trên cho landing page (1920 × 5769)
 dev/product-overlay.html như trên cho trang sản phẩm (1920 × 1128)
-docs/comparison/         ảnh đối chiếu Figma vs code (shop/, landing/, product/; checkout/ trống)
+dev/cart-overlay.html    như trên cho giỏ hàng (product.html#cart)
+docs/comparison/         ảnh đối chiếu Figma vs code (shop/, landing/, product/, cart/; checkout/ trống)
 js/main.js, src/input.css  CÒN SÓT từ hướng làm cũ (Tailwind + JS), index.html
                          KHÔNG nạp hai file này. Cân nhắc xoá để khỏi gây hiểu nhầm
                          vì README cam kết "không JavaScript".
@@ -99,6 +100,9 @@ js/main.js, src/input.css  CÒN SÓT từ hướng làm cũ (Tailwind + JS), ind
   giấy ngẫu nhiên (feTurbulence). Không có footer (Figma không vẽ). Fraunces
   không có "₹" → hình ₹ dò từ Figma, dùng làm mask data URI
   (`assets/img/rupee-sign.svg` là bản gốc).
+- **Giỏ hàng (Cart Modal)**: ngăn kéo trong `product.html`, mở bằng `#cart`
+  (`:target`, không JS). 16 vùng khớp 0px, sai lệch toàn khung 2.2/765. Mulish
+  không có "₹" → ba mask PNG lấy alpha từ ảnh export (`assets/img/rupee-cart*.png`).
 - **`checkout.html`**: chưa dựng, cần ảnh export Figma 1:1.
 - **Logo "Glo."** (chung ba trang): [FIGMA] 61.17px, giãn 2% — khớp hơn 63px cũ.
 - **Header 1024–1439px**: đã thu khoảng hở link nav (trước đó "Offers" đè lên

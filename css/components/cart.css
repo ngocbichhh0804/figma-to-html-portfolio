@@ -1,0 +1,332 @@
+@layer components {
+  /* Ngăn kéo giỏ hàng trên trang sản phẩm — khung Figma "Cart Modal"
+     1920 × 1128. Ẩn mặc định, hiện khi URL có #cart (:target): icon túi ở
+     header trỏ tới #cart, nút đóng và vùng nền mờ trỏ về "#". Không
+     JavaScript. Toạ độ [ĐO]/[FIGMA] tính trên khung 1920; ngăn kéo bắt đầu
+     ở x1401 nên số trong ngăn = toạ độ khung − 1401.
+
+     Nền trong ngăn sáng nên ngăn tự đặt lại tầng màu ngữ nghĩa về theme
+     sáng, không phụ thuộc .theme-dark của trang. */
+  .cart {
+    --cart-w: 519px;                    /* [ĐO] ngăn kéo x1401–1920 */
+    --cart-linen: #faf4f0;              /* [FIGMA] nền ngăn, chữ nút "Go to Cart" */
+    --text-primary: var(--color-brown);
+
+    display: none;
+    color: var(--text-primary);
+  }
+
+  .cart:target { display: block; }
+
+  /* [FIGMA] Trong khung Cart Modal, trang phía sau không có dòng breadcrumb.
+     visibility (không phải display) để bố cục trang phía sau không xê dịch. */
+  body:has(.cart:target) .breadcrumb { visibility: hidden; }
+
+  /* Trang phía sau: [ĐO] fit trên ảnh export — blur 4.5px, tối đi 10%
+     (sai số trung bình 1.5/765 so với ảnh trang sản phẩm làm mờ). Chỉ phủ
+     phần bên trái ngăn kéo để không làm mờ chính ngăn kéo. */
+  .cart__scrim {
+    position: fixed;
+    z-index: 30;
+    inset-block: 0;
+    inset-inline: 0 var(--cart-w);
+    backdrop-filter: blur(4.5px) brightness(0.9);
+  }
+
+  .cart__panel {
+    position: fixed;
+    z-index: 31;
+    inset-block: 0;
+    inset-inline-end: 0;
+    inline-size: var(--cart-w);
+    max-inline-size: 100%;
+    overflow: clip;
+    isolation: isolate;
+    background-color: var(--cart-linen);
+  }
+
+  /* Vầng hồng phía trên. [ĐO] fit mô phỏng blur trên ảnh export: elip
+     #FDDEDE đặc 780 × 586, tâm (128, −1) trong ngăn, blur 82px (sai số
+     alpha 0.8%). */
+  .cart__panel::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset-block-start: -294px;
+    inset-inline-start: -262px;
+    inline-size: 780px;
+    block-size: 586px;
+    border-radius: 50%;
+    background-color: var(--color-blush);
+    filter: blur(82px);
+    pointer-events: none;
+  }
+
+  /* ---------- Đầu ngăn ---------- */
+  .cart__head {
+    position: relative;
+    block-size: 74px;
+  }
+
+  .cart__icon {
+    position: absolute;
+    inset-block-start: 19px;            /* [ĐO] nét túi y26–48 */
+    inset-inline-start: 27px;           /* [ĐO] nét túi x1436 */
+    inline-size: 36px;
+    block-size: 36px;
+  }
+
+  /* [FIGMA] Mulish 700, 24px, line-height 100%, giãn 2%, #58360D. */
+  .cart__title {
+    position: absolute;
+    inset-block-start: 22px;            /* [ĐO] nét chữ y29–50 */
+    inset-inline-start: 73px;           /* [ĐO] nét "C" x1475 */
+    font-family: var(--font-sans);
+    font-size: 24px;
+    font-weight: var(--weight-bold);
+    line-height: 30px;
+    letter-spacing: 0.02em;
+  }
+
+  .cart__close {
+    position: absolute;
+    inset-block-start: 25px;            /* [ĐO] nét x1868–1887, y27–46 */
+    inset-inline-start: 465px;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .cart__close:hover { opacity: 0.65; }
+
+  .cart__close img {
+    inline-size: 24px;
+    block-size: 24px;
+  }
+
+  /* ---------- Danh sách ---------- */
+  .cart__list {
+    margin-block-start: 28px;           /* [ĐO] ô ảnh đầu y102 */
+  }
+
+  .cart-item {
+    position: relative;
+    block-size: 121px;
+    padding-inline-start: 191px;        /* [ĐO] tên sản phẩm x1593 */
+  }
+
+  .cart-item + .cart-item { margin-block-start: 44px; }   /* [ĐO] bước 165px */
+
+  /* [FIGMA] Frame 9865: 146 × 121, bo 12, trắng 25%, background blur 20. */
+  .cart-item__media {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 29px;           /* [ĐO] x1430 */
+    inline-size: 146px;
+    block-size: 121px;
+    border-radius: 12px;
+    background-color: rgb(255 255 255 / 25%);
+    backdrop-filter: blur(20px);
+  }
+
+  /* [ĐO] Fit ảnh: 62 × 60 tại (1468.5, 131.5). */
+  .cart-item__media img {
+    position: absolute;
+    inset-block-start: 29.5px;
+    inset-inline-start: 38.5px;
+    inline-size: 62px;
+    block-size: 60px;
+  }
+
+  /* [FIGMA] Mulish 700, 15px, line-height 145%, giãn 2%; hộp rộng 248.5. */
+  .cart-item__title {
+    max-inline-size: 248.5px;
+    padding-block-start: 1px;           /* [ĐO] nét chữ y108 */
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: var(--weight-bold);
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+  }
+
+  /* Hàng "30ml ⌄   Qty : 1 ⌄": hai <select> thật, bỏ giao diện mặc định,
+     mũi tên vẽ bằng SVG nền. [FIGMA] Mulish 400, 14px, line-height 100%. */
+  .cart-item__options {
+    position: absolute;
+    inset-block-start: 87px;            /* [ĐO] nét chữ y193–202 */
+    inset-inline-start: 191px;
+    font-size: 0;
+    line-height: 18px;
+  }
+
+  .cart-item__select,
+  .cart-item__qty {
+    display: inline-block;
+    vertical-align: top;
+    block-size: 18px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .cart-item__select {
+    padding: 0 20.5px 0 0;              /* [ĐO] mũi tên x1633–1641 */
+    border: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%2358360d' stroke-width='1.3'/%3E%3C/svg%3E") right center / 16px 16px no-repeat;
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .cart-item__select--qty { padding-inline-end: 22px; }   /* [ĐO] mũi tên x1758–1766 */
+
+  .cart-item__qty {
+    margin-inline: 58px 6px;            /* [ĐO] "Qty" x1704, "1" x1741 */
+  }
+
+  /* Hai giá xếp chồng, căn phải. [FIGMA] Mulish 16px, line-height 100%,
+     giãn 2%: giá cũ 400 #868686 gạch ngang, giá mới 700 #58360D. */
+  .cart-item__price {
+    position: absolute;
+    inset-block-start: 62px;            /* [ĐO] giá cũ y169, giá mới y191 */
+    inset-inline-end: 28px;             /* [ĐO] mép phải x1891 */
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.02em;
+    text-align: right;
+  }
+
+  .cart-item__was,
+  .cart-item__now { display: block; }
+
+  .cart-item__was { color: #868686; }
+
+  .cart-item__now { font-weight: var(--weight-bold); }
+
+  /* ---------- Chân ngăn ---------- */
+  .cart__foot {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline: 0;
+    block-size: 96px;
+  }
+
+  /* [FIGMA] "Subtotal:" Mulish 400 16px tại (27, 1035.1); "₹460.00" Mulish
+     700 24px tại (27, 1064.1). */
+  .cart__subtotal {
+    position: absolute;
+    inset-block-start: 3px;             /* [ĐO] nét "Subtotal" y1039 */
+    inset-inline-start: 27px;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .cart__total {
+    display: block;
+    margin-block-start: 9px;
+    font-size: 24px;
+    font-weight: var(--weight-bold);
+    line-height: 30px;
+  }
+
+  /* [FIGMA] Rectangle 51: 218.71 × 64 tại (259.5, 1032.1), bo 60, #58360D;
+     chữ Mulish 700 16px, giãn 2%, #FAF4F0. */
+  .cart__checkout {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 259.5px;
+    inline-size: 218.71px;
+    block-size: 64px;
+    border-radius: 60px;
+    background-color: var(--color-brown);
+    color: var(--cart-linen);
+    font-size: 16px;
+    font-weight: var(--weight-bold);
+    line-height: 64px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    /* [FIGMA] Hộp chữ 82 × 26 đặt tại x320.86 trong ngăn — lệch trái tâm nút
+       7px (nét "G" x1723). Chữ căn giữa nên text-indent âm gấp đôi độ lệch. */
+    text-indent: -14px;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .cart__checkout:hover { opacity: 0.85; }
+
+  /* ---------- Ký hiệu "₹" ----------
+     Mulish không có "₹" (U+20B9): Figma lẫn trình duyệt đều mượn font dự
+     phòng, mỗi bên một kiểu. Hình "₹" của Figma lấy thẳng từ ảnh export —
+     kênh alpha của từng điểm ảnh — làm mask (PNG nhúng data URI; bản gốc:
+     assets/img/rupee-cart*.png). Chữ "₹" thật vẫn trong HTML, chỉ trong
+     suốt. Bề ngang hộp là bề ngang ký tự dự phòng nên số phía sau không
+     xê dịch. */
+  .rupee {
+    display: inline-block;
+    color: transparent;
+    mask-repeat: no-repeat;
+  }
+
+  .rupee--old {
+    background-color: #868686;
+    mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAATCAYAAABLN4eXAAAAuUlEQVR42pWT7wkCMQzFfy1+Pw4XODcQF5DboAsIjuAMbnALuILiBG5wE4jnBDrB6ZcIsfRvIJCkeX0voTWkzQZq86KiOXloqaTPAgCMiltgk+m/A5OeaQ3svKYt0AFX4AVcgEnLivkNOKr8D+CAZ8DfwEfiQwmLlcYxxhTyDngAQwzUi/6fjyJt8C5Cb88BK5U3wtIAJ1Xfp+S1MabcTE4219eALHAWmcsakC8TU/pI9X+qBZR/Bd++pwsiYXiUrsMAAAAASUVORK5CYII=");
+    mask-size: 13px 19px;
+    mask-position: -2.34px 1px;         /* [ĐO] gốc hình tại (1826, 165) */
+  }
+
+  .rupee--cart {
+    background-color: var(--text-primary);
+    mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAATCAYAAABLN4eXAAAAoUlEQVR42t2RzQnCQBCFP3/AazpICdpBcvUidpIWLMES1kpMCakgxAbUqxc3l7cwLIbsnoQ8GOYxzGM/ZmF5WhlfAPuZ/QF42MFJw1BPwKvCrEkhaRS6T+FVwOVHsFZvAQfcthGvk1+rf03IAd0cWqGXPdBPLZ2jQ3gTKO3ixvgd8BHCGzjIH+Mzp1xuEGqyWgWvOaHSfHKVEwyYr1zMP2kE8NAqF2TubjEAAAAASUVORK5CYII=");
+    mask-size: 13px 19px;
+    mask-position: -1.36px 1px;         /* [ĐO] gốc hình tại (1826, 187) */
+  }
+
+  .rupee--total {
+    background-color: var(--text-primary);
+    mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAaCAYAAABRqrc5AAAAxUlEQVR42u2UzQnCQBCFPzEFrBVYQrCDpJOUYAmxAluwg7SgN2/GCtwO1Ftu5jKBYYzuJhgQ8cHAMrPMvPf2B/6YBDO1XksMgQeyRCUcsJyKrROGDwkPLPSGeUSTBjiK9EyaNsC+b3OppsWGB0iMSYeArFTWN+AMXIZ6o32pxpibA1fVpNBFLaewRXXsTuU2wO7VtJCxdc+QJyZV57a5H90FPAWMf4vasBmF1Mgqxzayfq2+Stb2U7Jy+ynFQv85d3lHv4QWKDdIknBWP0UAAAAASUVORK5CYII=");
+    mask-size: 17px 26px;
+    mask-position: -2px 2px;            /* [ĐO] gốc hình tại (1426, 1066) */
+    margin-inline-end: -1px;            /* [ĐO] "4" bắt đầu x1444 */
+  }
+
+  /* Màn hình hẹp: ngăn kéo chiếm cả bề ngang; trong mỗi dòng, ô ảnh nhỏ
+     lại và tên – lựa chọn – giá xếp dọc thay vì đặt tuyệt đối. */
+  @media (width < 32.5rem) {
+    .cart__panel { inline-size: 100%; }
+
+    .cart__scrim { display: none; }
+
+    .cart__close { inset-inline-start: auto; inset-inline-end: 30px; }
+
+    .cart__checkout { inset-inline-start: auto; inset-inline-end: 24px; inline-size: 180px; }
+
+    .cart-item {
+      block-size: auto;
+      min-block-size: 100px;
+      padding-inline: 134px 24px;
+    }
+
+    .cart-item__media {
+      inset-inline-start: 24px;
+      inline-size: 100px;
+      block-size: 100px;
+    }
+
+    .cart-item__media img {
+      inset-block-start: 20px;
+      inset-inline-start: 19px;
+    }
+
+    .cart-item__options,
+    .cart-item__price {
+      position: static;
+      margin-block-start: 8px;
+      text-align: left;
+    }
+
+    .cart-item__qty { margin-inline-start: 24px; }
+
+    .cart-item__was,
+    .cart-item__now {
+      display: inline-block;
+      margin-inline-end: 8px;
+    }
+  }
+}

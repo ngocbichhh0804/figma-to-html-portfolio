@@ -148,6 +148,36 @@ Chỗ cần biết, đều có ghi chú trong code:
   chính tả, cần khách xác nhận.
 - Figma không vẽ footer cho trang này nên trang dừng ở 1128px như khung thiết kế.
 
+## Giỏ hàng (`product.html#cart`)
+
+Khung Figma **Cart Modal 1920 × 1128**: trang sản phẩm bị làm mờ phía sau, ngăn
+kéo giỏ hàng bên phải. Không dựng thành trang riêng mà là ngăn kéo **trên chính
+trang sản phẩm**, mở bằng `:target` — icon túi ở header trỏ tới `#cart`, nút ✕
+và vùng nền mờ trỏ về `#`. Vẫn không một dòng JavaScript.
+
+| Cách kiểm | Kết quả |
+| --- | --- |
+| 16 vùng chữ / icon / giá / nút trong ngăn, so khung bao từng vùng | **0 px** (nút còn 1 px mép do toạ độ lẻ 259.5) |
+| Sai lệch màu trung bình toàn khung | **2.1 / 765** (ngăn kéo 2.2, nền mờ 2.1) |
+| Tỉ lệ pixel lệch ≤ 30 / 765 · ≤ 60 / 765 | **99.5 %** · **99.7 %** |
+
+Ảnh đối chiếu: [`docs/comparison/cart/`](docs/comparison/cart/). Công cụ so
+sánh: [`dev/cart-overlay.html`](dev/cart-overlay.html).
+
+- **Nền mờ phía sau**: `backdrop-filter: blur(4.5px) brightness(0.9)` trên vùng
+  bên trái ngăn kéo — fit trên ảnh export (trang sản phẩm mờ ~4.5px, tối 10%).
+- **Vầng hồng đầu ngăn**: elip `#FDDEDE` 780 × 586, blur 82px — fit mô phỏng blur.
+- **"30ml ⌄" và "Qty : 1 ⌄"** là hai `<select>` thật (bỏ giao diện mặc định,
+  mũi tên vẽ bằng SVG nền) — đổi được mà không cần JavaScript.
+- **Ký hiệu "₹"**: Mulish cũng không có ký tự này. Ba kiểu ₹ (giá cũ xám, giá
+  mới đậm, tổng tiền 24px) lấy thẳng kênh alpha từ ảnh export làm mask PNG
+  (`assets/img/rupee-cart*.png`, nhúng data URI). Nét 16px quá mảnh để dò
+  vector, nên dùng mask điểm ảnh cho đúng từng pixel.
+- Ảnh hũ trong ô: `product-jar-upright.png` 62 × 60, fit vị trí trên ảnh export.
+- Icon túi dùng `icon-bag.png`; icon đóng là `close-circle-line.png` khách cung cấp.
+- Khi giỏ hàng mở, dòng breadcrumb của trang phía sau ẩn đi (`visibility:
+  hidden`, bố cục không đổi) — đúng như khung Figma Cart Modal.
+
 ## Quy trình chuyển đổi
 
 1. **Lấy số liệu.** Export frame Figma ra PNG tỉ lệ 1:1. Những gì đọc được
@@ -265,7 +295,7 @@ css/
 ├── layout.css          container, hai lớp trang trí, lưới Shop
 ├── components/         nav, hero, filter, card, pagination, marquee, footer,
 │                       showcase, discover, bestsellers, feature, button,
-│                       breadcrumb, product
+│                       breadcrumb, product, cart
 └── utilities.css       visually-hidden, skip-link
 assets/
 ├── fonts/              10 file woff2, bảng mã latin
@@ -274,7 +304,8 @@ assets/
 dev/overlay.html        công cụ đè ảnh Figma lên trang Shop
 dev/landing-overlay.html  như trên, cho landing page
 dev/product-overlay.html  như trên, cho trang sản phẩm
-docs/comparison/        bộ ảnh đối chiếu (shop/, landing/, product/)
+dev/cart-overlay.html   như trên, cho giỏ hàng (product.html#cart)
+docs/comparison/        bộ ảnh đối chiếu (shop/, landing/, product/, cart/)
 ```
 
 CSS tổ chức bằng **cascade layer gốc của trình duyệt** — `reset, tokens, base,
@@ -316,6 +347,7 @@ cạnh nó trong `index.html` phải viết liền nhau trên một dòng.
 
 | Thành phần | Cách làm |
 | --- | --- |
+| Giỏ hàng dạng ngăn kéo | `:target` (`#cart`), nền mờ bằng `backdrop-filter` |
 | Menu mobile | `<details>` / `<summary>`, mở ở desktop bằng cách ghi đè `::details-content` |
 | Hàng nút trên thẻ | `:hover` và `:focus-within` |
 | Vòng tròn vẽ tay quanh *Subscribe* | hai pseudo-element bo tròn, xoay −16.4° và −7.17° |
