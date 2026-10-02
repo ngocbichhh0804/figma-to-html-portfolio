@@ -2,14 +2,14 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8" />
-<title>Overlay — Glo. cart page vs Figma</title>
+<title>Overlay — Glo. checkout vs Figma</title>
 <style>
-  /* Công cụ nội bộ, không giao cho khách: nạp cart.html (trang giỏ hàng) vào iframe
-     đúng khổ khung thiết kế (1920 × 1561) rồi đè ảnh export Figma lên trên.
+  /* Công cụ nội bộ, không giao cho khách: nạp checkout.html (trang thanh toán) vào iframe
+     đúng khổ khung thiết kế (1920 × 1152) rồi đè ảnh export Figma lên trên.
      Nút điều khiển là radio input đọc bằng :has() — không JavaScript.
      Chế độ "Kéo trượt" dùng resize: horizontal của CSS: kéo góc phải dưới
      của lớp Figma để mở rộng / thu hẹp. */
-  :root { --frame-w: 1920px; --frame-h: 1561px; }
+  :root { --frame-w: 1920px; --frame-h: 1152px; }
 
   * { box-sizing: border-box; }
   body { margin: 0; background: #1e1e1e; font: 14px/1.4 system-ui, sans-serif; color: #eee; }
@@ -58,7 +58,7 @@
 </head>
 <body>
   <div class="bar">
-    <strong>Glo. — Cart Page</strong>
+    <strong>Glo. — Checkout</strong>
     <label><input type="radio" name="mode" id="m-build" /> Chỉ bản code</label>
     <label><input type="radio" name="mode" id="m-50" checked /> Đè 50%</label>
     <label><input type="radio" name="mode" id="m-figma" /> Chỉ Figma</label>
@@ -69,13 +69,13 @@
     <a href="landing-overlay.html">Landing page →</a>
     <a href="product-overlay.html">Trang sản phẩm →</a>
     <a href="cart-overlay.html">Giỏ hàng (ngăn kéo) →</a>
-    <a href="checkout-overlay.html">Trang thanh toán →</a>
-    <span class="hint">1920 × 1561 — zoom trình duyệt để xem vừa màn hình. Kéo trượt: kéo góc dưới cùng bên phải của lớp Figma</span>
+    <a href="cart-page-overlay.html">Trang giỏ hàng →</a>
+    <span class="hint">1920 × 1152 — zoom trình duyệt để xem vừa màn hình. Kéo trượt: kéo góc dưới cùng bên phải của lớp Figma</span>
   </div>
 
   <div class="stage">
-    <iframe src="../cart.html" title="Bản code" scrolling="no"></iframe>
-    <div class="ov"><img src="../docs/comparison/cart-page/cart-page-figma.png" alt="Ảnh export từ Figma" /></div>
+    <iframe src="../checkout.html" title="Bản code" scrolling="no"></iframe>
+    <div class="ov"><img src="../docs/comparison/checkout/checkout-figma.png" alt="Ảnh export từ Figma" /></div>
   </div>
 </body>
 </html>

@@ -210,6 +210,49 @@ cụ so sánh: [`dev/cart-page-overlay.html`](dev/cart-page-overlay.html).
 - Header dùng chung modifier `site-header--bold` với trang sản phẩm (link 700,
   24px, giãn 2%).
 
+## Trang thanh toán (`checkout.html`)
+
+Khung Figma **Checkout page – 3rd party integration 1920 × 1152**: header rút
+gọn (logo + các bước Cart › Login › Information › Shipping Details › Payment),
+form đăng nhập bên trái, giỏ hàng tóm tắt bên phải. Không có footer (Figma
+không vẽ). Nút "Checkout" ở trang giỏ hàng và "Edit Cart" trỏ qua lại hai trang.
+
+| Cách kiểm | Kết quả |
+| --- | --- |
+| 40 vùng chữ / icon / ảnh / ô nhập / nút / đường kẻ, dò độ dịch tốt nhất | **0 px** (mọi vùng) |
+| Sai lệch màu trung bình toàn khung | **2.1 / 765** (1.8 sau khi làm mịn 3px) |
+| Tỉ lệ pixel lệch ≤ 30 / 765 | **99.3 %** |
+
+Ảnh đối chiếu: [`docs/comparison/checkout/`](docs/comparison/checkout/). Công
+cụ so sánh: [`dev/checkout-overlay.html`](dev/checkout-overlay.html).
+
+- **Cột phải dùng lại component của trang giỏ hàng** (`basket-item`,
+  `summary__row`, `coupon`, mask ₹ trong `basket.css`). Dòng sản phẩm trùng khít
+  trang giỏ hàng, chỉ khác khoảng cách giữa hai dòng (24px) và Figma bỏ khung
+  kính mờ quanh ảnh.
+- **Nền** trùng đúng hai lớp của trang giỏ hàng (sai lệch vùng nền 0.46/765), nên
+  dùng lại `.page__glow--cart` / `.page__blob--cart`.
+- **Chữ "GLO." chìm dọc**: Fraunces 900 opsz 144, 250px, giãn 2%, xoay −90°
+  bằng `rotate`, mờ 7.5% — dò vị trí theo ảnh export.
+- **Các bước thanh toán**: Figma dùng Arimo — font này có số đo ký tự trùng
+  Arial nên đang dùng Arial (có sẵn trên Mac/Windows) làm dự phòng. Mũi tên là
+  `assets/icon/arrow-drop-down-line.png` (độ mờ 50% có sẵn trong file).
+- Icon Facebook vuông: `assets/icon/icon-facebook-square.png` (đổi tên từ
+  `Facebook_icon_2013 1.png`). "Google" trong Figma không có icon.
+- **Giá cũ** ở trang này là nâu mờ (không phải xám như trang giỏ hàng); khối
+  giá không dịch lẻ pixel để nét gạch ngang 1px không bị nhoè thành 2 hàng.
+- **Màu chữ phụ giữ đúng Figma** theo yêu cầu khách (ưu tiên khớp pixel):
+  "Earn reward points…" #58360D 40%, các bước chưa tới và "Apply" 50%,
+  "Continue with" / "or" `#9E855C`. Bản dùng `--text-idle` đậm hơn Figma 15–75%
+  nên đè lên nhìn như lệch. Đổi lại, các chữ này chỉ đạt tương phản ~2.2–3.3:1
+  (dưới WCAG AA 4.5:1) — Lighthouse accessibility trang này sẽ không còn 100.
+  Muốn đạt chuẩn thì đổi các màu đó về `var(--text-idle)` trong `checkout.css`.
+- **Tinh chỉnh dưới pixel** như trang giỏ hàng (`transform`, chỉ ở khổ ≥ 1440px).
+  Riêng viền ô nhập, ô coupon, đường kẻ, chấm đỏ và icon Facebook: Figma đặt ở
+  toạ độ lẻ (x320.5…) nên mép nét chia đôi qua hai pixel; độ dịch lẻ đo từ độ
+  đậm hai pixel mép, để trình duyệt khử răng cưa giống hệt.
+- Hai cột đặt cạnh nhau từ 1440px; hẹp hơn thì xếp dọc, canh giữa.
+
 ## Quy trình chuyển đổi
 
 1. **Lấy số liệu.** Export frame Figma ra PNG tỉ lệ 1:1. Những gì đọc được
@@ -320,6 +363,7 @@ index.html              trang Shop, không thẻ <script> nào
 landing-page.html       landing page, không thẻ <script> nào
 product.html            trang sản phẩm, không thẻ <script> nào
 cart.html               trang giỏ hàng, không thẻ <script> nào
+checkout.html           trang thanh toán (bước đăng nhập), không thẻ <script> nào
 css/
 ├── reset.css           reset hiện đại, layer thấp nhất
 ├── fonts.css           11 khai báo @font-face, trỏ vào assets/fonts/
@@ -328,7 +372,7 @@ css/
 ├── layout.css          container, hai lớp trang trí, lưới Shop
 ├── components/         nav, hero, filter, card, pagination, marquee, footer,
 │                       showcase, discover, bestsellers, feature, button,
-│                       breadcrumb, product, cart, basket
+│                       breadcrumb, product, cart, basket, checkout
 └── utilities.css       visually-hidden, skip-link
 assets/
 ├── fonts/              10 file woff2, bảng mã latin
@@ -339,7 +383,8 @@ dev/landing-overlay.html  như trên, cho landing page
 dev/product-overlay.html  như trên, cho trang sản phẩm
 dev/cart-overlay.html   như trên, cho giỏ hàng (product.html#cart)
 dev/cart-page-overlay.html  như trên, cho trang giỏ hàng (cart.html)
-docs/comparison/        bộ ảnh đối chiếu (shop/, landing/, product/, cart/, cart-page/)
+dev/checkout-overlay.html   như trên, cho trang thanh toán (checkout.html)
+docs/comparison/        bộ ảnh đối chiếu (shop/, landing/, product/, cart/, cart-page/, checkout/)
 ```
 
 CSS tổ chức bằng **cascade layer gốc của trình duyệt** — `reset, tokens, base,
@@ -413,8 +458,8 @@ cache cho asset — kéo thư mục vào Netlify hoặc trỏ repo vào là xong
 - **Icon bản SVG hoặc @2x.** Bộ PNG hiện tại chỉ 36px nên hơi rỗ trên màn hình
   retina; đây cũng là thứ duy nhất kéo điểm performance mobile xuống 94.
 - **Xác nhận dải ribbon có chạy không**, và tốc độ mong muốn.
-- **File Figma trang Checkout** — export 1:1 là dựng tiếp được ngay, token đã
-  dùng chung.
+- **Các bước sau của Checkout** (Information, Shipping Details, Payment) — hiện
+  mới có Figma bước Login.
 - **Xác nhận tên sản phẩm** "Mixed Grapes Sulphate Free Night Crem" (thiếu chữ
   "a" trong "Cream"?).
 

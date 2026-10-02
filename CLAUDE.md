@@ -59,12 +59,13 @@ index.html              trang Shop — đã xong, một file, không <script>
 landing-page.html        landing page — đã xong, đối chiếu pixel với Figma
 product.html             trang sản phẩm — đã xong, nền tối (body.theme-dark)
 cart.html                trang giỏ hàng (Cart Page) — đã xong
-checkout.html            trống — chưa dựng
+checkout.html            trang thanh toán (bước Login) — đã xong
 css/
 ├── reset.css / fonts.css / tokens.css / base.css / layout.css
 ├── components/          nav, hero, filter, card, pagination, marquee, footer,
 │                        showcase, discover, bestsellers, feature, button,
-│                        breadcrumb, product, cart, basket (trang giỏ hàng)
+│                        breadcrumb, product, cart, basket (trang giỏ hàng),
+│                        checkout (trang thanh toán, dùng lại basket.css)
 │                        (form.css, table.css hiện đang trống)
 └── utilities.css
 assets/fonts/            10 file woff2, bảng mã latin
@@ -76,7 +77,8 @@ dev/landing-overlay.html như trên cho landing page (1920 × 5769)
 dev/product-overlay.html như trên cho trang sản phẩm (1920 × 1128)
 dev/cart-overlay.html    như trên cho giỏ hàng (product.html#cart)
 dev/cart-page-overlay.html như trên cho trang giỏ hàng (cart.html, 1920 × 1561)
-docs/comparison/         ảnh đối chiếu Figma vs code (shop/, landing/, product/, cart/, cart-page/; checkout/ trống)
+dev/checkout-overlay.html  như trên cho trang thanh toán (checkout.html, 1920 × 1152)
+docs/comparison/         ảnh đối chiếu Figma vs code (shop/, landing/, product/, cart/, cart-page/, checkout/)
 js/main.js, src/input.css  CÒN SÓT từ hướng làm cũ (Tailwind + JS), index.html
                          KHÔNG nạp hai file này. Cân nhắc xoá để khỏi gây hiểu nhầm
                          vì README cam kết "không JavaScript".
@@ -111,7 +113,10 @@ js/main.js, src/input.css  CÒN SÓT từ hướng làm cũ (Tailwind + JS), ind
   ₹ là hai mask PNG (`assets/img/rupee-regular.png`, `rupee-bold.png`). Header
   dùng `site-header--bold` (chung với trang sản phẩm). "Go to Cart" ở ngăn kéo
   trỏ tới trang này.
-- **`checkout.html`**: chưa dựng, cần ảnh export Figma 1:1.
+- **Trang thanh toán (`checkout.html`)**: hoàn thiện bước Login, khung
+  1920 × 1152. 40 vùng khớp 0px, sai lệch toàn khung 2.1/765. Cột giỏ hàng dùng lại `basket.css`; nền trùng trang giỏ hàng. Các bước
+  Figma dùng Arimo → đang dùng Arial (cùng số đo ký tự). Chữ phụ giữ
+  đúng màu Figma (khách ưu tiên khớp pixel; tương phản dưới AA — xem README). Các bước Information/Shipping/Payment chưa có Figma.
 - **Logo "Glo."** (chung ba trang): [FIGMA] 61.17px, giãn 2% — khớp hơn 63px cũ.
 - **Header 1024–1439px**: đã thu khoảng hở link nav (trước đó "Offers" đè lên
   icon ở cả ba trang). Từ 1440px giữ đúng số Figma.
@@ -145,4 +150,4 @@ Không có npm cũng chạy được: mở thẳng `index.html`, hoặc
 
 - Icon bản SVG hoặc @2x (bộ PNG hiện chỉ 36px, rỗ trên retina).
 - Xác nhận ribbon có chạy không, tốc độ mong muốn.
-- File Figma hai trang còn lại (Product description, Checkout).
+- File Figma các bước Checkout còn lại (Information, Shipping Details, Payment).

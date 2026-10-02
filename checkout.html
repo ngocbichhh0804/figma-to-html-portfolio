@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Checkout — Glo.</title>
+    <meta name="description" content="Log in or register to check out your Glo. order and earn reward points." />
+
+    <link rel="icon" href="assets/icon/icon-sparkle.png" type="image/png" />
+
+    <!-- Bốn kiểu chữ xuất hiện ngay màn hình đầu nên tải trước. -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/cormorant-garamond-latin-400-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/fraunces-latin-opsz-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/mulish-latin-400-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/mulish-latin-700-normal.woff2" />
+
+    <style>
+      @layer reset, tokens, base, layout, components, utilities;
+    </style>
+
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components/basket.css" />
+    <link rel="stylesheet" href="css/components/checkout.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <div class="page page--checkout">
+      <!-- [ĐO] Hai lớp nền trùng khít trang giỏ hàng (sai lệch nền 0.46/765). -->
+      <div class="page__glow page__glow--cart" aria-hidden="true"></div>
+      <div class="page__blob page__blob--cart" aria-hidden="true"></div>
+
+      <!-- Trang thanh toán bỏ menu: chỉ còn logo và các bước thanh toán. -->
+      <header class="checkout-header">
+        <a href="landing-page.html" class="checkout-header__logo">Glo.</a>
+
+        <nav class="steps" aria-label="Checkout steps">
+          <ol class="steps__list" role="list">
+            <li class="steps__item"><a href="cart.html">Cart</a></li>
+            <li class="steps__item" aria-current="step">Login</li>
+            <li class="steps__item">Information</li>
+            <li class="steps__item">Shipping Details</li>
+            <li class="steps__item">Payment</li>
+          </ol>
+        </nav>
+      </header>
+
+      <main id="main" class="container checkout">
+        <section class="login" aria-labelledby="login-title">
+          <h1 class="login__title" id="login-title">Login or Register</h1>
+          <p class="login__hint">Earn reward points and redeem coupon codes by login/register</p>
+
+          <h2 class="login__label">Continue with</h2>
+          <ul class="login__providers" role="list">
+            <li><a class="login__provider" href="#"><img src="assets/icon/icon-facebook-square.png" alt="" width="36" height="36" />Facebook</a></li>
+            <li><a class="login__provider" href="#">Google</a></li>
+          </ul>
+
+          <p class="login__or">or</p>
+
+          <form class="login__form" action="#" method="post">
+            <label class="login__field-label" for="login-id">Email ID / Mobile number</label>
+            <input class="login__input" id="login-id" name="login-id" type="text" inputmode="email" autocomplete="username" placeholder="Enter e-mail address or mobile number" required />
+            <button class="login__next" type="submit">Next</button>
+          </form>
+        </section>
+
+        <aside class="order" aria-labelledby="order-title">
+          <div class="order__head">
+            <h2 class="basket__title order__title" id="order-title">Cart (2)</h2>
+            <a class="order__edit" href="cart.html">Edit Cart</a>
+          </div>
+
+          <!-- Không JavaScript: đổi dung tích / số lượng rồi gửi form, máy chủ tính lại giá. -->
+          <form class="order__items" action="#" method="post" aria-labelledby="order-title">
+            <ul class="basket__list order__list" role="list">
+              <li class="basket-item">
+                <div class="basket-item__media">
+                  <img src="assets/img/product-jar-upright.png" alt="" width="93" height="90" />
+                </div>
+                <h3 class="basket-item__title"><a href="product.html">Mixed Grapes Sulphate Free Night Crem</a></h3>
+                <div class="basket-item__options">
+                  <label class="visually-hidden" for="size-1">Size</label>
+                  <select class="basket-item__select" id="size-1" name="size-1">
+                    <option selected>30ml</option>
+                    <option>50ml</option>
+                  </select>
+                  <label class="basket-item__qty" for="qty-1">Qty :</label>
+                  <select class="basket-item__select" id="qty-1" name="qty-1">
+                    <option selected>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                </div>
+                <p class="basket-item__price">
+                  <s class="basket-item__was"><span class="visually-hidden">Was </span><span class="rupee-sign rupee-sign--was">₹</span>300.00</s>
+                  <span class="basket-item__now"><span class="visually-hidden">Now </span><span class="rupee-sign rupee-sign--bold">₹</span>230.00</span>
+                </p>
+              </li>
+              <li class="basket-item">
+                <div class="basket-item__media">
+                  <img src="assets/img/product-jar-upright.png" alt="" width="93" height="90" />
+                </div>
+                <h3 class="basket-item__title"><a href="product.html">Mixed Grapes Sulphate Free Night Crem</a></h3>
+                <div class="basket-item__options">
+                  <label class="visually-hidden" for="size-2">Size</label>
+                  <select class="basket-item__select" id="size-2" name="size-2">
+                    <option selected>30ml</option>
+                    <option>50ml</option>
+                  </select>
+                  <label class="basket-item__qty" for="qty-2">Qty :</label>
+                  <select class="basket-item__select" id="qty-2" name="qty-2">
+                    <option selected>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                </div>
+                <p class="basket-item__price">
+                  <s class="basket-item__was"><span class="visually-hidden">Was </span><span class="rupee-sign rupee-sign--was">₹</span>300.00</s>
+                  <span class="basket-item__now"><span class="visually-hidden">Now </span><span class="rupee-sign rupee-sign--bold">₹</span>230.00</span>
+                </p>
+              </li>
+            </ul>
+          </form>
+
+          <dl class="summary__rows order__rows">
+            <div class="summary__row">
+              <dt>Discount</dt>
+              <dd><span class="rupee-sign">₹</span>20.00</dd>
+            </div>
+            <div class="summary__row">
+              <dt>shipping charges</dt>
+              <dd class="summary__note"><img src="assets/icon/info.png" alt="" width="14" height="14" />Calculated in checkout</dd>
+            </div>
+          </dl>
+
+          <form class="coupon order__coupon" action="#" method="post">
+            <label class="visually-hidden" for="coupon">Coupon code</label>
+            <input class="coupon__input" id="coupon" name="coupon" type="text" autocomplete="off" placeholder="Enter coupon code" />
+            <button class="coupon__apply" type="submit">Apply</button>
+          </form>
+
+          <dl class="summary__rows order__total">
+            <div class="summary__row summary__row--strong">
+              <dt>Subtotal</dt>
+              <dd><span class="rupee-sign rupee-sign--bold">₹</span>420.00</dd>
+            </div>
+          </dl>
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,450 @@
+/* Trang thanh toán (Checkout page — 3rd party integration, khung Figma
+   1920 × 1152). Header rút gọn: logo + các bước thanh toán. Cột trái là form
+   đăng nhập; cột phải tóm tắt giỏ hàng, dùng lại dòng sản phẩm, dòng tổng
+   tiền và ô mã giảm giá của trang giỏ hàng (basket.css). */
+@layer components {
+  /* ---------- Header ---------- */
+
+  .checkout-header {
+    padding-block-start: 72px;   /* [ĐO] nét chữ "Glo." y82–126 */
+    text-align: center;
+  }
+
+  /* [FIGMA] Cormorant Garamond 400, 61.17px, leading 67px, giãn 2%. */
+  .checkout-header__logo {
+    display: inline-block;
+    vertical-align: top;
+    font-family: var(--font-logo);
+    font-size: 61.17px;
+    line-height: 67px;
+    letter-spacing: 0.02em;
+    position: relative;
+    inset: 1px auto auto -4px;   /* [ĐO] nét chữ x906–1003, y82–126 */
+  }
+
+  /* [FIGMA] Arimo 400, 18px, leading 157% (hộp cao 28), #58360D; bước chưa
+     tới để 50% (màu đúng Figma; tương phản 2.7:1 — xem README).
+     Arimo có số đo ký tự trùng Arial nên Arial là font dự phòng sát nhất. */
+  .steps {
+    margin-block-start: 65px;    /* [FIGMA] hộp chữ "Cart" top 204 */
+    font-family: Arimo, Arial, "Liberation Sans", Helvetica, sans-serif;
+    font-size: 18px;
+    line-height: 28px;
+    color: rgb(88 54 13 / 50%);
+  }
+
+  .steps__list {
+    padding: 0;
+    list-style: none;
+    font-size: 0;
+  }
+
+  /* [FIGMA] hộp chữ rộng hơn bề ngang chữ ~1px (Cart 35, Login 45,
+     Information 91…) nên các bước giãn ra thêm chừng đó. */
+  .steps__item {
+    display: inline-block;
+    vertical-align: top;
+    padding-inline-end: 1px;
+    font-size: 18px;
+  }
+
+  .steps__item[aria-current] { color: var(--text-primary); }
+
+  .steps__item a:hover { color: var(--text-primary); }
+
+  /* [FIGMA] arrow-drop-down-line 24 × 24, xoay 90°, 50% (độ mờ có sẵn trong
+     file PNG), sát hai chữ hai bên; hộp icon thấp hơn hộp chữ 2px. Chỉ để
+     nhìn: danh sách <ol> đã nói rõ thứ tự. */
+  .steps__item + .steps__item::before {
+    content: "";
+    display: inline-block;
+    vertical-align: top;
+    inline-size: 24px;
+    block-size: 24px;
+    margin-block-start: 2px;
+    background: url("../../assets/icon/arrow-drop-down-line.png") 0 0 / 24px 24px no-repeat;
+  }
+
+  /* ---------- Thân trang ---------- */
+
+  .checkout {
+    display: flow-root;
+    padding-block: 108px 109px;  /* [FIGMA] tiêu đề hai cột top 340; khung cao 1152 */
+  }
+
+  /* ---------- Cột trái: đăng nhập ---------- */
+
+  .login { max-inline-size: 563px; }
+
+  /* [FIGMA] Mulish 700, 20px, leading 100% (hộp 25), giãn 2%. */
+  .login__title {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: var(--weight-bold);
+    line-height: 25px;
+    letter-spacing: 0.02em;
+  }
+
+  /* [FIGMA] Mulish 700, 16px, #58360D 40% (màu đúng Figma, xem
+     README); hộp tại (333.5, 371.88). Chấm Ellipse 24: 6 × 6, #E73A58,
+     tại (320.5, 378.88). */
+  .login__hint {
+    position: relative;
+    margin-block-start: 6.88px;
+    padding-inline-start: 13px;
+    font-size: 16px;
+    font-weight: var(--weight-bold);
+    line-height: 20px;
+    color: rgb(88 54 13 / 40%);
+  }
+
+  .login__hint::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 7px;
+    inset-inline-start: 0;
+    inline-size: 6px;
+    block-size: 6px;
+    border-radius: 50%;
+    background-color: #e73a58;
+  }
+
+  /* [FIGMA] Mulish 700, 14px, #9E855C, hộp top 434.06. */
+  .login__label {
+    margin-block-start: 42.18px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: var(--weight-bold);
+    line-height: 18px;
+    color: #9e855c;
+  }
+
+  .login__providers {
+    margin-block-start: 10px;    /* [ĐO] icon Facebook y462–497 */
+    padding: 0;
+    list-style: none;
+    font-size: 0;
+    line-height: 40px;           /* [ĐO] chữ thấp hơn tâm icon 2px */
+  }
+
+  .login__providers li {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  /* [FIGMA] Mulish 400, 15px; "Facebook" tại x368.5, "Google" tại x519.5. */
+  .login__providers li:first-child { inline-size: 199px; }
+
+  .login__provider {
+    font-size: 15px;
+    line-height: 40px;
+  }
+
+  .login__provider:hover { text-decoration: underline; }
+
+  .login__provider img {
+    position: relative;
+    inset-block-start: 1px;      /* [ĐO] icon y462–497 */
+    display: inline-block;
+    vertical-align: top;
+    inline-size: 36px;
+    block-size: 36px;
+    margin-inline: -0.5px 12.5px;  /* [ĐO] icon x320–356, chữ x370 */
+  }
+
+  /* [FIGMA] "or" Mulish 400, 14px, #9E855C tại (518.5, 512.06); Line 301/302:
+     150 × 1, #9E855C tại x320.5 và x580.5, y524.06. Hai đường kẻ chỉ để
+     nhìn nên là pseudo-element. */
+  .login__or {
+    position: relative;
+    margin-block-start: 5px;
+    padding-inline-start: 198px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #9e855c;
+  }
+
+  .login__or::before,
+  .login__or::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 11px;
+    inline-size: 150px;
+    block-size: 1px;
+    background-color: #9e855c;
+  }
+
+  .login__or::before { inset-inline-start: 0; }
+
+  .login__or::after { inset-inline-start: 260px; }
+
+  /* [FIGMA] Mulish 400, 16px, hộp top 561.08. */
+  .login__field-label {
+    display: block;
+    margin-block-start: 31.02px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  /* [FIGMA] Rectangle 3283: 563 × 64, bo 200, #FAF6F0, viền 1px #58360D. */
+  .login__input {
+    display: block;
+    inline-size: 100%;
+    block-size: 64px;
+    margin-block-start: 5px;
+    padding-inline: 23px;
+    font-size: 16px;
+    color: inherit;
+    background-color: #faf6f0;
+    border: 1px solid var(--color-brown);
+    border-radius: var(--radius-pill);
+  }
+
+  .login__input::placeholder { color: #787878; opacity: 1; }   /* [ĐO] */
+
+  /* [ĐO] nút 219 × 64 tại x650.5, y704.5. */
+  .login__next {
+    display: block;
+    inline-size: 219px;
+    block-size: 64px;
+    margin-block-start: 54.42px;
+    margin-inline-start: 330px;
+    font-size: 16px;
+    font-weight: var(--weight-bold);
+    line-height: 64px;
+    color: var(--color-cream);
+    background-color: var(--color-brown);
+    border-radius: var(--radius-pill);
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .login__next:hover { opacity: 0.85; }
+
+  /* ---------- Cột phải: giỏ hàng ---------- */
+
+  .order {
+    max-inline-size: 580px;      /* [ĐO] dòng sản phẩm như trang giỏ hàng */
+    margin-block-start: 72px;
+  }
+
+  .order__head { position: relative; }
+
+  .order__title { margin-inline-start: -0.5px; }   /* [ĐO] "C" bắt đầu x1039 */
+
+  /* [ĐO] nét chữ x1543–1608, y344–355. */
+  .order__edit {
+    position: absolute;
+    inset-block-start: -2px;
+    inset-inline-end: 10px;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+  }
+
+  .order__edit:hover { text-decoration: underline; }
+
+  .order__list { margin-block-start: 55px; }   /* [ĐO] khung ảnh đầu y420 */
+
+  /* [ĐO] Ở trang này Figma không vẽ khung kính mờ quanh ảnh. */
+  .order .basket-item__media {
+    background-color: transparent;
+    backdrop-filter: none;
+  }
+
+  .order .basket-item + .basket-item { margin-block-start: 24px; }   /* [ĐO] khung thứ hai y623 */
+
+  /* [ĐO] Giá cũ ở trang này là nâu mờ (đo được (191,170,138) trên nền
+     (251,238,213) ≈ #58360D 37%), không phải xám #868686 như trang giỏ hàng.
+     Dò alpha, vị trí ₹ và nét gạch ngang theo ảnh export: chữ 35%, nét gạch
+     nhạt hơn chữ (70%), ₹ thấp hơn đỉnh dòng 1px. */
+  .order .basket-item__was { color: rgb(88 54 13 / 35%); }
+
+  .order .basket-item__was::after {
+    inset-block-start: 12px;     /* [ĐO] nét gạch ở y506 */
+    opacity: 0.7;
+  }
+
+  .order .rupee-sign--was {
+    background-color: rgb(88 54 13 / 35%);
+    mask-position: 0 1px;
+  }
+
+  /* [ĐO] đường kẻ 1px nâu x1036–1615, y831; các dòng tiền bắt đầu x1036. */
+  .order__rows { margin-inline: -3px 4px; }   /* [ĐO] đường kẻ x1036.5–1615.7 */
+
+  .order__total { margin-inline: -3px 2px; }   /* [ĐO] "₹420.00" kết thúc x1615 */
+
+  .order__rows {
+    margin-block-start: 29px;
+    padding-block-start: 28px;
+    border-block-start: 1px solid var(--color-brown);
+  }
+
+  .order .summary__row { padding-inline-end: 0; }   /* [ĐO] "₹20.00" kết thúc x1613 */
+
+  .order .summary__row + .summary__row { margin-block-start: 13px; }   /* [ĐO] */
+
+  /* [ĐO] số tiền cao hơn chữ bên trái 1px. */
+  .order .summary__row dd {
+    position: relative;
+    inset-block-start: -1px;
+  }
+
+  .order .summary__row .summary__note {
+    inset-block-start: 0;
+    margin-inline-end: 19px;     /* [ĐO] chữ kết thúc x1595 */
+  }
+
+  .order__coupon {
+    margin-block-start: 15px;    /* [ĐO] ô nhập y938 */
+    margin-inline-start: -2px;
+  }
+
+  .order .coupon__apply {
+    margin-inline-end: 10px;
+    color: rgb(88 54 13 / 50%);  /* [FIGMA] #58360D 50% — đo (169,150,126) */
+  }   /* [ĐO] "Apply" kết thúc x1608 */
+
+  .order__total { margin-block-start: 28px; }   /* [ĐO] "Subtotal" y1023 */
+
+  .order__total .summary__row { padding-inline-end: 0; }
+
+  /* Hai cột cần 703.5 + 701px nên chỉ đặt cạnh nhau từ 1440px; hẹp hơn thì
+     xếp dọc, canh giữa. */
+  @media (width >= 90rem) {
+    .login {
+      float: left;
+      inline-size: 563px;
+      margin-inline-start: 140.5px;   /* [FIGMA] left 320.5 */
+    }
+
+    .order {
+      float: right;
+      inline-size: 580px;
+      margin-block-start: 0;
+      margin-inline-end: 121px;   /* [ĐO] cột x1039–1619 */
+    }
+  }
+
+  /* [ĐO] Tinh chỉnh dưới pixel như trang giỏ hàng: Figma đặt nhiều khối ở
+     toạ độ lẻ (.5px, nét viền ở x320.5). Dò từng khối với độ dịch ±1, ±0.5
+     rồi ±0.25px so với ảnh export, giữ độ dịch cho sai lệch nhỏ nhất. Các
+     dòng trong cột phải ghi đè độ dịch của trang giỏ hàng (basket.css). */
+  @media (width >= 90rem) {
+    .checkout-header__logo { transform: translate(-0.25px, -0.25px); }
+
+    .login__providers li:first-child { transform: translate(0, -0.75px); }
+
+    .login__providers li:last-child { transform: translate(0, -1px); }
+
+    /* Figma đặt nét viền, đường kẻ, chấm đỏ, icon ở toạ độ lẻ (x320.5…), nên
+       mép nét chia đôi qua hai pixel. Border/nền vẽ ở toạ độ nguyên thì sắc
+       gọn một pixel — đè lên nhìn như lệch 0.5px. transform lẻ làm trình
+       duyệt khử răng cưa mép giống Figma. [ĐO] độ lệch đo từ độ đậm hai
+       pixel mép trên ảnh export. */
+    .login__hint::before { transform: translate(-0.5px, -0.15px); }   /* chấm x320.5–326.5 */
+
+    .login__provider img { transform: translate(0.5px, -0.25px); }      /* icon x320.5–356.5 */
+
+    .login__or::before,
+    .login__or::after { transform: translate(-0.5px, 0); }             /* nét x320.5–470.5 */
+
+    .login__input {
+      padding-inline: 22.5px;    /* bù độ dịch để chữ gợi ý giữ x345 */
+      transform: translate(-0.5px, 0.15px);   /* viền x320.5–883.5, y586.15 */
+    }
+
+    .login__next { transform: translate(-0.5px, 1px); }
+
+    .order__title { transform: translate(-0.5px, -0.5px); }
+
+    .order .basket-item__media { transform: translate(0.5px, -0.25px); }
+
+    .order .basket-item__title { transform: translate(0.5px, -0.5px); }
+
+    .order .basket-item__options { transform: translate(1px, 0.25px); }
+
+    /* Khối giá không dịch lẻ pixel: transform lẻ làm trình duyệt nội suy cả
+       khối, nét gạch ngang 1px nhoè thành 2 hàng. Dịch bằng inset nguyên. */
+    .order .basket-item__price {
+      inset-inline-end: 3px;
+      transform: none;
+    }
+
+    .order__rows { transform: translate(0.5px, -0.13px); }   /* đường kẻ y830.87 */
+
+    .order__rows .summary__row:first-child dd { transform: translate(-0.37px, 0.5px); }
+
+    .order .summary__row .summary__note { transform: translate(0.34px, 0); }
+
+    .order__total { transform: translate(0.5px, 0); }
+
+    .order__total dd { transform: translate(-0.69px, 0); }
+
+    /* [ĐO] ô coupon ở trang này rộng 370 (x1037.15–1407.15). */
+    .order .coupon__input {
+      inline-size: 370px;
+      transform: translate(0.15px, -0.15px);
+    }
+
+    .order .coupon__apply { transform: translate(0.25px, -0.5px); }
+  }
+
+  @media (width < 90rem) {
+    .checkout { padding-block-start: 64px; }
+
+    .login,
+    .order { margin-inline: auto; }
+  }
+
+  @media (width < 40rem) {
+    .checkout-header { padding-block-start: 32px; }
+
+    .checkout-header__logo { font-size: 44px; line-height: 48px; }
+
+    .steps {
+      margin-block-start: 24px;
+      font-size: 15px;
+    }
+
+    .steps__item { font-size: 15px; }
+
+    .login__or { padding-inline-start: 0; text-align: center; }
+
+    .login__or::before { inset-inline-start: 0; inline-size: calc(50% - 24px); }
+
+    .login__or::after { inset-inline: auto 0; inline-size: calc(50% - 24px); }
+
+    .login__input {
+      padding-inline: 18px;
+      font-size: 14px;
+    }
+
+    .login__next { margin-inline: auto; }
+  }
+
+  /* ---------- "GLO." chìm bên phải ----------
+     [FIGMA] Fraunces 900, 250px, leading 100%, giãn 2%, viết hoa, #976F40 8%,
+     xoay 90°. Trang trí thuần nên là pseudo-element. Toạ độ tính theo tâm
+     khung như hai lớp nền (xem layout.css). */
+  .page--checkout::after {
+    content: "GLO." / "";
+    position: absolute;
+    z-index: -1;
+    inset-block-start: 806px;    /* [ĐO] dò vị trí + độ mờ theo ảnh export: */
+    inset-inline-start: calc(50% + 735px);   /* nét chữ x1733–1911, y220–789 */
+    transform-origin: 0 0;
+    rotate: -90deg;
+    font-family: var(--font-display);
+    font-size: 250px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--color-brown-mid);
+    opacity: 0.075;              /* [ĐO] Figma 8%, 7.5% khớp hơn */
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    font-variation-settings: "opsz" 144;
+  }
+}
