@@ -326,4 +326,54 @@
     .site-footer--landing .updates__submit::before,
     .site-footer--landing .updates__submit::after { translate: -1.3px 3.6px; }
   }
+
+  /* ---------- Footer trang giỏ hàng ----------
+     [ĐO] Như trang landing: vài khối Figma đặt tay lệch 1–2px so với trang
+     Shop; dò độ dịch tốt nhất từng khối trên ảnh export Cart Page. Dùng
+     translate nên không đổi bố cục. */
+  @media (width >= 90rem) {
+    .site-footer--cart .site-footer__heading { translate: -1px 0; }
+
+    .site-footer--cart .updates__heading { translate: 0 1px; }
+
+    .site-footer--cart .site-footer__list--outset { translate: 1px 1px; }
+
+    .site-footer--cart .updates__email { translate: -1px 0; }
+
+    .site-footer--cart .site-footer__list--inset li:first-child { translate: -1px 0; }
+
+    .site-footer--cart .site-footer__list--inset li:nth-child(4) { translate: 1px 0; }
+
+    .site-footer--cart .site-footer__list--inset li:last-child { translate: -1px 1px; }
+
+    .site-footer--cart .site-footer__list--outset li:nth-child(2) { translate: 0 -1px; }
+
+    .site-footer--cart .site-footer__list--outset li:last-child { translate: -2px 0; }
+
+    .site-footer--cart .updates__social { translate: 0 1px; }
+
+    .site-footer--cart .updates__phone { translate: 1px -2px; }
+
+    /* [ĐO] Tinh chỉnh dưới pixel (Figma đặt ở toạ độ lẻ): dò từng khối với
+       độ dịch ±0.5px rồi ±0.25px. Dùng transform để cộng thêm vào
+       translate ở trên. */
+    .site-footer--cart .site-footer__heading,
+    .site-footer--cart .updates__copy,
+    .site-footer--cart .site-footer__list--outset li:nth-child(3) { transform: translate(0.5px, -0.5px); }
+
+    .site-footer--cart .updates__heading { transform: translate(0.25px, -0.25px); }
+
+    .site-footer--cart .updates__input { transform: translate(-0.5px, 0.25px); }
+
+    .site-footer--cart .updates__submit,
+    .site-footer--cart .updates__email,
+    .site-footer--cart .site-footer__list--inset li:nth-child(3) { transform: translate(-0.5px, -0.5px); }
+
+    .site-footer--cart .site-footer__grid > :nth-child(1) li,
+    .site-footer--cart .site-footer__list--inset li:nth-child(1) { transform: translate(-0.25px, -0.5px); }
+
+    .site-footer--cart .site-footer__grid > :nth-child(1) li:nth-child(3),
+    .site-footer--cart .site-footer__list--inset li:nth-child(2),
+    .site-footer--cart .site-footer__list--inset li:nth-child(4) { transform: translate(-0.25px, -0.25px); }
+  }
 }

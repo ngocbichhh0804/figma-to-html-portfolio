@@ -1,0 +1,399 @@
+/* Trang giỏ hàng (Cart Page, khung Figma 1920 × 1561).
+   Hai cột dựng bằng float: danh sách sản phẩm float trái, Order Summary
+   float phải. Trong từng dòng sản phẩm, khung ảnh và các khối chữ đặt
+   absolute theo toạ độ đo từ ảnh export. */
+@layer components {
+  .basket {
+    position: relative;
+    display: flow-root;
+    padding-block: 92px 96px;    /* [FIGMA] "Cart (2)" top 292.12 − header 200 */
+  }
+
+  /* [FIGMA] Text "Glo." #976F40, hộp 949 × 493. Trang trí thuần nên là
+     pseudo-element, không lọt vào cây trợ năng.
+     [ĐO] Cỡ, vị trí, giãn chữ và độ mờ dò bằng cách so từng pixel vùng
+     x440–1460, y360–780 với ảnh export (sai lệch còn 2.05/765). */
+  .basket::before {
+    content: "GLO." / "";
+    position: absolute;
+    z-index: -1;
+    inset-block-start: 162px;
+    inset-inline-start: 50%;
+    translate: calc(-50% - 1px) 0;
+    font-family: var(--font-display);
+    font-size: min(404px, 21.05vw);   /* co theo màn hình, đúng 404px ở 1920 */
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.0125em;
+    text-indent: 0.0125em;          /* bù phần giãn thừa sau dấu "." */
+    color: var(--color-brown-mid);
+    opacity: 0.075;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    font-variation-settings: "opsz" 144;
+  }
+
+  /* ---------- Cột trái: danh sách ---------- */
+
+  /* [FIGMA] Mulish 700, 20px, giãn 2%, hộp cao 25. */
+  .basket__title,
+  .summary__title {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: var(--weight-bold);
+    line-height: 25px;
+    letter-spacing: 0.02em;
+  }
+
+  .basket__title { margin-inline-start: -1.5px; }   /* [FIGMA] left 178.54 */
+
+  .basket__list {
+    margin-block-start: 55px;    /* [ĐO] khung ảnh đầu ở y372 */
+    padding: 0;
+    list-style: none;
+  }
+
+  .basket-item {
+    position: relative;
+    block-size: 179px;           /* [FIGMA] khung ảnh 217 × 179 */
+    padding-block-start: 1px;    /* [ĐO] tên sản phẩm: đỉnh chữ y378 */
+    padding-inline-start: 234px; /* [ĐO] tên sản phẩm bắt đầu x414 */
+  }
+
+  .basket-item + .basket-item { margin-block-start: 74px; }   /* [ĐO] khung thứ hai ở y625 */
+
+  /* [FIGMA] Frame 9865: 217 × 179, bo 13.81, #FFFFFF 25%, background blur 23.02. */
+  .basket-item__media {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: -3px;    /* [ĐO] khung bắt đầu x177 */
+    inline-size: 217px;
+    block-size: 179px;
+    border-radius: 13.81px;
+    background-color: rgb(255 255 255 / 25%);
+    backdrop-filter: blur(23.02px);
+  }
+
+  .basket-item__media img {
+    position: absolute;
+    inset-block-start: 46px;     /* [ĐO] dò kích thước + vị trí theo ảnh export */
+    inset-inline-start: 62px;
+    inline-size: 86px;
+    block-size: 84px;
+  }
+
+  /* [FIGMA] Mulish 700, 18px, leading 145%, giãn 2%, hộp rộng 286.07. */
+  .basket-item__title {
+    max-inline-size: 286.07px;
+    margin-inline-start: -1.5px;
+    font-family: var(--font-sans);
+    font-size: 18px;
+    font-weight: var(--weight-bold);
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+  }
+
+  .basket-item__title a:hover { text-decoration: underline; }
+
+  /* [FIGMA] "30ml", "Qty : 1": Mulish 400, 16.12px, leading 100%; mũi tên
+     chevron-down 18.42 × 18.42, khe 5.76. */
+  .basket-item__options {
+    position: absolute;
+    inset-block-start: 101.5px;
+    inset-inline-start: 232px;
+    font-size: 0;
+    line-height: 20px;
+  }
+
+  .basket-item__select,
+  .basket-item__qty {
+    display: inline-block;
+    vertical-align: top;
+    block-size: 20px;
+    font-size: 16.12px;
+    line-height: 20px;
+  }
+
+  .basket-item__select {
+    padding: 0 24.18px 0 0;      /* khe 5.76 + mũi tên 18.42 */
+    border: 0;
+    /* [ĐO] nét mũi tên 10.5 × 5.2px, đỉnh y481, mũi nhọn y486 */
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none'%3E%3Cpath d='M3.9 6.6l4.1 4.1 4.1-4.1' stroke='%2358360d' stroke-width='1.3'/%3E%3C/svg%3E") right 0.6px top 0.79px / 18.42px 18.42px no-repeat;
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .basket-item__qty + .basket-item__select { padding-inline-end: 26.18px; }   /* [ĐO] mũi tên x602–612 */
+
+  .basket-item__qty { margin-inline: 66px 6px; }   /* [ĐO] "Qty" x541 */
+
+  /* [FIGMA] Giá cũ Mulish 400 18.42px gạch ngang #868686; giá mới 700. */
+  .basket-item__price {
+    position: absolute;
+    inset-block-start: 74px;
+    inset-inline-end: 3.5px;
+    font-size: 18.42px;
+    line-height: 23px;
+    letter-spacing: 0.02em;
+    text-align: right;
+  }
+
+  .basket-item__was,
+  .basket-item__now { display: block; }
+
+  /* Gạch ngang vẽ bằng pseudo-element: text-decoration không đi xuyên qua
+     inline-block nên sẽ chừa trống ký hiệu ₹. [ĐO] nét 1px ở y458, x683–755. */
+  .basket-item__was {
+    position: relative;
+    color: #868686;
+    text-decoration: none;
+  }
+
+  .basket-item__was::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 13px;
+    inset-inline: 0 1px;
+    block-size: 1px;
+    background-color: currentcolor;
+  }
+
+  .basket-item__now {
+    margin-block-start: 1.5px;
+    font-weight: var(--weight-bold);
+  }
+
+  /* [ĐO] giá kết thúc x755. Các khối trong dòng sản phẩm neo theo bề
+     ngang này nên giữ nó cả khi hai cột xếp dọc. */
+  .basket__items { max-inline-size: 580px; }
+
+  /* Hai cột cần 580 + 576px nên chỉ đặt cạnh nhau từ 1440px. */
+  @media (width >= 90rem) {
+    .basket {
+      padding-block-end: 0;
+      min-block-size: 708px;     /* [ĐO] heading footer ở y1151 */
+    }
+
+    .basket__items {
+      float: left;
+      inline-size: 580px;
+    }
+  }
+
+  /* ---------- Cột phải: Order Summary ---------- */
+
+  .summary { max-inline-size: 576px; }   /* [ĐO] cột x1164 → mép container */
+
+  @media (width >= 90rem) {
+    .summary {
+      float: right;
+      inline-size: 576px;
+    }
+  }
+
+  @media (width < 90rem) {
+    .summary { margin-block-start: 72px; }
+  }
+
+  .summary__rows {
+    margin-block: 56px 0;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+  }
+
+  .summary__row {
+    display: flow-root;
+    padding-inline-end: 15px;    /* [ĐO] số tiền kết thúc x1723 */
+  }
+
+  .summary__row + .summary__row { margin-block-start: 20px; }
+
+  .summary__row dt { float: left; }
+
+  .summary__row dd {
+    float: right;
+    margin: 0;
+  }
+
+  .summary__row--strong { font-weight: var(--weight-bold); }
+
+  /* [ĐO] số tiền dòng Discount thấp hơn chữ bên trái 2px (y426 so với y424). */
+  .summary__row:nth-child(2) dd {
+    position: relative;
+    inset-block-start: 2px;
+  }
+
+  .summary__note {
+    position: relative;
+    inset-block-start: 2px;
+    inset-inline-start: -1px;
+    font-size: 14.3px;           /* [ĐO] dò cỡ × giãn chữ theo ảnh export */
+    letter-spacing: 0.12px;
+  }
+
+  .summary__note img {
+    display: inline-block;
+    vertical-align: -2px;
+    inline-size: 14px;
+    block-size: 14px;
+    margin-inline-end: 8px;      /* [ĐO] icon x1551–1564, chữ từ x1574 */
+  }
+
+  .coupon {
+    display: flow-root;
+    margin-block-start: 47px;    /* [ĐO] ô nhập y535 */
+  }
+
+  /* [ĐO] ô nhập 371 × 52 (x1164–1534), viền 1px nâu. */
+  .coupon__input {
+    float: left;
+    inline-size: 371px;
+    block-size: 52px;
+    padding-inline: 23.3px;      /* [ĐO] chữ gợi ý bắt đầu x1189 */
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    color: inherit;
+    background-color: transparent;
+    border: 1px solid var(--color-brown);
+    border-radius: var(--radius-pill);
+  }
+
+  .coupon__input::placeholder { color: var(--text-primary); opacity: 1; }
+
+  .coupon__apply {
+    float: right;
+    block-size: 52px;
+    margin-inline-end: 4px;      /* [ĐO] "Apply" kết thúc x1735 */
+    font-size: 20px;
+    letter-spacing: 0.02em;
+    color: var(--text-idle);
+  }
+
+  .coupon__apply:hover { color: var(--text-primary); }
+
+  /* [ĐO] nút 219 × 64 tại x1347, y667. */
+  .summary__checkout {
+    display: block;
+    inline-size: 219px;
+    block-size: 64px;
+    margin-block-start: 80px;
+    margin-inline-start: 183px;
+    font-size: 16px;
+    font-weight: var(--weight-bold);
+    line-height: 64px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    /* [ĐO] Figma đặt chữ lệch trái tâm nút 11px; chữ căn giữa nên
+       text-indent âm gấp đôi độ lệch. */
+    text-indent: -22px;
+    color: var(--color-cream);
+    background-color: var(--color-brown);
+    border-radius: var(--radius-pill);
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .summary__checkout:hover { opacity: 0.85; }
+
+  /* [ĐO] Tinh chỉnh dưới pixel: Figma đặt các khối chữ ở toạ độ lẻ (.5px).
+     Dò từng khối với độ dịch ±0.5px rồi ±0.25px, giữ độ dịch cho sai lệch nhỏ nhất.
+     Dùng transform (không đụng translate/inset đã có) và chỉ áp dụng ở
+     khổ thiết kế. */
+  @media (width >= 90rem) {
+    .basket-item__options { transform: translate(0.25px, 0.25px); }
+
+    .basket-item__price { transform: translate(0, -0.5px); }
+
+    .summary__title { transform: translate(0.25px, -0.5px); }
+
+    .summary__rows { transform: translate(0.25px, 0); }
+
+    .coupon__apply { transform: translate(0.5px, -0.5px); }
+  }
+
+  /* ---------- Màn hình hẹp ----------
+     Figma chỉ có bản 1920. Dưới 640px dòng sản phẩm không còn đủ 580px nên
+     chữ, tuỳ chọn và giá xếp dọc bên phải một khung ảnh nhỏ hơn. */
+  @media (width < 40rem) {
+    .basket { padding-block-start: 48px; }
+
+    .basket__list { margin-block-start: 32px; }
+
+    .basket-item {
+      block-size: auto;
+      min-block-size: 110px;
+      padding-inline-start: 126px;
+    }
+
+    .basket-item + .basket-item { margin-block-start: 32px; }
+
+    .basket-item__media {
+      inset-inline-start: 0;
+      inline-size: 110px;
+      block-size: 110px;
+    }
+
+    .basket-item__media img {
+      inset-block-start: 25px;
+      inset-inline-start: 24px;
+      inline-size: 62px;
+      block-size: 60px;
+    }
+
+    .basket-item__title {
+      margin-inline-start: 0;
+      font-size: 16px;
+    }
+
+    .basket-item__options,
+    .basket-item__price {
+      position: static;
+      margin-block-start: 8px;
+      text-align: start;
+    }
+
+    .basket-item__qty { margin-inline-start: 24px; }
+
+    .basket-item__was,
+    .basket-item__now { display: inline-block; }
+
+    .basket-item__now { margin-inline-start: 12px; }
+
+    .coupon__input { inline-size: calc(100% - 80px); }
+
+    .summary__checkout { margin-inline: auto; }
+  }
+
+  /* ---------- Ký hiệu ₹ ----------
+     Mulish không có "₹" nên Chrome và Figma rơi về hai font dự phòng khác
+     nhau. [ĐO] Vẽ bằng mask lấy kênh alpha từ ảnh export (bản gốc:
+     assets/img/rupee-regular.png, rupee-bold.png — 13 × 20). Hộp cao bằng
+     dòng chữ, đặt vertical-align: top nên toạ độ mask tính từ đỉnh dòng. */
+  .rupee-sign {
+    display: inline-block;
+    vertical-align: top;
+    inline-size: 12px;
+    block-size: 23px;
+    color: transparent;
+    background-color: var(--text-primary);
+    mask: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAUCAYAAABWMrcvAAAAoElEQVR4nGNgGH6AEUonMDAwxBOh/gADA0MjTJMoAwODLAMDw28kbMzAwNDEwMAgDGU/IsU1bxgYGFKwSRQwMDDcx4HfMzAw/IeyJxBr034oJhooQG0BBRQcwALCAYqRgTwDA0MANMQCkSVYoLQAVBGMbQClCxkYGBYQ6ywBpIAAsYkGDlD/EB1iMDABqhHdv3gB2c4EBQrIthZSNA0gAAC9jyD5d9eTuAAAAABJRU5ErkJggg==") 0 0 / 13px 20px no-repeat;
+  }
+
+  .rupee-sign--bold {
+    mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAUCAYAAABWMrcvAAAAtUlEQVR4nM2PMQrCQBBFX8BaPEJuYaknUG+gNzA5QPAo8QgW9tpaiFoIdh5BrCVsGJjIECKZYKEPPrvL7J/5A39NpOdC1cYJSHv6uAJboABeQB8YAhOtZ8AROHiSZEAAbk3FBLh/UFDJPZfPVbwLsDY7yichNrtugLMnXm6mvKkmzYBpzTDWSULa1HFlslvtgZEnUr3JnA7s1PQwMVuJ1RC0gZvExFx+FTNymAYqQYzPLhN/QAk00jKnk4SzXQAAAABJRU5ErkJggg==");
+  }
+
+  .rupee-sign--was { background-color: #868686; }
+
+  /* [ĐO] vị trí dọc của ₹ so với đỉnh dòng, dò theo ảnh export. */
+  .basket-item__now .rupee-sign { mask-position: 0 2px; }
+
+  .summary__row .rupee-sign {
+    block-size: 25px;
+    mask-position: 0 2px;
+  }
+
+  .summary__row .rupee-sign--bold { mask-position: 0 3px; }
+}

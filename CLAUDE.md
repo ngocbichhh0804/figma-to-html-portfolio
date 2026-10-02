@@ -58,12 +58,13 @@ Mulish 700 đã có (`mulish-latin-700-normal.woff2` + `@font-face` trong
 index.html              trang Shop — đã xong, một file, không <script>
 landing-page.html        landing page — đã xong, đối chiếu pixel với Figma
 product.html             trang sản phẩm — đã xong, nền tối (body.theme-dark)
+cart.html                trang giỏ hàng (Cart Page) — đã xong
 checkout.html            trống — chưa dựng
 css/
 ├── reset.css / fonts.css / tokens.css / base.css / layout.css
 ├── components/          nav, hero, filter, card, pagination, marquee, footer,
 │                        showcase, discover, bestsellers, feature, button,
-│                        breadcrumb, product, cart
+│                        breadcrumb, product, cart, basket (trang giỏ hàng)
 │                        (form.css, table.css hiện đang trống)
 └── utilities.css
 assets/fonts/            10 file woff2, bảng mã latin
@@ -74,7 +75,8 @@ dev/overlay.html         công cụ đè ảnh Figma lên bản code, đọc REA
 dev/landing-overlay.html như trên cho landing page (1920 × 5769)
 dev/product-overlay.html như trên cho trang sản phẩm (1920 × 1128)
 dev/cart-overlay.html    như trên cho giỏ hàng (product.html#cart)
-docs/comparison/         ảnh đối chiếu Figma vs code (shop/, landing/, product/, cart/; checkout/ trống)
+dev/cart-page-overlay.html như trên cho trang giỏ hàng (cart.html, 1920 × 1561)
+docs/comparison/         ảnh đối chiếu Figma vs code (shop/, landing/, product/, cart/, cart-page/; checkout/ trống)
 js/main.js, src/input.css  CÒN SÓT từ hướng làm cũ (Tailwind + JS), index.html
                          KHÔNG nạp hai file này. Cân nhắc xoá để khỏi gây hiểu nhầm
                          vì README cam kết "không JavaScript".
@@ -103,6 +105,12 @@ js/main.js, src/input.css  CÒN SÓT từ hướng làm cũ (Tailwind + JS), ind
 - **Giỏ hàng (Cart Modal)**: ngăn kéo trong `product.html`, mở bằng `#cart`
   (`:target`, không JS). 16 vùng khớp 0px, sai lệch toàn khung 2.2/765. Mulish
   không có "₹" → ba mask PNG lấy alpha từ ảnh export (`assets/img/rupee-cart*.png`).
+- **Trang giỏ hàng (`cart.html`)**: hoàn thiện, khung 1920 × 1561. 38 vùng
+  khớp 0px, sai lệch toàn khung 2.7/765. Hai cột chỉ cạnh nhau từ 1440px.
+  Icon túi đặc + chấm đỏ tách từ ảnh export (`assets/icon/icon-bag-filled.png`);
+  ₹ là hai mask PNG (`assets/img/rupee-regular.png`, `rupee-bold.png`). Header
+  dùng `site-header--bold` (chung với trang sản phẩm). "Go to Cart" ở ngăn kéo
+  trỏ tới trang này.
 - **`checkout.html`**: chưa dựng, cần ảnh export Figma 1:1.
 - **Logo "Glo."** (chung ba trang): [FIGMA] 61.17px, giãn 2% — khớp hơn 63px cũ.
 - **Header 1024–1439px**: đã thu khoảng hở link nav (trước đó "Offers" đè lên

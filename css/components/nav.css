@@ -207,9 +207,12 @@
       margin-inline-start: 50px;
     }
 
-    .site-header--product .nav__list li + li { margin-inline-start: 49px; }   /* [ĐO] "Contact" x721 */
+    .site-header--bold .nav__list li + li { margin-inline-start: 49px; }   /* [ĐO] "Contact" x721 */
 
-    .site-header--product .nav__logo { margin-inline-end: -1px; }   /* [ĐO] "Shop" x460 */
+    .site-header--bold .nav__logo { margin-inline-end: -1px; }   /* [ĐO] "Shop" x460 */
+
+    /* [ĐO] Trang giỏ hàng: Figma đặt "Shop ⌄" lệch trái 1px, các link sau giữ nguyên. */
+    .site-header--cart .nav__list li:first-child { translate: -1px 0.25px; }
   }
 
   /* 1024–1439px: khoảng hở đo từ khung 1920 làm hàng link đè lên bốn icon
@@ -219,13 +222,13 @@
     .nav__panel { margin-inline-start: 40px; }
 
     .nav__list li + li,
-    .site-header--product .nav__list li + li { margin-inline-start: 32px; }
+    .site-header--bold .nav__list li + li { margin-inline-start: 32px; }
   }
 
-  /* Trang sản phẩm: trên nền tối Figma vẽ hàng link đậm 700, cỡ 24px, giãn
+  /* Trang sản phẩm và trang giỏ hàng: Figma vẽ hàng link đậm 700, cỡ 24px, giãn
      2% (trang Shop đậm 600, cỡ 25px). [ĐO] dò cỡ × độ đậm × giãn chữ: nét
      chữ y93–115, "Shop" x460–518, "About" x598–669. */
-  .site-header--product .nav__link {
+  .site-header--bold .nav__link {
     font-size: 24px;
     font-weight: var(--weight-bold);
     letter-spacing: 0.02em;

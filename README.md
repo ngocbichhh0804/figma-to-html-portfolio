@@ -139,7 +139,7 @@ Chỗ cần biết, đều có ghi chú trong code:
   bao bằng nhau nhưng nét lệch). Sai lệch vùng header trang Shop giảm
   7.7 → 2.5 / 765.
 - **Hàng link nav** trên nền tối Figma để đậm 700, cỡ 24px, giãn 2% (Shop là
-  600 / 25px) → modifier `site-header--product`.
+  600 / 25px) → modifier `site-header--bold`.
 - **Icon header**: bản `*-light.png` là chính file PNG khách cung cấp, chỉ đổi
   màu nét sang `#BBB2B0`, giữ nguyên kênh alpha.
 - **Ô số lượng** không có JavaScript: "−" / "+" là nút submit gửi kèm bước
@@ -177,6 +177,38 @@ sánh: [`dev/cart-overlay.html`](dev/cart-overlay.html).
 - Icon túi dùng `icon-bag.png`; icon đóng là `close-circle-line.png` khách cung cấp.
 - Khi giỏ hàng mở, dòng breadcrumb của trang phía sau ẩn đi (`visibility:
   hidden`, bố cục không đổi) — đúng như khung Figma Cart Modal.
+
+## Trang giỏ hàng (`cart.html`)
+
+Khung Figma **Cart Page 1920 × 1561**: danh sách sản phẩm bên trái, Order
+Summary bên phải, footer dùng chung. Nút "Go to Cart" trong ngăn kéo giỏ hàng
+trỏ tới trang này; nút "Checkout" trỏ tới `checkout.html`.
+
+| Cách kiểm | Kết quả |
+| --- | --- |
+| 38 vùng chữ / icon / ảnh / ô nhập / nút / footer, dò độ dịch tốt nhất | **0 px** (mọi vùng) |
+| Sai lệch màu trung bình toàn khung | **2.7 / 765** (2.0 sau khi làm mịn 5px) |
+| Tỉ lệ pixel lệch ≤ 30 / 765 | **98.9 %** |
+
+Ảnh đối chiếu: [`docs/comparison/cart-page/`](docs/comparison/cart-page/). Công
+cụ so sánh: [`dev/cart-page-overlay.html`](dev/cart-page-overlay.html).
+
+- **Hai cột** float trái/phải, chỉ đặt cạnh nhau từ 1440px; hẹp hơn thì xếp dọc,
+  dưới 640px dòng sản phẩm đổi sang khung ảnh 110px với chữ xếp dọc.
+- **Nền**: vầng `#FBE8C0` và khối hồng `#FDDEDE` đúng toạ độ Figma, dùng lại
+  blur 260px — lệch dưới 1/255 mỗi kênh, không cần fit thêm.
+- **Chữ "GLO." chìm**: Fraunces 900 opsz 144, 404px, mờ 7.5% — dò từng pixel.
+- **Icon túi đặc có chấm đỏ** (Figma khác trang Shop): chưa có trong bộ icon nên
+  tách từ ảnh export thành `assets/icon/icon-bag-filled.png` (36 × 36, giữ màu).
+- **Ký hiệu "₹"**: hai mask (thường / đậm) lấy alpha từ ảnh export
+  (`assets/img/rupee-regular.png`, `rupee-bold.png`). Gạch ngang giá cũ vẽ bằng
+  pseudo-element vì `text-decoration` không đi xuyên qua mask inline-block.
+- "30ml ⌄", "Qty : 1 ⌄" là `<select>` thật; ô coupon là form riêng.
+- **Tinh chỉnh dưới pixel**: Figma đặt nhiều khối chữ ở toạ độ lẻ. Mỗi khối
+  được dò độ dịch ±1 → ±0.5 → ±0.25px trên ảnh export, giữ giá trị cho sai
+  lệch nhỏ nhất (`transform` riêng cho trang này, chỉ ở khổ ≥ 1440px).
+- Header dùng chung modifier `site-header--bold` với trang sản phẩm (link 700,
+  24px, giãn 2%).
 
 ## Quy trình chuyển đổi
 
@@ -287,6 +319,7 @@ quyết định của tôi chứ không suy ra được từ file Figma:
 index.html              trang Shop, không thẻ <script> nào
 landing-page.html       landing page, không thẻ <script> nào
 product.html            trang sản phẩm, không thẻ <script> nào
+cart.html               trang giỏ hàng, không thẻ <script> nào
 css/
 ├── reset.css           reset hiện đại, layer thấp nhất
 ├── fonts.css           11 khai báo @font-face, trỏ vào assets/fonts/
@@ -295,7 +328,7 @@ css/
 ├── layout.css          container, hai lớp trang trí, lưới Shop
 ├── components/         nav, hero, filter, card, pagination, marquee, footer,
 │                       showcase, discover, bestsellers, feature, button,
-│                       breadcrumb, product, cart
+│                       breadcrumb, product, cart, basket
 └── utilities.css       visually-hidden, skip-link
 assets/
 ├── fonts/              10 file woff2, bảng mã latin
@@ -305,7 +338,8 @@ dev/overlay.html        công cụ đè ảnh Figma lên trang Shop
 dev/landing-overlay.html  như trên, cho landing page
 dev/product-overlay.html  như trên, cho trang sản phẩm
 dev/cart-overlay.html   như trên, cho giỏ hàng (product.html#cart)
-docs/comparison/        bộ ảnh đối chiếu (shop/, landing/, product/, cart/)
+dev/cart-page-overlay.html  như trên, cho trang giỏ hàng (cart.html)
+docs/comparison/        bộ ảnh đối chiếu (shop/, landing/, product/, cart/, cart-page/)
 ```
 
 CSS tổ chức bằng **cascade layer gốc của trình duyệt** — `reset, tokens, base,
