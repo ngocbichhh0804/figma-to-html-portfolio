@@ -101,6 +101,53 @@ Chỗ khác bản thiết kế, đều có ghi chú trong code:
 - **"Confidence"**: Figma ghép "fi" thành ligature; Chrome tắt ligature khi có
   letter-spacing nên cặp này để letter-spacing 0 trong một `<span>`.
 
+## Trang sản phẩm (`product.html`)
+
+Khung Figma **1920 × 1128**, nền tối. Header trùng vị trí trang Shop nên dùng lại
+component; màu tự đổi nhờ class `theme-dark` trên `<body>` (chỉ ghi đè tầng màu
+ngữ nghĩa trong `css/tokens.css`). Khối mới: `breadcrumb`, `product` (ba cột,
+ô số lượng, nút Add to Cart, khung ảnh viên thuốc, chữ "GLO." chìm).
+
+| Cách kiểm | Kết quả |
+| --- | --- |
+| 18 vùng chữ / icon / viền, so khung bao từng vùng | **0 px** (vài mép còn 1 px) |
+| Hũ kem (`product-jar-upright.png`), fit cỡ + vị trí trên ảnh export | 267 × 260 tại (808.5, 493.5), sai số 2.4/255 |
+| Nền + vầng sáng + chữ "GLO." chìm (so sau khi làm mịn 6px) | **1.6 / 765** |
+| Sai lệch màu trung bình từng pixel | 7.7 / 765, gần hết là do hạt sạn giấy ngẫu nhiên (xem dưới) |
+| Tỉ lệ pixel lệch ≤ 30 / 765 · ≤ 60 / 765 | **99.0 %** · **99.5 %** |
+
+Ảnh đối chiếu: [`docs/comparison/product/`](docs/comparison/product/). Công cụ
+so sánh trực tiếp: [`dev/product-overlay.html`](dev/product-overlay.html).
+
+Chỗ cần biết, đều có ghi chú trong code:
+
+- **Lớp sạn giấy.** Nền Figma `#0D272F` phủ texture hạt (tối đi trung bình ~6.5%,
+  lệch ~6% giá trị màu, hạt 1–2px); vầng sáng vì thế để 32% thay vì 30%.
+  Dựng lại bằng `feTurbulence` trong SVG nhúng, hoà `soft-light`; độ mạnh và cỡ
+  hạt đã dò cho khớp thống kê ảnh export. Hạt là ngẫu nhiên nên không thể trùng
+  từng pixel — đây là phần lớn con số 7.7 ở bảng trên.
+- **Ký hiệu "₹"**: Fraunces không có ký tự này, Figma và trình duyệt đều mượn
+  font dự phòng (mỗi bên một kiểu). Hình "₹" của Figma được dò từ ảnh export
+  (`assets/img/rupee-sign.svg`) và nhúng làm `mask` dạng data URI — nhúng thẳng
+  vì Chrome chặn mask trỏ ra file riêng khi mở trang bằng `file://`. Chữ "₹"
+  thật vẫn nằm trong HTML (trong suốt) cho trình đọc màn hình và khi copy.
+- **Chữ "GLO." chìm** dùng đúng Fraunces 900 như inspector ghi, khớp ảnh export.
+  Nó gắn vào khung ảnh và tính bằng đơn vị `cqi`, nên co cùng khung ở màn hình
+  nhỏ.
+- **Logo "Glo."** (dùng chung cả ba trang) đổi sang đúng số inspector:
+  Cormorant Garamond 61.17px, giãn 2% (trước đây dò 63px, không giãn — khung
+  bao bằng nhau nhưng nét lệch). Sai lệch vùng header trang Shop giảm
+  7.7 → 2.5 / 765.
+- **Hàng link nav** trên nền tối Figma để đậm 700, cỡ 24px, giãn 2% (Shop là
+  600 / 25px) → modifier `site-header--product`.
+- **Icon header**: bản `*-light.png` là chính file PNG khách cung cấp, chỉ đổi
+  màu nét sang `#BBB2B0`, giữ nguyên kênh alpha.
+- **Ô số lượng** không có JavaScript: "−" / "+" là nút submit gửi kèm bước
+  cộng/trừ để máy chủ tính lại; ô số gõ trực tiếp được.
+- Tên sản phẩm giữ đúng chữ trong Figma: "Night **Crem**" — có thể là lỗi
+  chính tả, cần khách xác nhận.
+- Figma không vẽ footer cho trang này nên trang dừng ở 1128px như khung thiết kế.
+
 ## Quy trình chuyển đổi
 
 1. **Lấy số liệu.** Export frame Figma ra PNG tỉ lệ 1:1. Những gì đọc được
@@ -137,13 +184,13 @@ bớt một vòng DNS + TLS.
 | Logo "Glo.", tiêu đề hero | Roghiska | **Cormorant Garamond** | 400 |
 | Chữ "GLO." chìm, dải ribbon, heading footer, giá | Butler | **Fraunces** (biến thiên, có trục opsz) | 100–900 |
 | Tên sản phẩm, nút Subscribe | Gotham | **Montserrat** | 400, 700 |
-| Nav, cột filter, link footer, ô nhập, pagination | Century Gothic | **Mulish** | 400, 500, 600 |
+| Nav, cột filter, link footer, ô nhập, pagination, chữ trang sản phẩm | Century Gothic | **Mulish** | 400, 500, 600, 700 |
 
 Bốn font này do khách chốt theo bảng đối chiếu weight — điểm quan trọng là mỗi
 họ đều có sẵn đủ các độ đậm bản thiết kế cần, nên không chỗ nào phải để trình
 duyệt tự làm giả nét đậm (chữ sẽ bệt và rộng ra).
 
-Mỗi file chỉ chứa bảng mã latin; tổng 8 file ≈ 145 KB. Nếu sau này mua được giấy
+Mỗi file chỉ chứa bảng mã latin; tổng 9 file ≈ 158 KB. Nếu sau này mua được giấy
 phép font thật, chỉ cần thêm `@font-face` vào `css/fonts.css` rồi đặt tên font
 đó lên đầu stack trong `css/tokens.css` — không phải sửa dòng nào trong
 component.
@@ -209,22 +256,25 @@ quyết định của tôi chứ không suy ra được từ file Figma:
 ```
 index.html              trang Shop, không thẻ <script> nào
 landing-page.html       landing page, không thẻ <script> nào
+product.html            trang sản phẩm, không thẻ <script> nào
 css/
 ├── reset.css           reset hiện đại, layer thấp nhất
-├── fonts.css           10 khai báo @font-face, trỏ vào assets/fonts/
+├── fonts.css           11 khai báo @font-face, trỏ vào assets/fonts/
 ├── tokens.css          design token dùng chung (màu, font, leading, chuyển động)
 ├── base.css            mặc định cho thẻ, nhịp chữ
 ├── layout.css          container, hai lớp trang trí, lưới Shop
 ├── components/         nav, hero, filter, card, pagination, marquee, footer,
-│                       showcase, discover, bestsellers, feature, button
+│                       showcase, discover, bestsellers, feature, button,
+│                       breadcrumb, product
 └── utilities.css       visually-hidden, skip-link
 assets/
-├── fonts/              9 file woff2, bảng mã latin
+├── fonts/              10 file woff2, bảng mã latin
 ├── icon/               icon PNG khách cung cấp
 └── img/                ảnh sản phẩm (đã cắt sát mép, bỏ lề trong suốt)
 dev/overlay.html        công cụ đè ảnh Figma lên trang Shop
 dev/landing-overlay.html  như trên, cho landing page
-docs/comparison/        bộ ảnh đối chiếu (shop/, landing/)
+dev/product-overlay.html  như trên, cho trang sản phẩm
+docs/comparison/        bộ ảnh đối chiếu (shop/, landing/, product/)
 ```
 
 CSS tổ chức bằng **cascade layer gốc của trình duyệt** — `reset, tokens, base,
@@ -247,8 +297,9 @@ tính `gap` nào:
 | Hàng mới của lưới sản phẩm | `clear: left` trên thẻ đầu mỗi hàng, nên hàng sau luôn nằm dưới thẻ cao nhất của hàng trước |
 | Cột sản phẩm không bị cột filter đẩy xuống | `display: flow-root` tạo ngữ cảnh định dạng riêng |
 | Căn dọc hàng header, ô ảnh sản phẩm, nút tròn, hàng mạng xã hội | `line-height` bằng đúng chiều cao hộp + `vertical-align: middle` |
-| Hàng ngang: link nav, icon, nút thẻ, pagination, dải ribbon | `display: inline-block` + `margin` |
+| Hàng ngang: link nav, icon, nút thẻ, pagination, dải ribbon, breadcrumb, ô số lượng | `display: inline-block` + `margin` |
 | Bốn icon bám mép phải header | `position: absolute` |
+| Ba cột trang sản phẩm | cột trái `float: left`, cột phải `float: right`, khung ảnh giữa `position: absolute` |
 | "Filter" trái — "Clear all" phải | hai `float` ngược chiều |
 | Ô nhập email — nút Subscribe | `float` trái/phải, nút đẩy xuống nửa phần chênh chiều cao |
 | Dấu tick trong ô checkbox | `position: absolute` trong ô |
@@ -296,8 +347,10 @@ cache cho asset — kéo thư mục vào Netlify hoặc trỏ repo vào là xong
 - **Icon bản SVG hoặc @2x.** Bộ PNG hiện tại chỉ 36px nên hơi rỗ trên màn hình
   retina; đây cũng là thứ duy nhất kéo điểm performance mobile xuống 94.
 - **Xác nhận dải ribbon có chạy không**, và tốc độ mong muốn.
-- **File Figma hai trang còn lại** (Product description, Checkout) — export 1:1
-  như trang này là dựng tiếp được ngay, token đã dùng chung.
+- **File Figma trang Checkout** — export 1:1 là dựng tiếp được ngay, token đã
+  dùng chung.
+- **Xác nhận tên sản phẩm** "Mixed Grapes Sulphate Free Night Crem" (thiếu chữ
+  "a" trong "Cream"?).
 
 ## Nguồn thiết kế
 

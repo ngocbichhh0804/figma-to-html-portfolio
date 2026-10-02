@@ -46,36 +46,34 @@ Gothic) — đã thay bằng 4 font OFL, tự lưu `.woff2` trong `assets/fonts/
 | Logo, tiêu đề hero | Cormorant Garamond | 400 |
 | "GLO." chìm, ribbon, heading footer, giá | Fraunces (variable, opsz) | 100–900 |
 | Tên sản phẩm, nút Subscribe | Montserrat | 400, 700 |
-| Nav, filter, footer link, input, pagination | Mulish | 400, 500, 600 |
+| Nav, filter, footer link, input, pagination | Mulish | 400, 500, 600, 700 |
 
-**Việc còn dở:** `.filter__title` ("Filter") đã đặt `font-weight:
-var(--weight-bold)` (700) nhưng Mulish 700 **chưa có file** trong
-`assets/fonts/` và **chưa có khối `@font-face`** trong `css/fonts.css` —
-trình duyệt hiện tại rơi về bản 600, chữ chưa đậm thật. Cần: tải
-`mulish-latin-700-normal.woff2` (vd. gói `@fontsource/mulish`), bỏ vào
-`assets/fonts/`, rồi thêm `@font-face` weight 700 vào `css/fonts.css` (chép
-khối weight 600, đổi số).
+Mulish 700 đã có (`mulish-latin-700-normal.woff2` + `@font-face` trong
+`css/fonts.css`) — dùng cho "Product description", nav trang sản phẩm và
+`.filter__title` ở trang Shop.
 
 ## Cấu trúc
 
 ```
 index.html              trang Shop — đã xong, một file, không <script>
 landing-page.html        landing page — đã xong, đối chiếu pixel với Figma
-product.html             trống — chưa dựng
+product.html             trang sản phẩm — đã xong, nền tối (body.theme-dark)
 checkout.html            trống — chưa dựng
 css/
 ├── reset.css / fonts.css / tokens.css / base.css / layout.css
 ├── components/          nav, hero, filter, card, pagination, marquee, footer,
-│                        showcase, discover, bestsellers, feature, button
+│                        showcase, discover, bestsellers, feature, button,
+│                        breadcrumb, product
 │                        (form.css, table.css hiện đang trống)
 └── utilities.css
-assets/fonts/            9 file woff2, bảng mã latin
+assets/fonts/            10 file woff2, bảng mã latin
 assets/icon/              icon PNG khách cung cấp (chỉ có 1x/36px — xem README)
 assets/img/                ảnh sản phẩm; có vài file nháp cũ nên dọn khi rảnh
                          (image-removebg-preview*.png, Product listing page.png ~1.1MB)
 dev/overlay.html         công cụ đè ảnh Figma lên bản code, đọc README trước khi dùng
 dev/landing-overlay.html như trên cho landing page (1920 × 5769)
-docs/comparison/         ảnh đối chiếu Figma vs code (shop/, landing/; product/, checkout/ trống)
+dev/product-overlay.html như trên cho trang sản phẩm (1920 × 1128)
+docs/comparison/         ảnh đối chiếu Figma vs code (shop/, landing/, product/; checkout/ trống)
 js/main.js, src/input.css  CÒN SÓT từ hướng làm cũ (Tailwind + JS), index.html
                          KHÔNG nạp hai file này. Cân nhắc xoá để khỏi gây hiểu nhầm
                          vì README cam kết "không JavaScript".
@@ -94,9 +92,17 @@ js/main.js, src/input.css  CÒN SÓT từ hướng làm cũ (Tailwind + JS), ind
   khớp 0px, các vùng chữ/viền dò độ dịch về 0px. Chữ "GLO." dọc, chữ ribbon và huy hiệu là SVG dò từ
   ảnh export (`assets/img/glo-watermark-vertical.svg`). Ảnh Figma 1:1 ở
   `docs/comparison/landing/landing-figma.png`.
-- **`product.html`, `checkout.html`**: chưa dựng. README nói cần export
-  Figma 1:1 hai trang này từ khách — token đã dùng chung nên dựng tiếp
-  được ngay khi có ảnh export.
+- **Trang sản phẩm (`product.html`)**: hoàn thiện, khung 1920 × 1128, nền tối.
+  Theme tối là class `.theme-dark` trong `tokens.css` (chỉ đổi màu ngữ nghĩa).
+  18 vùng chữ/icon/viền khớp 0px (vài mép 1px); nền + vầng sáng + "GLO." chìm
+  lệch 1.6/765 sau khi làm mịn; sai lệch từng pixel 7.7/765, chủ yếu do lớp sạn
+  giấy ngẫu nhiên (feTurbulence). Không có footer (Figma không vẽ). Fraunces
+  không có "₹" → hình ₹ dò từ Figma, dùng làm mask data URI
+  (`assets/img/rupee-sign.svg` là bản gốc).
+- **`checkout.html`**: chưa dựng, cần ảnh export Figma 1:1.
+- **Logo "Glo."** (chung ba trang): [FIGMA] 61.17px, giãn 2% — khớp hơn 63px cũ.
+- **Header 1024–1439px**: đã thu khoảng hở link nav (trước đó "Offers" đè lên
+  icon ở cả ba trang). Từ 1440px giữ đúng số Figma.
 - **Ribbon "New arrivals"**: đang tĩnh, chưa chạy. Cần xác nhận với khách
   có chạy không và tốc độ — nếu chạy thì chỉ cần thêm `@keyframes`.
 - **Đã sửa gần đây**: gộp `font-weight` trùng lặp và xoá dấu `;` thừa

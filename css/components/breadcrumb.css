@@ -1,0 +1,33 @@
+@layer components {
+  /* "Shop > Creams > Night creams". [FIGMA] Mulish 16px, line-height 100%,
+     giãn chữ 2%, trắng 50%; hộp chữ 256 × 20 tại (178.54, 220.83). */
+  .breadcrumb {
+    margin-inline-start: -2px;   /* [ĐO] chữ "S" bắt đầu x179 */
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    color: rgb(255 255 255 / 50%);
+  }
+
+  .breadcrumb__list {
+    padding: 0;
+    list-style: none;
+    font-size: 0;
+  }
+
+  .breadcrumb__item {
+    display: inline-block;
+    font-size: 16px;
+  }
+
+  /* Dấu ">" chỉ để nhìn: chuỗi rỗng sau "/" giấu nó khỏi trình đọc màn
+     hình (danh sách <ol> đã nói rõ thứ bậc). */
+  .breadcrumb__item + .breadcrumb__item::before {
+    content: ">" / "";
+    margin-inline: 8.5px 9.5px;   /* [ĐO] ">" x227–235, chữ hai bên cách 11px */
+  }
+
+  .breadcrumb a { transition: color var(--duration-fast) var(--ease-out); }
+
+  .breadcrumb a:hover { color: var(--text-primary); }
+}

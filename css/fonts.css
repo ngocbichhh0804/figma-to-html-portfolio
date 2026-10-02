@@ -11,7 +11,7 @@
    Century Gothic-> Mulish              (nav, filter, chữ body)
 
    Chỉ nạp đúng những độ đậm mà trang thật sự dùng:
-     Cormorant Garamond 400 · Fraunces 100–900 (biến thiên) · Montserrat 400/700 · Mulish 400/500/600
+     Cormorant Garamond 400 · Fraunces 100–900 (biến thiên) · Montserrat 400/700 · Mulish 400/500/600/700
    ========================================================================= */
 @layer reset {
   @font-face {
@@ -71,6 +71,15 @@
     font-family: "Mulish";
     src: url("../assets/fonts/mulish-latin-600-normal.woff2") format("woff2");
     font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* Đậm 700: "Product description" (trang sản phẩm), "Filter" (trang Shop). */
+  @font-face {
+    font-family: "Mulish";
+    src: url("../assets/fonts/mulish-latin-700-normal.woff2") format("woff2");
+    font-weight: 700;
     font-style: normal;
     font-display: swap;
   }

@@ -72,4 +72,16 @@
     --duration-fast: 160ms;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   }
+
+  /* ---------- Theme tối (trang sản phẩm) ----------
+     Chỉ đổi tầng màu ngữ nghĩa: header, chữ, viền… tự đổi theo mà không
+     phải sửa component nào. Đặt class lên <body> để cả nền trang đổi theo. */
+  .theme-dark {
+    --color-teal-deep: #0d272f;      /* [FIGMA] nền khung Product description */
+    --color-mist: #bbb2b0;           /* [FIGMA] chữ, icon, viền trên nền tối  */
+
+    --surface-page: var(--color-teal-deep);
+    --text-primary: var(--color-mist);
+    --border-hairline: rgb(187 178 176 / 28%);
+  }
 }

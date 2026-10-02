@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Mixed Grapes Sulphate Free Night Cream — Glo.</title>
+    <meta name="description" content="Transform your skin with our Mixed Grape Sulphate free night cream, a multitasking elixir for a radiant complexion. Net wt 50ml." />
+
+    <meta property="og:type" content="product" />
+    <meta property="og:title" content="Mixed Grapes Sulphate Free Night Cream — Glo." />
+    <meta property="og:description" content="A multitasking night cream for a radiant complexion. Vegan, non-toxic, cruelty free." />
+
+    <link rel="icon" href="assets/icon/icon-sparkle.png" type="image/png" />
+
+    <!-- Bốn kiểu chữ xuất hiện ngay màn hình đầu nên tải trước. -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/cormorant-garamond-latin-400-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/fraunces-latin-opsz-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/mulish-latin-400-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/mulish-latin-600-normal.woff2" />
+
+    <style>
+      @layer reset, tokens, base, layout, components, utilities;
+    </style>
+
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components/nav.css" />
+    <link rel="stylesheet" href="css/components/breadcrumb.css" />
+    <link rel="stylesheet" href="css/components/product.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+  </head>
+
+  <!-- theme-dark đổi tầng màu ngữ nghĩa (xem css/tokens.css) -->
+  <body class="theme-dark">
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <div class="page page--product">
+      <!-- Vầng sáng xanh góc phải: ellipse 992.77 × 1040.81 tại (1170.5, −388.69), #C5E8C5 30% -->
+      <div class="page__glow page__glow--product" aria-hidden="true"></div>
+
+      <header class="site-header site-header--product">
+        <div class="container">
+          <nav class="nav" aria-label="Main">
+            <a href="landing-page.html" class="nav__logo">Glo.</a>
+
+            <details class="nav__disclosure">
+              <summary class="nav__toggle">
+                <span class="visually-hidden">Menu</span>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                </svg>
+              </summary>
+
+              <div class="nav__panel">
+                <ul class="nav__list" role="list">
+                  <li>
+                    <a class="nav__link" href="index.html">Shop<svg viewBox="0 0 9 9" overflow="visible" fill="none" aria-hidden="true"><path d="M1.45 -1 5 2.55 8.55 -1" stroke="currentColor" stroke-width="1.95" /></svg></a>
+                  </li>
+                  <li><a class="nav__link" href="#">About</a></li>
+                  <li><a class="nav__link" href="#">Contact</a></li>
+                  <li><a class="nav__link" href="#">Offers</a></li>
+                </ul>
+              </div>
+            </details>
+
+            <!-- Icon bản màu sáng: cùng file PNG khách cung cấp, chỉ đổi màu nét
+                 sang #BBB2B0, giữ nguyên kênh alpha. -->
+            <div class="nav__actions">
+              <a class="nav__action" href="#"><img src="assets/icon/icon-search-light.png" alt="Search" width="36" height="36" /></a>
+              <a class="nav__action" href="#"><img src="assets/icon/icon-user-light.png" alt="Account" width="36" height="36" /></a>
+              <a class="nav__action" href="#"><img src="assets/icon/icon-heart-light.png" alt="Wishlist" width="36" height="36" /></a>
+              <a class="nav__action" href="index.html"><img src="assets/icon/icon-bag-light.png" alt="Cart" width="36" height="36" /></a>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <main id="main">
+        <article class="container product">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol class="breadcrumb__list" role="list">
+              <li class="breadcrumb__item"><a href="index.html">Shop</a></li>
+              <li class="breadcrumb__item"><a href="index.html">Creams</a></li>
+              <li class="breadcrumb__item"><a href="index.html" aria-current="page">Night creams</a></li>
+            </ol>
+          </nav>
+
+          <div class="product__summary">
+            <button type="button" class="product__wish" aria-pressed="false">
+              <span class="visually-hidden">Add to wishlist</span>
+              <img src="assets/icon/icon-heart-light.png" alt="" width="36" height="36" />
+            </button>
+
+            <h1 class="product__title">Mixed Grapes Sulphate Free Night Crem</h1>
+
+            <p class="product__price"><span class="product__currency">₹</span>630.00</p>
+            <p class="product__tax">inclusive of all taxes</p>
+
+            <!-- Không JavaScript: "−" và "+" là nút submit gửi kèm bước cộng/trừ
+                 để máy chủ tính lại số lượng; ô số vẫn gõ trực tiếp được. -->
+            <form class="product__buy" action="#" method="post">
+              <div class="quantity">
+                <button class="quantity__step" type="submit" name="step" value="-1" aria-label="Decrease quantity">-</button>
+                <label class="visually-hidden" for="quantity">Quantity</label>
+                <input class="quantity__input" id="quantity" name="quantity" type="number" inputmode="numeric" min="1" value="1" />
+                <button class="quantity__step" type="submit" name="step" value="1" aria-label="Increase quantity">+</button>
+              </div>
+              <button class="product__cart" type="submit" name="action" value="add">Add to Cart</button>
+            </form>
+          </div>
+
+          <!-- Ảnh hũ kem trong khung viên thuốc + thanh cuộn trang trí. Chữ "GLO."
+               chìm phía sau vẽ bằng pseudo-element của .product. -->
+          <div class="product__gallery">
+            <img class="product__img" src="assets/img/product-jar-upright.png" alt="Mixed Grapes night cream jar with a brown lid, tilted" width="267" height="260" fetchpriority="high" />
+            <span class="product__scroll" aria-hidden="true"></span>
+          </div>
+
+          <section class="product__details" aria-labelledby="details-title">
+            <h2 class="product__heading" id="details-title">Product description</h2>
+            <p class="product__text">Transform your skin with our Mixed Grape Sulphate free night cream, a multitasking elixir for a radiant complexion.</p>
+            <p class="product__text product__text--spaced">Net wt 50ml</p>
+            <p class="product__text product__text--spaced">Vegan | Non-toxic | Cruelty free</p>
+          </section>
+        </article>
+      </main>
+    </div>
+  </body>
+</html>

@@ -43,8 +43,13 @@
        ảnh export bắt đầu ở x193 — đây là khoảng thụt để chữ rơi đúng chỗ đó. */
     margin-inline-start: 21.5px;
     font-family: var(--font-logo);   /* [FIGMA] Roghiska */
-    font-size: 63px;                 /* [ĐO] nét chữ "Glo." rộng 99px */
+    /* [FIGMA] Cormorant Garamond 400, 61.17px, giãn 2%. Trước đây dò ra
+       63px không giãn (khung bao cùng rộng 99px) nhưng nét chữ lệch; số
+       inspector khớp hơn hẳn khi so từng pixel trên cả ba trang. */
+    font-size: 61.17px;
+    letter-spacing: 0.02em;
     line-height: 1;
+    margin-inline-end: -1.5px;       /* [ĐO] bù phần giãn chữ để menu giữ x460 */
   }
 
   /* Menu dựng bằng <details> nên không cần JavaScript. */
@@ -201,5 +206,28 @@
          nên nét chữ cách nhau 50px. */
       margin-inline-start: 50px;
     }
+
+    .site-header--product .nav__list li + li { margin-inline-start: 49px; }   /* [ĐO] "Contact" x721 */
+
+    .site-header--product .nav__logo { margin-inline-end: -1px; }   /* [ĐO] "Shop" x460 */
+  }
+
+  /* 1024–1439px: khoảng hở đo từ khung 1920 làm hàng link đè lên bốn icon
+     bên phải, nên thu hẹp lại. Từ 1440px trở lên giữ đúng số Figma. */
+  @media (64rem <= width < 90rem) {
+    .nav__disclosure:not([open]) .nav__panel,
+    .nav__panel { margin-inline-start: 40px; }
+
+    .nav__list li + li,
+    .site-header--product .nav__list li + li { margin-inline-start: 32px; }
+  }
+
+  /* Trang sản phẩm: trên nền tối Figma vẽ hàng link đậm 700, cỡ 24px, giãn
+     2% (trang Shop đậm 600, cỡ 25px). [ĐO] dò cỡ × độ đậm × giãn chữ: nét
+     chữ y93–115, "Shop" x460–518, "About" x598–669. */
+  .site-header--product .nav__link {
+    font-size: 24px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.02em;
   }
 }

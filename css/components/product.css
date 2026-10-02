@@ -1,0 +1,308 @@
+@layer components {
+  /* Trang Product description — khung Figma 1920 × 1128, nền tối.
+     Toạ độ [ĐO]/[FIGMA] dưới đây tính trên khung 1920; .product là container
+     1560px (lề 180px), bắt đầu ngay dưới header ở y200.
+
+     Từ 1440px trở lên: ba cột như bản thiết kế. Cột trái (thông tin, nút mua)
+     float trái, cột phải (mô tả) float phải, khối ảnh ở giữa đặt tuyệt đối vì
+     nó đè lên cả dải giữa hai cột và chữ "GLO." chìm phía sau. Hẹp hơn thì xếp
+     dọc theo thứ tự trong HTML. */
+  .product {
+    position: relative;
+    display: flow-root;
+    padding-block: 21px 64px;   /* [FIGMA] breadcrumb y220.83 */
+  }
+
+  /* ---------- Cột trái ---------- */
+  .product__wish {
+    display: block;
+    margin-block-start: 160px;      /* [ĐO] nét tim y415 */
+    margin-inline-start: -1px;      /* [ĐO] nét tim x185 */
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .product__wish:hover { opacity: 0.65; }
+
+  .product__wish img {
+    inline-size: 36px;
+    block-size: 36px;
+  }
+
+  /* [FIGMA] Cormorant Garamond (Roghiska) 32px, line-height 145%, giãn 2%;
+     hộp 401 × 92 tại (178.54, 505.21). */
+  .product__title {
+    max-inline-size: 401px;
+    margin-block-start: 62px;
+    font-size: 32px;
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+  }
+
+  /* [FIGMA] Fraunces 700, 24px, line-height 100%, giãn 2%; hộp 105 × 30 tại
+     (177.04, 658). Dò lại trên ảnh export (sai lệch từng pixel cả dòng):
+     đậm 720, giãn 0.3px khớp hơn số inspector một chút. */
+  .product__price {
+    margin-block-start: 64px;           /* [ĐO] nét số y665 */
+    font-family: var(--font-display);
+    font-weight: 720;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    position: relative;
+    inset-inline-start: -5px;           /* [ĐO] "6" bắt đầu x194 */
+    font-variant-numeric: lining-nums;
+  }
+
+  /* Fraunces KHÔNG có ký tự "₹" (U+20B9): Figma và trình duyệt đều mượn font
+     dự phòng, mỗi bên một kiểu nên hình khác hẳn. Hình "₹" của Figma được dò
+     từ ảnh export thành assets/img/rupee-sign.svg (viewBox 18 × 25, gốc tại
+     (175, 660) trên khung 1920) và dùng làm mask: chữ "₹" thật vẫn nằm trong
+     HTML cho trình đọc màn hình và khi copy, chỉ là trong suốt; màu lấy từ
+     theme. Bề ngang hộp vẫn là bề ngang ký tự dự phòng nên các chữ số phía
+     sau không xê dịch. */
+  .product__currency {
+    display: inline-block;
+    margin-inline-end: -1px;
+    color: transparent;
+    background-color: var(--text-primary);
+    /* Nhúng thẳng (data URI) vì Chrome chặn mask trỏ ra file riêng khi
+       trang mở bằng file://. Bản gốc dễ đọc: assets/img/rupee-sign.svg. */
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 25'%3E%3Cpath fill-rule='evenodd' d='M8.74 21.22C8.34 20.79 7.85 20.27 7.65 20.06C7.45 19.85 7.22 19.54 7.13 19.37C7.04 19.2 6.76 18.81 6.5 18.5C6.25 18.19 5.94 17.75 5.83 17.52C5.71 17.3 5.53 17.08 5.43 17.04C5.32 17 5.13 16.75 4.99 16.48C4.86 16.22 4.69 16 4.63 16C4.45 16 3.61 14.63 3.65 14.41C3.74 13.95 4.31 13.72 5.39 13.7C6.23 13.69 6.51 13.63 6.81 13.42C7.02 13.28 7.33 13.07 7.51 12.97C7.74 12.83 7.93 12.5 8.17 11.83C8.79 10.09 8.77 10.08 5.86 10C3.96 9.95 3.6 9.91 3.42 9.72C3.21 9.51 3.21 9.49 3.42 9.28C3.6 9.1 3.96 9.05 5.75 9C8.27 8.93 8.35 8.89 8.12 7.95C8.02 7.57 7.86 7.29 7.66 7.15C7.48 7.03 7.16 6.74 6.92 6.5C6.5 6.06 6.5 6.06 5.12 5.99C4.04 5.94 3.69 5.87 3.53 5.7C3.32 5.5 3.33 5.47 3.56 5.3C3.92 5.04 14.96 5.04 15.32 5.3C15.55 5.48 15.55 5.49 15.34 5.71C15.15 5.91 14.85 5.94 13.28 5.98C12.25 6 11.37 6.08 11.28 6.15C11.02 6.37 11.1 6.61 11.54 6.9C11.77 7.05 12.08 7.34 12.23 7.55C13.31 9.06 13.13 8.93 14.18 9.01C15.27 9.09 15.71 9.34 15.36 9.7C15.24 9.81 14.79 9.94 14.32 10C13.87 10.06 13.42 10.16 13.32 10.24C13.23 10.32 13.12 10.7 13.08 11.1C12.98 11.92 12.8 12.24 11.89 13.19C11.33 13.77 11.14 13.88 10.53 14.01C9.61 14.19 9.38 14.32 9.38 14.63C9.38 15.02 9.82 15.81 10.44 16.5C10.75 16.85 11 17.19 11 17.26C11 17.37 11.46 17.92 12.36 18.86C12.59 19.11 12.93 19.54 13.1 19.81C13.27 20.09 13.54 20.47 13.71 20.67C14.02 21.05 14.09 21.61 13.85 21.85C13.75 21.95 13.06 22 11.59 22L9.48 22L8.74 21.22Z'/%3E%3C/svg%3E") 1.45px -1.8px / 18px 25px no-repeat;   /* [ĐO] */
+  }
+
+  .product__tax {
+    margin-block-start: 1px;            /* [ĐO] nét chữ y689 */
+    font-size: 12.5px;                  /* [ĐO] dò cỡ × độ đậm × giãn chữ theo sai lệch từng pixel */
+    line-height: 1;
+  }
+
+  .product__buy {
+    margin-block-start: 36px;           /* [ĐO] hai nút y735–799 */
+    font-size: 0;
+  }
+
+  /* Ô số lượng hình viên thuốc: [ĐO] 144 × 64, viền 2px. */
+  .quantity {
+    display: inline-block;
+    vertical-align: middle;
+    inline-size: 144px;
+    block-size: 64px;
+    margin-inline-start: -1.5px;        /* [ĐO] viền x177 */
+    border: 2px solid var(--text-primary);
+    border-radius: var(--radius-pill);
+    font-size: 0;
+  }
+
+  /* [ĐO] Tâm ba ký tự "-", "1", "+" ở x212 / 248 / 286.5, thấp hơn tâm ô
+     1px. Hộp của chúng đặt tay theo các tâm đó (mép trong ô ở x179). */
+  .quantity__step,
+  .quantity__input {
+    display: inline-block;
+    vertical-align: top;
+    block-size: 60px;
+    font-size: 24px;
+    line-height: 60px;
+    text-align: center;
+    translate: 0 1px;
+  }
+
+  .quantity__step {
+    inline-size: 30px;
+    margin-inline-start: 18px;          /* tâm "-" x212 */
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .quantity__input + .quantity__step { margin-inline-start: 13.5px; }   /* tâm "+" x286.5 */
+
+  .quantity__step:hover { opacity: 0.65; }
+
+  .quantity__input {
+    inline-size: 20px;
+    margin-inline-start: 11px;          /* tâm "1" x248 */
+    padding: 0;
+    background: none;
+    border: 0;
+    appearance: textfield;
+  }
+
+  .quantity__input::-webkit-inner-spin-button,
+  .quantity__input::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+
+  /* [FIGMA] Rectangle 51: 218.71 × 64, bo 60, nền + viền 2px #AEA3A3. */
+  .product__cart {
+    display: inline-block;
+    vertical-align: middle;
+    inline-size: 218.71px;
+    block-size: 64px;
+    margin-inline-start: 23px;          /* [ĐO] nút x344 */
+    border: 2px solid #aea3a3;
+    border-radius: 60px;
+    background-color: #aea3a3;
+    color: var(--color-teal-deep);
+    font-size: 16px;                    /* [ĐO] dò cỡ × độ đậm × giãn chữ: chữ x406–497 */
+    font-weight: var(--weight-bold);
+    line-height: 60px;
+    letter-spacing: 0.02em;
+    text-indent: -2px;                  /* [ĐO] chữ lệch trái tâm nút 1px */
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .product__cart:hover { opacity: 0.85; }
+
+  /* ---------- Khối ảnh giữa ----------
+     [FIGMA] Frame 9861: 564.17 × 815.17 tại (677.92, 220.83) — gồm khung viên
+     thuốc 518 × 815 và thanh cuộn bên phải. Vị trí hũ kem tính theo % của
+     khung nên cả khối co đều khi màn hình hẹp. */
+  .product__gallery {
+    position: relative;
+    max-inline-size: 518px;
+    aspect-ratio: 518 / 815;
+    margin: 48px auto 0;
+    /* Đơn vị cqi (1% bề ngang khung) để chữ "GLO." chìm co cùng khung. */
+    container-type: inline-size;
+  }
+
+  /* Chữ "GLO." chìm. [FIGMA] Fraunces 900, 400px, line-height 100%, giãn
+     2%, in hoa, căn giữa, #487681 độ mờ 10%; hộp 949 × 493 tại (485.5, 318)
+     → tâm chữ (960, 564.5), tức lệch phải 23px và thấp hơn đỉnh khung
+     343.67px so với khung viên thuốc (tâm x937, đỉnh y220.83). Mọi số quy
+     ra cqi theo khung rộng 518px: 1px = 100/518 cqi. Trang trí thuần nên
+     dùng pseudo-element: không lọt vào cây trợ năng. */
+  .product__gallery::after {
+    content: "GLO." / "";
+    position: absolute;
+    z-index: -1;
+    inset-block-start: calc(143.67 * 100cqi / 518);   /* 343.67 − 400 / 2 */
+    inset-inline-start: calc(50% + 23 * 100cqi / 518);
+    translate: -50% 0;
+    font-family: var(--font-display);
+    font-size: calc(400 * 100cqi / 518);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-indent: 0.02em;          /* bù phần giãn thừa sau dấu "." */
+    color: #487681;
+    opacity: 0.1;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    font-variation-settings: "opsz" 144;
+  }
+
+  /* [ĐO] Nét viền 2px #BBB2B0 ở 30%. */
+  .product__gallery::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgb(187 178 176 / 30%);
+    border-radius: var(--radius-pill);
+    pointer-events: none;
+  }
+
+  /* [ĐO] Fit ảnh trên ảnh export: 267 × 260 tại (808.5, 493.5), sai số
+     trung bình 2.4/255. */
+  .product__img {
+    position: absolute;
+    inset-block-start: calc(272.67 / 815 * 100%);
+    inset-inline-start: calc(130.58 / 518 * 100%);
+    inline-size: calc(267 / 518 * 100%);
+  }
+
+  /* Thanh cuộn trang trí: vạch sáng + ba chấm 50%. [ĐO] x1215–1222,
+     vạch y569–615, chấm y632 / 656 / 680. */
+  .product__scroll {
+    position: absolute;
+    inset-block-start: 348.17px;
+    inset-inline-start: 537.08px;
+    inline-size: 8px;
+    block-size: 47px;
+    border-radius: var(--radius-pill);
+    background-color: var(--text-primary);
+  }
+
+  .product__scroll::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 63px;
+    inset-inline-start: 0;
+    inline-size: 8px;
+    block-size: 56px;
+    background: radial-gradient(circle, rgb(187 178 176 / 50%) 3.5px, transparent 4px) 0 -8px / 8px 24px repeat-y;
+  }
+
+  /* ---------- Cột phải ---------- */
+  .product__details {
+    margin-block-start: 48px;
+    letter-spacing: 0.025em;   /* [FIGMA] 2%, nới thêm vì Mulish hẹp hơn Century Gothic: dòng 1 rộng 400px */
+  }
+
+  /* [FIGMA] Mulish 700, 20px, line-height 24px; hộp tại (1336.9, 513.2). */
+  .product__heading {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: var(--weight-bold);
+    line-height: 24px;
+  }
+
+  /* [FIGMA] Mulish 400, 20px, line-height 164%; hộp 425.95 × 98.64 tại
+     (1336.9, 550.3). */
+  .product__text {
+    max-inline-size: 426px;
+    margin-block-start: 13px;
+    font-size: 20px;
+    line-height: 1.64;
+  }
+
+  .product__text--spaced { margin-block-start: 35.6px; }   /* [ĐO] "Net wt" y693 */
+
+  .product__text--spaced + .product__text--spaced { margin-block-start: 34.6px; }   /* [ĐO] "Vegan" y761 */
+
+  /* Xếp dọc: bỏ khoảng trống lớn phía trên icon tim (ở desktop nó để chừa
+     chỗ cho khối ảnh giữa). */
+  @media (width < 90rem) {
+    .product__wish { margin-block-start: 48px; }
+
+    .product__title { margin-block-start: 32px; }
+  }
+
+  @media (width < 48rem) {
+    .product__scroll { display: none; }
+
+    .product__title { font-size: 28px; }
+
+    /* Nút "Add to Cart" lấp phần còn lại của hàng thay vì rơi xuống dòng. */
+    .product__cart {
+      inline-size: calc(100% - 142.5px - 12px);
+      margin-inline-start: 12px;
+    }
+
+  }
+
+  @media (width >= 90rem) {
+    .product { min-block-size: 928px; }   /* [FIGMA] khung cao 1128 − header 200 */
+
+    .product__summary {
+      float: left;
+      inline-size: 402px;
+      margin-inline-start: -1.46px;       /* [FIGMA] x178.54 */
+    }
+
+    .product__gallery {
+      position: absolute;
+      inset-block-start: 20.83px;         /* [FIGMA] y220.83 */
+      inset-inline-start: calc(50% - 282.08px);   /* [FIGMA] x677.92, tâm khung x937 */
+      inline-size: 518px;
+      margin: 0;
+    }
+
+    .product__details {
+      float: right;
+      inline-size: 426px;
+      margin-block-start: 267px;          /* [ĐO] nét chữ y518 */
+      margin-inline-end: -22.85px;        /* [FIGMA] x1336.9 + 425.95 */
+    }
+  }
+}

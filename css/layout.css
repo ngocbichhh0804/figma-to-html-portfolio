@@ -87,6 +87,38 @@
     opacity: 0.5;
   }
 
+  /* ---------- Trang sản phẩm ----------
+     [FIGMA] Vầng sáng góc phải: Ellipse 605, 992.77 × 1040.81 tại
+     (1170.5, −388.69), #C5E8C5 30%, layer blur 600 — cùng hình học với vầng
+     sáng trang Shop nên dùng lại blur 260px. */
+  .page__glow--product {
+    background-color: #c5e8c5;
+    /* [ĐO] Figma 30%, nhưng lớp sạn phía trên làm mọi thứ tối đi ~6%; 32% bù
+       lại phần đó (khớp nhất khi so ảnh export đã làm mịn). */
+    opacity: 0.32;
+  }
+
+  /* Lớp sạn giấy phủ lên nền + vầng sáng nhưng nằm dưới chữ và ảnh.
+     [ĐO] Nhiễu kiểu nhân, đều trên ba kênh, hạt cỡ 1–2px: trung bình làm nền
+     tối đi ~6.5% (nền [FIGMA] #0D272F → trung bình đo được (12, 36, 44)), độ
+     lệch ~6% giá trị màu. Dựng bằng feTurbulence xám (quanh 46%) trong SVG
+     nhúng, hoà bằng soft-light — với nền tối soft-light xấp xỉ phép nhân nên
+     giữ đúng tỉ lệ đó ở cả vùng tối lẫn vùng sáng. .page--product tự tô nền
+     để phép hoà có nền mà hoà lên (.page là một nhóm isolation riêng). */
+  .page--product {
+    background-color: var(--surface-page);
+  }
+
+  .page--product::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.25' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0.26 0 0 0 0.33 0.26 0 0 0 0.33 0.26 0 0 0 0.33 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
   /* Hai cột của trang Shop dựng bằng float. Cột filter float trái với bề
      ngang cố định, phần lưới sản phẩm chỉ cần chừa lề trái đúng bằng bề
      ngang đó cộng khoảng hở — cách này giữ được chiều cao tự nhiên của từng
