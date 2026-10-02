@@ -54,6 +54,39 @@
     filter: blur(260px);   /* [ĐO] xem .page__glow */
   }
 
+  /* ---------- Trang landing ----------
+     [ĐO] Ba lớp nền fit bằng mô phỏng blur 260px trên ảnh export (sai số
+     trung bình dưới 2/255 mỗi kênh):
+       vầng vàng trên phải  946 × 1131 tại (1194, −473), 50%
+       khối hồng bên trái   1419 × 1024 tại (−404, 1955)
+       vầng vàng dưới trái  1048 × 1034 tại (−355, 3901), 50% */
+  .page__glow--landing {
+    inline-size: 946px;
+    block-size: 1131px;
+    inset-block-start: -473px;
+    inset-inline-start: calc(50% + 1194px - var(--frame-w) / 2);
+    opacity: 0.5;
+  }
+
+  .page__blob--landing {
+    inline-size: 1419px;
+    block-size: 1024px;
+    inset-block-start: 1955px;
+    inset-inline-start: calc(50% + -404px - var(--frame-w) / 2);
+  }
+
+  /* [ĐO] Trong Figma vầng sáng này nằm ĐÈ LÊN khối Bestsellers (chữ và nút
+     "Add to Cart" ở thẻ đầu bị ám vàng 10–20%) nhưng nằm DƯỚI khối Feature
+     (ảnh chai không bị ám) — xem z-index của .feature. */
+  .page__glow--low {
+    z-index: 1;
+    inline-size: 1048px;
+    block-size: 1034px;
+    inset-block-start: 3901px;
+    inset-inline-start: calc(50% + -355px - var(--frame-w) / 2);
+    opacity: 0.5;
+  }
+
   /* Hai cột của trang Shop dựng bằng float. Cột filter float trái với bề
      ngang cố định, phần lưới sản phẩm chỉ cần chừa lề trái đúng bằng bề
      ngang đó cộng khoảng hở — cách này giữ được chiều cao tự nhiên của từng

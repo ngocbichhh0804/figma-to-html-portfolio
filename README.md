@@ -53,6 +53,54 @@ iframe đúng khổ 1920 rồi đè ảnh export Figma lên trên, có bốn ch�
 đè 50 % / chỉ Figma / difference) và lưới 100px. Công cụ này cũng không dùng
 JavaScript — nút bấm là radio input đọc bằng `:has()`.
 
+## Landing page (`landing-page.html`)
+
+Khung Figma **1920 × 5769**, bản dựng render ra đúng **1920 × 5769**. Header và
+footer trong Figma trùng khít trang Shop (0 pixel khác) nên dùng lại nguyên
+component; các khối mới là `showcase`, `discover`, `bestsellers`, `feature` và
+nút elip vẽ tay `scribble-button`.
+
+| Cách kiểm | Kết quả |
+| --- | --- |
+| Sai lệch màu trung bình trên toàn trang (trạng thái hover thẻ đầu, như Figma) | **4.0 / 765** |
+| Tỉ lệ pixel lệch ≤ 30 / 765 · ≤ 60 / 765 | **98.5 %** · **99.0 %** |
+| 9 ảnh asset (vị trí dò bằng template matching) | **0 px** |
+| 31 vùng chữ / viền / hoạ tiết, dò độ dịch tốt nhất theo từng pixel | **0 px** (ba vùng còn 1 px) |
+| Ba lớp nền mờ | fit bằng mô phỏng blur 260px, sai số trung bình < 2/255 mỗi kênh |
+
+Ảnh đối chiếu nằm trong [`docs/comparison/landing/`](docs/comparison/landing/)
+(`landing-figma.png`, `landing-build.png`, `-side-by-side`, `-overlay`,
+`-difference`). Công cụ so sánh trực tiếp: [`dev/landing-overlay.html`](dev/landing-overlay.html)
+— thêm chế độ **Kéo trượt** (CSS `resize`, vẫn không JavaScript).
+
+Chỗ khác bản thiết kế, đều có ghi chú trong code:
+
+- Nút **Add to Cart** chỉ thẻ đầu có trong Figma → hiểu là trạng thái hover,
+  giống ba nút tròn ở trang Shop. Ảnh `landing-build.png` chụp lúc đang hover
+  thẻ đầu để so cùng trạng thái.
+- Vầng sáng vàng phía dưới trong Figma **đè lên** khối Bestsellers (chữ và nút
+  ở thẻ đầu bị ám vàng 10–20%) nhưng nằm dưới khối Feature → `z-index: 1`
+  cho vầng sáng, `z-index: 2` cho `.feature`.
+- Ảnh serum Bestsellers cắt từ `Frame 9839.png` (file gốc dính sẵn chữ tên và
+  giá) thành `bestseller-serum.png`.
+- Chữ **"GLO." dọc** ở khối Bestsellers: Fraunces không ra đúng nét Butler ở
+  cỡ ~700px, nên hình chữ được dò thẳng từ ảnh export (trừ nền, tách vùng
+  chữ, vẽ lại thành path) thành `assets/img/glo-watermark-vertical.svg`.
+- Chữ dọc **"fall in love with your skin"** (Century Gothic) dùng Montserrat:
+  dò thử cả Mulish lẫn Montserrat, Montserrat khớp nét hơn hẳn ở chỗ này.
+- Chữ **ribbon "New arrivals"** cũng là SVG dò từ ảnh export (xoay thẳng dải
+  băng, lấy trung bình bốn lần lặp): `ribbon-new-arrivals.svg` và bản chữ A
+  hoa `ribbon-new-arrivals-first.svg`. Section vẫn có `aria-label` và một
+  dòng chữ ẩn cho trình đọc màn hình.
+- **Huy hiệu "View All Products"** (hai vòng tròn, chữ chạy vòng, ba ngôi
+  sao đặt tay không cách đều) là một SVG dò từ ảnh export:
+  `badge-view-all-products.svg`. Link vẫn có chữ ẩn cho trình đọc màn hình;
+  rê chuột chỉ mờ nhẹ, không xoay.
+- Footer dùng chung với Shop nhưng Figma landing đặt vài khối lệch 1–4px →
+  modifier `site-footer--landing` (chỉ `translate`, không đổi bố cục).
+- **"Confidence"**: Figma ghép "fi" thành ligature; Chrome tắt ligature khi có
+  letter-spacing nên cặp này để letter-spacing 0 trong một `<span>`.
+
 ## Quy trình chuyển đổi
 
 1. **Lấy số liệu.** Export frame Figma ra PNG tỉ lệ 1:1. Những gì đọc được
@@ -122,7 +170,8 @@ Bản thiết kế chỉ có desktop 1920 và là một khung tĩnh, nên nhữn
 quyết định của tôi chứ không suy ra được từ file Figma:
 
 - **Toàn bộ phần responsive.** Từ 1024px xuống, cột filter nằm trên lưới sản
-  phẩm; dưới 768px lưới về 1 cột, logo và bốn icon header nhỏ lại cho vừa hàng,
+  phẩm; footer chỉ chia 4 cột từ 1440px (hẹp hơn thì ba cột cố định 1013px
+  không còn chỗ cho cột cuối); dưới 768px lưới về 1 cột, logo và bốn icon header nhỏ lại cho vừa hàng,
   hàng mạng xã hội ở footer xuống dòng. Cỡ chữ hero và chữ "GLO." chìm co theo
   bề ngang màn hình để không bị cắt. Đã kiểm không tràn ngang tới tận 320px.
 - **Ba nút tròn trên thẻ sản phẩm là trạng thái hover.** Trong Figma chỉ thẻ
@@ -158,21 +207,24 @@ quyết định của tôi chứ không suy ra được từ file Figma:
 ## Cấu trúc
 
 ```
-index.html              một file, không thẻ <script> nào
+index.html              trang Shop, không thẻ <script> nào
+landing-page.html       landing page, không thẻ <script> nào
 css/
 ├── reset.css           reset hiện đại, layer thấp nhất
 ├── fonts.css           10 khai báo @font-face, trỏ vào assets/fonts/
 ├── tokens.css          design token dùng chung (màu, font, leading, chuyển động)
 ├── base.css            mặc định cho thẻ, nhịp chữ
 ├── layout.css          container, hai lớp trang trí, lưới Shop
-├── components/         nav, hero, filter, card, pagination, marquee, footer
+├── components/         nav, hero, filter, card, pagination, marquee, footer,
+│                       showcase, discover, bestsellers, feature, button
 └── utilities.css       visually-hidden, skip-link
 assets/
 ├── fonts/              9 file woff2, bảng mã latin
 ├── icon/               icon PNG khách cung cấp
 └── img/                ảnh sản phẩm (đã cắt sát mép, bỏ lề trong suốt)
-dev/overlay.html        công cụ đè ảnh Figma lên bản code
-docs/comparison/shop/   bộ ảnh đối chiếu
+dev/overlay.html        công cụ đè ảnh Figma lên trang Shop
+dev/landing-overlay.html  như trên, cho landing page
+docs/comparison/        bộ ảnh đối chiếu (shop/, landing/)
 ```
 
 CSS tổ chức bằng **cascade layer gốc của trình duyệt** — `reset, tokens, base,

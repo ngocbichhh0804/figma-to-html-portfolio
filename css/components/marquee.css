@@ -51,4 +51,39 @@
     rotate: calc(-1 * var(--marquee-tilt));
     translate: -0.5px -5.4px;
   }
+
+  /* Trang landing: cùng dải băng nhưng nghiêng gắt hơn.
+     [ĐO] mép trên y1733 tại x5 → y1631 tại x1914 (−3.06°); y1682 tại x960. */
+  .marquee--landing {
+    --marquee-tilt: -3.06deg;
+    margin-block-start: 214px;
+    padding-block: 26px 18.5px;
+  }
+
+  /* Chữ "New arrivals" của trang landing là SVG dò từ ảnh export (xoay thẳng
+     dải băng, lấy trung bình bốn lần lặp, vẽ lại thành path): Fraunces không
+     cho ra đúng nét Butler. Khung SVG 315 × 46, nét chữ rộng 311px.
+     [ĐO] trên trục dải băng: nét chữ → nét sao 22px, nét sao → chữ kế
+     20px, bước lặp 401px. */
+  .marquee__word {
+    display: inline-block;
+    vertical-align: middle;
+    inline-size: 315px;
+    block-size: 46px;
+  }
+
+  .marquee--landing .marquee__track { margin-inline-start: 58px; }  /* [ĐO] */
+
+  .marquee--landing .marquee__item { translate: 0 -5.5px; }   /* [ĐO] */
+
+  .marquee--landing .marquee__item + .marquee__item { margin-inline-start: 15.2px; }
+
+  .marquee--landing .marquee__star {
+    margin-inline-start: 16.8px;
+    translate: 0 0.5px;
+  }
+
+  /* [ĐO] "New Arrivals" (A hoa) dò riêng từ lần lặp đầu, bị mép trang cắt
+     nên khung lệch 1px so với các lần lặp sau. */
+  .marquee__word--first { translate: 1px 0; }
 }

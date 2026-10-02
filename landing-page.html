@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Glo. — Give Your Skin Care And Glow</title>
+    <meta name="description" content="Glo. skincare — serums, creams and body care made with love in India." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Glo. — Give Your Skin Care And Glow" />
+    <meta property="og:description" content="Skincare, body, wellbeing products and an amazing fragrance range." />
+
+    <link rel="icon" href="assets/icon/icon-sparkle.png" type="image/png" />
+
+    <!-- Bốn kiểu chữ xuất hiện ngay màn hình đầu nên tải trước. -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/cormorant-garamond-latin-400-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/fraunces-latin-opsz-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/mulish-latin-600-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/mulish-latin-400-normal.woff2" />
+
+    <style>
+      @layer reset, tokens, base, layout, components, utilities;
+    </style>
+
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components/nav.css" />
+    <link rel="stylesheet" href="css/components/hero.css" />
+    <link rel="stylesheet" href="css/components/button.css" />
+    <link rel="stylesheet" href="css/components/showcase.css" />
+    <link rel="stylesheet" href="css/components/marquee.css" />
+    <link rel="stylesheet" href="css/components/discover.css" />
+    <link rel="stylesheet" href="css/components/bestsellers.css" />
+    <link rel="stylesheet" href="css/components/card.css" />
+    <link rel="stylesheet" href="css/components/feature.css" />
+    <link rel="stylesheet" href="css/components/footer.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <div class="page page--landing">
+      <!-- Ba lớp nền mờ, toạ độ [ĐO] — xem css/layout.css -->
+      <div class="page__glow page__glow--landing" aria-hidden="true"></div>
+      <div class="page__blob page__blob--landing" aria-hidden="true"></div>
+      <div class="page__glow page__glow--low" aria-hidden="true"></div>
+
+      <header class="site-header">
+        <div class="container">
+          <nav class="nav" aria-label="Main">
+            <a href="landing-page.html" class="nav__logo">Glo.</a>
+
+            <details class="nav__disclosure">
+              <summary class="nav__toggle">
+                <span class="visually-hidden">Menu</span>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                </svg>
+              </summary>
+
+              <div class="nav__panel">
+                <ul class="nav__list" role="list">
+                  <li>
+                    <a class="nav__link" href="index.html">Shop<svg viewBox="0 0 9 9" overflow="visible" fill="none" aria-hidden="true"><path d="M1.45 -1 5 2.55 8.55 -1" stroke="currentColor" stroke-width="1.95" /></svg></a>
+                  </li>
+                  <li><a class="nav__link" href="#">About</a></li>
+                  <li><a class="nav__link" href="#">Contact</a></li>
+                  <li><a class="nav__link" href="#">Offers</a></li>
+                </ul>
+              </div>
+            </details>
+
+            <div class="nav__actions">
+              <a class="nav__action" href="#"><img src="assets/icon/icon-search.png" alt="Search" width="36" height="36" /></a>
+              <a class="nav__action" href="#"><img src="assets/icon/icon-user.png" alt="Account" width="36" height="36" /></a>
+              <a class="nav__action" href="#"><img src="assets/icon/icon-heart.png" alt="Wishlist" width="36" height="36" /></a>
+              <a class="nav__action" href="index.html"><img src="assets/icon/icon-bag.png" alt="Cart" width="36" height="36" /></a>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <main id="main">
+        <section class="hero hero--landing">
+          <h1 class="hero__title">Give Your Skin Care And Glow</h1>
+
+          <!-- Ảnh vòm + khung viền lệch + thanh cuộn trang trí -->
+          <div class="showcase">
+            <img class="showcase__img" src="assets/img/landing-hero-serum.png" alt="Mood Beauty hydrating essence toner in an amber dropper bottle" width="510" height="834" fetchpriority="high" />
+            <span class="showcase__scroll" aria-hidden="true"></span>
+          </div>
+        </section>
+
+        <!-- Chữ ribbon là hình vector dò thẳng từ ảnh export Figma (Butler không có
+             bản miễn phí, Fraunces lệch nét) — xem css/components/marquee.css. -->
+        <section class="marquee marquee--landing" aria-label="New arrivals">
+          <div class="marquee__track">
+            <span class="visually-hidden">New arrivals</span>
+            <span class="marquee__item"><img class="marquee__word marquee__word--first" src="assets/img/ribbon-new-arrivals-first.svg" alt="" width="315" height="46" /><img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item"><img class="marquee__word" src="assets/img/ribbon-new-arrivals.svg" alt="" width="315" height="46" /><img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item"><img class="marquee__word" src="assets/img/ribbon-new-arrivals.svg" alt="" width="315" height="46" /><img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item"><img class="marquee__word" src="assets/img/ribbon-new-arrivals.svg" alt="" width="315" height="46" /><img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item"><img class="marquee__word" src="assets/img/ribbon-new-arrivals.svg" alt="" width="315" height="46" /><img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+            <span class="marquee__item"><img class="marquee__word" src="assets/img/ribbon-new-arrivals.svg" alt="" width="315" height="46" /><img class="marquee__star" src="assets/icon/icon-sparkle.png" alt="" width="54" height="54" loading="lazy" /></span>
+          </div>
+        </section>
+
+        <section class="discover" aria-labelledby="discover-title">
+          <div class="container discover__inner">
+            <div class="discover__gallery">
+              <div class="discover__col discover__col--low">
+                <div class="discover__backed"><img src="assets/img/landing-creme.png" alt="Crème pour le visage jar on a slate blue background" width="378" height="566" loading="lazy" /></div>
+                <img class="discover__after-backed" src="assets/img/landing-jar-stripes.png" alt="Amber cosmetic jar in striped window light" width="378" height="384" loading="lazy" />
+              </div>
+              <div class="discover__col">
+                <img src="assets/img/landing-jar-open.png" alt="Open lilac cream jar with its lid floating above" width="378" height="378" loading="lazy" />
+                <div class="discover__framed">
+                  <img src="assets/img/landing-get-set-glow.png" alt="Get! Set! Glow! serum bottle on a sculpted stand" width="378" height="613" loading="lazy" />
+                </div>
+              </div>
+            </div>
+
+            <div class="discover__copy">
+              <h2 class="discover__title" id="discover-title">Discover Our Product</h2>
+              <p class="discover__text">We have skincare, body, wellbeing products and amazing frangrance range. All made with love in India</p>
+              <a class="scribble-button discover__cta" href="index.html">Explore Categories</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="bestsellers" aria-labelledby="bestsellers-title">
+          <div class="container">
+            <div class="bestsellers__head">
+              <h2 class="bestsellers__title" id="bestsellers-title">Our Bestsellers</h2>
+
+              <a class="badge" href="index.html">
+                <span class="visually-hidden">View all products</span>
+                <!-- Hai vòng tròn, chữ chạy vòng và ba ngôi sao: SVG dò từ ảnh export
+                     Figma (chữ Butler, các cụm đặt tay không cách đều). -->
+                <img class="badge__ring" src="assets/img/badge-view-all-products.svg" alt="" width="280" height="280" loading="lazy" />
+              </a>
+            </div>
+
+            <ul class="bestsellers__grid" role="list">
+              <li>
+                <article class="card card--bestseller">
+                  <div class="card__media card__media--jar">
+                    <img src="assets/img/bestseller-jar.png" alt="Mixed Grapes Sulphate Free Face Cream jar" width="509" height="490" loading="lazy" />
+                  </div>
+                  <h3 class="card__title">Mixed Grapes Sulphate Free Face Cream</h3>
+                  <p class="card__price"><span class="card__currency">₹</span>230.00</p>
+                  <button type="button" class="card__cart">Add to Cart</button>
+                </article>
+              </li>
+              <li>
+                <article class="card card--bestseller card--box">
+                  <div class="card__media card__media--box">
+                    <img src="assets/img/bestseller-jar-box.png" alt="Vitamin E, C &amp; A Face Cream jar with its carton" width="451" height="390" loading="lazy" />
+                  </div>
+                  <h3 class="card__title">Vitamin E, C &amp; A <br /><span class="card__line">Face Cream</span></h3>
+                  <p class="card__price"><span class="card__currency">₹</span>230.00</p>
+                  <button type="button" class="card__cart">Add to Cart</button>
+                </article>
+              </li>
+              <li>
+                <article class="card card--bestseller">
+                  <div class="card__media card__media--serum">
+                    <img src="assets/img/bestseller-serum.png" alt="Retinol 0.2% Face Serum dropper bottle" width="509" height="400" loading="lazy" />
+                  </div>
+                  <h3 class="card__title">Retinol 0.2% <br />Face Serum</h3>
+                  <p class="card__price"><span class="card__currency">₹</span>230.00</p>
+                  <button type="button" class="card__cart">Add to Cart</button>
+                </article>
+              </li>
+            </ul>
+
+            <!-- Thanh tiến trình của băng chuyền: trang trí, bản thiết kế tĩnh. -->
+            <div class="bestsellers__progress" aria-hidden="true"></div>
+          </div>
+        </section>
+
+        <section class="feature" aria-labelledby="feature-title">
+          <div class="container">
+            <div class="feature__media">
+              <img src="assets/img/landing-bottles.png" alt="Amber pump and spray bottles on linen" width="538" height="726" loading="lazy" />
+              <svg class="feature__frame" viewBox="0 0 560 780" aria-hidden="true">
+                <!-- [ĐO] Vòm vẽ tay trong Figma: cung phải r256.5, cung trái r270.2, nối nhau bằng đoạn ngang 14px ở đỉnh. -->
+                <path d="M554.7 270.5A256.5 256.5 0 0 0 298.2 14H284.4A270.2 270.2 0 0 0 14.2 284.2V775H555.5V674.5" fill="none" stroke="currentColor" stroke-width="2" />
+              </svg>
+              <p class="feature__tagline">fall in love with your skin</p>
+            </div>
+
+            <div class="feature__copy">
+              <h2 class="feature__title" id="feature-title">Glow Your Con<span class="feature__ligature">fi</span>dence</h2>
+              <p class="feature__subtitle">With Vit C, E</p>
+              <p class="feature__text">We have skincare, body, wellbeing products and amazing frangrance range. All made with love in India</p>
+              <a class="scribble-button feature__cta" href="index.html">Serums Collections</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer site-footer--landing">
+        <div class="container">
+          <div class="site-footer__grid">
+            <div>
+              <h2 class="site-footer__heading">Products</h2>
+              <ul class="site-footer__list" role="list">
+                <li><a href="#">Serums</a></li>
+                <li><a href="#">Lip balm</a></li>
+                <li><a href="#">Sun protection</a></li>
+                <li><a href="#">Body Care</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h2 class="site-footer__heading">Quick Links</h2>
+              <ul class="site-footer__list site-footer__list--inset" role="list">
+                <li><a href="#">Track orders</a></li>
+                <li><a href="#">Shipping Polices</a></li>
+                <li class="site-footer__item--nudge"><a href="#">Refund &amp; Cancellation</a></li>
+                <li><a href="#">Terms &amp; Condition</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Site map</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h2 class="site-footer__heading site-footer__heading--near">About</h2>
+              <ul class="site-footer__list site-footer__list--outset" role="list">
+                <li><a class="site-footer__link--wrap" href="#">Our Story</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li class="site-footer__item--lift"><a href="#">Contactu Us</a></li>
+              </ul>
+            </div>
+
+            <div class="updates">
+              <h2 class="updates__heading">Get updates</h2>
+              <p class="updates__copy">On Offers and updates ! We have something to share.</p>
+
+              <form class="updates__form">
+                <label class="visually-hidden" for="newsletter-email">Email address</label>
+                <input class="updates__input" id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="Enter email address" required />
+                <button type="submit" class="updates__submit">Subscribe</button>
+              </form>
+
+              <div class="updates__social">
+                <a href="#"><img src="assets/icon/icon-facebook.png" alt="Glo. on Facebook" width="48" height="48" loading="lazy" /></a>
+                <a href="#"><img src="assets/icon/icon-twitter.png" alt="Glo. on Twitter" width="48" height="48" loading="lazy" /></a>
+                <a href="#"><img src="assets/icon/icon-linkedin.png" alt="Glo. on LinkedIn" width="48" height="48" loading="lazy" /></a>
+                <span class="updates__divider" aria-hidden="true"></span>
+                <p class="updates__phone"><a href="tel:011111223444442">011-111223444442</a></p>
+              </div>
+
+              <p class="updates__email"><a href="mailto:Wecare@glo.com">Wecare@glo.com</a></p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

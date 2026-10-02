@@ -60,19 +60,22 @@ khối weight 600, đổi số).
 
 ```
 index.html              trang Shop — đã xong, một file, không <script>
+landing-page.html        landing page — đã xong, đối chiếu pixel với Figma
 product.html             trống — chưa dựng
 checkout.html            trống — chưa dựng
 css/
 ├── reset.css / fonts.css / tokens.css / base.css / layout.css
-├── components/          nav, hero, filter, card, pagination, marquee, footer
-│                        (button.css, form.css, table.css hiện đang trống)
+├── components/          nav, hero, filter, card, pagination, marquee, footer,
+│                        showcase, discover, bestsellers, feature, button
+│                        (form.css, table.css hiện đang trống)
 └── utilities.css
 assets/fonts/            9 file woff2, bảng mã latin
 assets/icon/              icon PNG khách cung cấp (chỉ có 1x/36px — xem README)
 assets/img/                ảnh sản phẩm; có vài file nháp cũ nên dọn khi rảnh
                          (image-removebg-preview*.png, Product listing page.png ~1.1MB)
 dev/overlay.html         công cụ đè ảnh Figma lên bản code, đọc README trước khi dùng
-docs/comparison/shop/    bộ ảnh đối chiếu Figma vs code (shop đã có; product/, checkout/ trống)
+dev/landing-overlay.html như trên cho landing page (1920 × 5769)
+docs/comparison/         ảnh đối chiếu Figma vs code (shop/, landing/; product/, checkout/ trống)
 js/main.js, src/input.css  CÒN SÓT từ hướng làm cũ (Tailwind + JS), index.html
                          KHÔNG nạp hai file này. Cân nhắc xoá để khỏi gây hiểu nhầm
                          vì README cam kết "không JavaScript".
@@ -85,6 +88,12 @@ js/main.js, src/input.css  CÒN SÓT từ hướng làm cũ (Tailwind + JS), ind
   đo lệch tối đa 5px). Lighthouse desktop 100/100/100/100, mobile
   93/100/100/100 (điểm performance mobile thiếu vì icon PNG chỉ có 1x).
   Responsive đã kiểm tới 320px.
+- **Landing page (`landing-page.html`)**: hoàn thiện, khung 1920 × 5769.
+  Header/footer dùng chung với Shop (footer có modifier `site-footer--landing`
+  vì Figma landing đặt lệch vài px). Sai lệch màu trung bình 4.0/765, 9 ảnh
+  khớp 0px, các vùng chữ/viền dò độ dịch về 0px. Chữ "GLO." dọc, chữ ribbon và huy hiệu là SVG dò từ
+  ảnh export (`assets/img/glo-watermark-vertical.svg`). Ảnh Figma 1:1 ở
+  `docs/comparison/landing/landing-figma.png`.
 - **`product.html`, `checkout.html`**: chưa dựng. README nói cần export
   Figma 1:1 hai trang này từ khách — token đã dùng chung nên dựng tiếp
   được ngay khi có ảnh export.

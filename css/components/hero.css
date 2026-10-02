@@ -32,14 +32,14 @@
     inset-inline-start: 50%;
     /* Bù lại phần lệch trái của thẻ h1 để chữ chìm vẫn nằm giữa trang.
        [ĐO] 0.12: nét "GLO." bắt đầu ở y233, thấp hơn tâm dòng đầu 0.12 lần
-       cỡ hero. */
+       cỡ hero. Trang landing ghi đè --hero-drop (xem cuối file). */
     translate:
       calc(-50% + var(--hero-size) * var(--hero-nudge, 0))
-      calc(-50% + var(--hero-size) * (var(--leading-tight) / 2 + 0.12));
+      calc(-50% + var(--hero-size) * (var(--leading-tight) / 2 + var(--hero-drop, 0.12)));
     font-family: var(--font-display); /* [FIGMA] Butler */
     /* [ĐO] nét "GLO." rộng 929px ứng với cỡ hero 100px (Fraunces opsz 144,
        đậm 900). */
-    font-size: calc(var(--hero-size) * 4.02);
+    font-size: calc(var(--hero-size) * var(--hero-wm-scale, 4.02));
     /* [ĐO] đậm 900 thì nét dọc của G, L, O dày đúng như Figma. Đặt riêng ở
        đây, không đụng tới token --weight-bold dùng chung cả trang. */
     font-weight: 900;
@@ -86,5 +86,27 @@
       margin-inline-end: calc(var(--hero-size) * 0.83 * 2);
       --hero-nudge: 0.83;
     }
+  }
+
+  /* ---------- Trang landing ----------
+     Tiêu đề hai dòng, căn giữa trang (không lệch trái như trang Shop), và chữ
+     chìm "GLO." nằm thấp hơn hẳn: [ĐO] nét "GLO." y335–622 (vẫn rộng 929px
+     như trang Shop), nét tiêu đề dòng 1 y341, dòng 2 y449. */
+  .hero--landing {
+    /* [ĐO] nét dòng 1 bắt đầu y341 */
+    padding-block: 128px 0;
+    padding-inline: 24px;
+  }
+
+  .hero--landing .hero__title {
+    /* Ép xuống dòng sau "Care": dòng 1 rộng 826px (x546–1372). */
+    max-inline-size: 900px;
+    margin-inline: auto;
+    line-height: 1.08;          /* [ĐO] bước dòng 108px */
+    --hero-drop: 0.895;
+    --hero-wm-scale: 4.05;      /* [ĐO] nét "GLO." rộng 929px (x494–1423) */         /* [ĐO] nét "GLO." bắt đầu y335 */
+    --hero-nudge: 0.02;         /* [ĐO] chữ chìm lệch phải 2px */
+    letter-spacing: 0.021em;    /* [ĐO] dòng 1 rộng 826px */
+    text-indent: 0.021em;
   }
 }

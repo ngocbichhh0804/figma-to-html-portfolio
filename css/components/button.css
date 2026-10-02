@@ -1,0 +1,50 @@
+@layer components {
+  /* Nút chữ có hai vòng elip vẽ tay đè lên nhau ("Explore Categories",
+     "Serums Collections"). [ĐO] Fit hai elip từ nét viền trong ảnh export:
+     cả hai cùng 375 × 126, một cái xoay −6°, một cái xoay +3.4° và lệch
+     (+2.8, −9.9)px so với cái kia. Vẽ bằng hai pseudo-element nên trong
+     HTML chỉ là một thẻ <a>. */
+  .scribble-button {
+    display: inline-block;
+    position: relative;
+    inline-size: 375px;
+    block-size: 126px;
+    line-height: 126px;
+    text-align: center;
+    font-family: var(--font-display);   /* [FIGMA] Butler */
+    font-size: 28px;                    /* [ĐO] "Explore Categories" rộng 261px */
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .scribble-button::before,
+  .scribble-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--text-primary);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .scribble-button::before { rotate: -6deg; }
+
+  .scribble-button::after {
+    translate: 2.8px -9.9px;
+    rotate: 3.4deg;
+  }
+
+  .scribble-button:hover { opacity: 0.7; }
+
+  /* Điện thoại: thu nhỏ cả hộp lẫn hai vòng elip theo cùng tỉ lệ. */
+  @media (width < 32rem) {
+    .scribble-button {
+      inline-size: 300px;
+      block-size: 100px;
+      line-height: 100px;
+      font-size: 22px;
+    }
+  }
+}

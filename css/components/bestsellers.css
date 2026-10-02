@@ -1,0 +1,131 @@
+@layer components {
+  .bestsellers {
+    position: relative;
+    margin-block-start: 146px;
+  }
+
+  /* Chữ "GLO." chìm dựng đứng ở mép trái (đọc từ dưới lên), Butler đậm,
+     nâu 8%. Fraunces không cho ra đúng nét Butler ở cỡ này (chữ "L" vát,
+     chữ "G" và dấu chấm khác hẳn), nên hình chữ được dò thẳng từ ảnh export
+     Figma (trừ nền, tách vùng chữ rồi vẽ lại thành path vector):
+     assets/img/glo-watermark-vertical.svg, khung 430 × 1430 tại (0, 3150).
+     Trang trí thuần nên dùng background, không lọt vào cây trợ năng. */
+  .bestsellers::before {
+    content: "";
+    position: absolute;
+    z-index: -2;                  /* [ĐO] nằm dưới vầng sáng vàng */
+    inset-block-start: -18px;     /* [ĐO] khung SVG bắt đầu y3150 */
+    inset-inline-start: 0;
+    inline-size: 430px;
+    block-size: 1430px;
+    background: url("../../assets/img/glo-watermark-vertical.svg") 0 0 / 100% 100% no-repeat;
+    opacity: 0.09;                /* [ĐO] */
+    pointer-events: none;
+  }
+
+  .bestsellers__head {
+    position: relative;
+    block-size: 263px;
+  }
+
+  .bestsellers__title {
+    position: absolute;
+    inset-block-start: 82px;      /* [ĐO] nét chữ y3267 */
+    inset-inline-start: 382px;    /* [ĐO] nét chữ x567 */
+    font-size: 100px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  /* Huy hiệu tròn "View All Products". [ĐO] vòng ngoài x1237–1500,
+     y3168–3430. Toàn bộ huy hiệu là một SVG dò từ ảnh export (khung
+     280 × 280 tại (1230, 3160)), nên lệch khỏi hộp link 7px / 8px. */
+  .badge {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 1057px;
+    inline-size: 264px;
+    block-size: 264px;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .badge:hover { opacity: 0.75; }
+
+  .badge__ring {
+    display: block;
+    inline-size: 280px;
+    block-size: 280px;
+    max-inline-size: none;
+    translate: -7px -8px;
+  }
+
+  .bestsellers__grid {
+    margin-block-start: 0;
+  }
+
+  .bestsellers__grid::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  @media (width >= 48rem) {
+    .bestsellers__grid > li {
+      float: left;
+      inline-size: calc((100% - 2 * 16px) / 3);  /* [ĐO] cột 509, khe 16 */
+      margin-inline-start: 16px;
+    }
+
+    .bestsellers__grid > li:first-child { margin-inline-start: 0; }
+  }
+
+  @media (width < 48rem) {
+    .bestsellers__grid > li + li { margin-block-start: 48px; }
+  }
+
+  /* Thanh tiến trình băng chuyền. [ĐO] rãnh x180–1739, y4097–4100;
+     đoạn đậm x513–825. */
+  .bestsellers__progress {
+    position: relative;
+    block-size: 4px;
+    margin-block-start: 68px;
+    /* [ĐO] nâu 12% trong suốt: trên nền kem ra #E7E0D7, trên vầng vàng
+       tối hơn — đúng như ảnh export. */
+    background-color: rgb(88 54 13 / 12%);
+  }
+
+  .bestsellers__progress::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: calc(333 / 1560 * 100%);
+    inline-size: calc(313 / 1560 * 100%);
+    background-color: var(--text-primary);
+  }
+
+  @media (width < 90rem) {
+    .bestsellers__title {
+      position: static;
+      padding-block-start: 88px;
+      text-align: center;
+      white-space: normal;
+    }
+
+    .bestsellers__head { block-size: auto; }
+
+    .badge {
+      position: relative;
+      display: block;
+      margin: 24px auto 0;
+      inset-inline-start: 0;
+    }
+  }
+
+  @media (width < 48rem) {
+    .bestsellers { margin-block-start: 96px; }
+
+    .bestsellers__title { font-size: 44px; padding-block-start: 0; }
+
+    .bestsellers::before { display: none; }
+  }
+}

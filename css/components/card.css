@@ -181,4 +181,73 @@
     inline-size: 24px;
     block-size: 24px;
   }
+
+  /* ---------- Thẻ Bestsellers (trang landing) ----------
+     Ảnh to hơn và đặt đúng kích thước gốc. [ĐO] ảnh hũ 509 × 490 tại
+     (180, 3431), hũ + hộp 451 × 390 tại (740, 3477), serum (cắt từ Frame
+     9839) 509 × 400 tại (1231, 3431). Khung ảnh thấp hơn ảnh: phần đáy
+     trong suốt của PNG đè lên vùng chữ, như trong Figma. */
+  .card--bestseller .card__media {
+    block-size: 412px;          /* [ĐO] tiêu đề bắt đầu y3843 */
+    line-height: normal;
+  }
+
+  .card--bestseller .card__media img {
+    display: block;
+    margin-inline: auto;
+  }
+
+  /* [ĐO] ảnh x740, y3477: lệch phải tâm cột 5.5px, thấp hơn hai ảnh kia
+     46px. Dùng translate để không đụng bố cục (margin sẽ bị gộp ra ngoài). */
+  .card__media--box img { translate: 5.5px 46px; }
+
+  /* [ĐO] dòng 1 y3854, dòng 2 y3893, giá y3926. */
+  .card--bestseller .card__title {
+    margin-block-start: 2px;
+    line-height: 38px;
+  }
+
+  .card--bestseller .card__price { margin-block-start: -5px; }
+
+  /* [ĐO] Thẻ thứ hai đặt tay trong Figma: dòng "Face Cream" lệch phải 3px,
+     giá lệch trái 1px so với hai thẻ còn lại. */
+  .card__line {
+    position: relative;
+    inset-inline-start: 3px;
+  }
+
+  .card--box .card__price { inset-inline-start: 2px; }
+
+  /* Điện thoại: bỏ chiều cao cố định, ảnh co theo cột. */
+  @media (width < 48rem) {
+    .card--bestseller .card__media { block-size: auto; }
+
+    .card__media--box img { translate: none; }
+  }
+
+  /* Nút "Add to Cart": trong Figma chỉ thẻ đầu hiện — trạng thái hover vẽ
+     sẵn, giống ba nút tròn ở trang Shop. [ĐO] viên thuốc 218 × 64, viền
+     2px, y3965. */
+  .card__cart {
+    display: block;
+    inline-size: 218px;
+    block-size: 64px;
+    margin: 15px auto 0;         /* [ĐO] viền trên y3965 */
+    translate: -1px 0;           /* [ĐO] viền x325–542 */
+    font-family: var(--font-sans);
+    font-size: 16.5px;           /* [ĐO] dò cỡ × độ đậm × giãn chữ: "Add to Cart" 90 × 11 */
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.2px;
+    text-indent: -2px;           /* [ĐO] chữ lệch trái tâm nút 1px */
+    border: 2px solid var(--color-brown);
+    border-radius: var(--radius-pill);
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .card:hover .card__cart,
+  .card:focus-within .card__cart { opacity: 1; }
+
+  .card__cart:hover { background-color: rgb(88 54 13 / 6%); }
 }

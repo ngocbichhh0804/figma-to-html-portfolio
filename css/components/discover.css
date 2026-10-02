@@ -1,0 +1,154 @@
+@layer components {
+  /* Khối "Discover Our Product": chữ bên trái, lưới bốn ảnh bên phải.
+     [ĐO] lưới ảnh x968–1740 (hai cột 378, khe 16):
+       cột trái: Crème (968, 2039) rồi ảnh sọc (968, 2638)
+       cột phải: hũ mở nắp (1362, 1943) rồi Get Set Glow (1362, 2337)
+     Hai cột float, không flexbox. */
+  .discover {
+    position: relative;
+    margin-block-start: 156px;   /* [ĐO] ảnh đầu tiên bắt đầu y1943 */
+  }
+
+  .discover__inner::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  /* Ngôi sao chìm sau khối chữ. [ĐO] tâm (960, 2620), bán kính 180. */
+  .discover::before {
+    content: "";
+    position: absolute;
+    z-index: -2;   /* [ĐO] nằm dưới cả các lớp nền mờ của .page */
+    inset-block-start: calc(2620px - 1943px - 180px);
+    inset-inline-start: calc(50% - 180px);
+    inline-size: 360px;
+    block-size: 360px;
+    background: url("../../assets/img/star-decor.svg") center / contain no-repeat;
+    rotate: 3deg;
+  }
+
+  .discover__gallery {
+    display: flow-root;   /* chứa hai cột float bên trong */
+    float: right;
+    inline-size: 772px;
+  }
+
+  .discover__col {
+    float: right;
+    inline-size: 378px;
+  }
+
+  .discover__col--low {
+    float: left;
+    margin-block-start: 96px;    /* [ĐO] Crème thấp hơn hũ mở nắp 96px */
+  }
+
+  .discover__col img { display: block; }
+
+  /* [ĐO] Sau ảnh Crème có một viên thuốc nền #506978 cao hơn ảnh: 378 × 587
+     tại (968, 2030), lộ ra 9px phía trên và 12px phía dưới. */
+  .discover__backed { position: relative; }
+
+  .discover__backed::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset-block: -9px -12px;
+    inset-inline: 0;
+    border-radius: var(--radius-pill);
+    background-color: #506978;   /* [ĐO] */
+  }
+
+  .discover__after-backed { margin-block-start: 33px; }  /* [ĐO] y2605 → 2638 */
+
+  .discover__col img + .discover__framed { margin-block-start: 16px; }  /* [ĐO] y2321 → 2337 */
+
+  /* Khung viền viên thuốc lệch phải-xuống so với ảnh Get Set Glow.
+     [ĐO] khung x1383–1760, y2349–2960. */
+  .discover__framed { position: relative; }
+
+  .discover__framed::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 12px;
+    inset-inline-start: 21px;
+    inline-size: 378px;
+    block-size: 612px;
+    border: 2px solid var(--text-primary);
+    border-radius: var(--radius-pill);
+    pointer-events: none;
+  }
+
+  .discover__copy {
+    display: flow-root;   /* chừa chỗ cho cột ảnh float, không cắt vòng elip */
+    padding-block-start: 246px;  /* [ĐO] nét "Discover" bắt đầu y2215 */
+  }
+
+  .discover__title {
+    max-inline-size: 640px;
+    margin-inline-start: 1px;       /* [ĐO] nét "D" bắt đầu x185 */
+    font-size: 100px;               /* [ĐO] nét chữ cao 72px như tiêu đề hero */
+    line-height: 116px;             /* [ĐO] bước dòng y2278 → 2394 */
+    letter-spacing: 0.04em;
+  }
+
+  .discover__text {
+    max-inline-size: 640px;
+    margin-block-start: 16px;
+    margin-inline-start: 1px;
+    font-size: 28px;                /* [ĐO] dòng 1 rộng 618px */
+    line-height: 48px;              /* [ĐO] bước dòng 48px */
+  }
+
+  .discover__cta {
+    margin-block-start: 122px;
+    margin-inline-start: 8px;
+    text-indent: -2px;   /* [ĐO] chữ lệch trái tâm elip 1px */
+  }
+
+  /* 1280–1439px: chữ nhỏ lại cho vừa phần còn lại cạnh lưới ảnh. */
+  @media (width < 90rem) {
+    .discover__title { font-size: 80px; line-height: 1.15; }
+
+    .discover__text { font-size: 22px; line-height: 1.7; }
+  }
+
+  /* Dưới 1280px: ảnh lên trên, chữ xuống dưới, lưới co theo bề ngang. */
+  @media (width < 80rem) {
+    .discover__gallery {
+      float: none;
+      inline-size: auto;
+      max-inline-size: 772px;
+      margin-inline: auto;
+    }
+
+    .discover__col { inline-size: calc(50% - 8px); }
+
+    .discover__col img {
+      inline-size: 100%;
+      block-size: auto;
+    }
+
+    .discover__col--low { margin-block-start: 12%; }
+
+    .discover__framed::after { display: none; }
+
+    .discover__copy { padding-block-start: 48px; }
+
+    .discover__title,
+    .discover__text { max-inline-size: none; }
+
+    .discover::before { display: none; }
+  }
+
+  @media (width < 48rem) {
+    .discover { margin-block-start: 96px; }
+
+    .discover__title { font-size: 44px; }
+
+    .discover__text { font-size: 18px; }
+
+    .discover__cta { margin-block-start: 48px; margin-inline-start: 0; }
+  }
+}

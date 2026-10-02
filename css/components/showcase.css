@@ -1,0 +1,81 @@
+@layer components {
+  /* Ảnh vòm dưới tiêu đề hero trang landing. Mọi vị trí tính từ tâm khối
+     (= tâm trang), theo toạ độ đo trên khung 1920:
+     [ĐO] ảnh 510 × 834 tại (701, 634) — PNG đã cắt sẵn hình vòm
+     [ĐO] khung viền 518 × 815 tại (672, 652), nét nâu
+     [ĐO] thanh cuộn 8 × 115 tại (1251, 957), ba chấm 8px bước 24px
+     [ĐO] ngôi sao chìm tâm (1160.5, 1371), bán kính 180, xoay 2° */
+  .showcase {
+    position: relative;
+    block-size: 834px;
+    margin-block-start: 90px;   /* [ĐO] ảnh bắt đầu y634 */
+  }
+
+  .showcase__img {
+    position: relative;
+    margin-inline-start: calc(50% - 259px);
+    inline-size: 510px;
+  }
+
+  /* Khung viền hình viên thuốc, lệch trái-xuống so với ảnh. */
+  .showcase::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset-block-start: 18px;
+    inset-inline-start: calc(50% - 288px);
+    inline-size: 518px;
+    block-size: 815px;
+    border: 2px solid var(--text-primary);
+    border-radius: var(--radius-pill);
+    pointer-events: none;
+  }
+
+  /* Ngôi sao chìm nằm dưới ảnh (z-index âm trong ngữ cảnh của .page). */
+  .showcase::after {
+    content: "";
+    position: absolute;
+    z-index: -2;   /* [ĐO] nằm dưới cả các lớp nền mờ của .page */
+    inset-block-start: calc(738px - 180px);
+    inset-inline-start: calc(50% + 200.5px - 180px);
+    inline-size: 360px;
+    block-size: 360px;
+    background: url("../../assets/img/star-decor.svg") center / contain no-repeat;
+    rotate: 2deg;
+  }
+
+  /* Thanh cuộn trang trí: vạch đậm + ba chấm nhạt. */
+  .showcase__scroll {
+    position: absolute;
+    inset-block-start: 323px;
+    inset-inline-start: calc(50% + 291px);
+    inline-size: 8px;
+    block-size: 115px;
+    border-radius: var(--radius-pill);
+    background-color: var(--text-primary);
+  }
+
+  .showcase__scroll::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 131px;   /* [ĐO] chấm đầu y1088 */
+    inset-inline-start: 0;
+    inline-size: 8px;
+    block-size: 56px;
+    background: radial-gradient(circle, #a9967f 3.5px, transparent 4px) 0 -8px / 8px 24px repeat-y;  /* [ĐO] */
+  }
+
+  /* Màn hình hẹp: bỏ khung lệch và thanh cuộn, ảnh co theo bề ngang. */
+  @media (width < 48rem) {
+    .showcase {
+      block-size: auto;
+      margin-block-start: 40px;
+      padding-inline: 24px;
+    }
+
+    .showcase__img { margin-inline: auto; }
+
+    .showcase::before,
+    .showcase__scroll { display: none; }
+  }
+}

@@ -1,0 +1,156 @@
+@layer components {
+  /* Khối "Glow Your Confidence": ảnh vòm + khung + dòng chữ dọc bên trái,
+     chữ bên phải. [ĐO] ảnh 538 × 726 tại (191, 4365); khung vòm nét nâu
+     x204–747, y4348–5110, hở một đoạn bên phải cho dòng chữ dọc
+     (x738–759, y4590–4990); chữ bắt đầu x953. */
+  .feature {
+    position: relative;
+    z-index: 2;                  /* nằm trên vầng sáng .page__glow--low */
+    padding-block-end: 8px;
+    margin-block-start: 227px;   /* [ĐO] khung vòm bắt đầu y4348 */
+  }
+
+  .feature .container::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  /* Ngôi sao chìm sát mép phải. [ĐO] tâm (1852, 4500), bán kính 180. */
+  .feature::before {
+    content: "";
+    position: absolute;
+    z-index: -2;   /* [ĐO] nằm dưới cả các lớp nền mờ của .page */
+    inset-block-start: calc(4500px - 4335px - 180px);   /* [ĐO] */
+    inset-inline-start: calc(50% + 892px - 180px);
+    inline-size: 360px;
+    block-size: 360px;
+    background: url("../../assets/img/star-decor.svg") center / contain no-repeat;
+    rotate: 2.25deg;
+  }
+
+  .feature__media {
+    position: relative;
+    float: left;
+    inline-size: 580px;
+    block-size: 780px;
+  }
+
+  .feature__media img {
+    position: absolute;
+    inset-block-start: 37px;      /* [ĐO] ảnh y4365 */
+    inset-inline-start: 11px;     /* [ĐO] ảnh x191 */
+  }
+
+  .feature__frame {
+    position: absolute;
+    inset-block-start: 6.5px;     /* [ĐO] đỉnh vòm y4348 */
+    inset-inline-start: 11px;
+    inline-size: 560px;
+    block-size: 780px;
+    color: var(--text-primary);
+  }
+
+  /* Dòng chữ dọc đọc từ trên xuống. */
+  .feature__tagline {
+    position: absolute;
+    inset-block-start: 285px;     /* [ĐO] chữ "f" bắt đầu y4613 */
+    inset-inline-start: 583px;    /* [ĐO] nét chữ x732–759 */
+    /* [FIGMA] Century Gothic. Dò thử Mulish và Montserrat theo cỡ × giãn
+       chữ: Montserrat (hình học, rộng ngang) khớp nét hơn hẳn. Dòng dài
+       377px (y4613–4990). */
+    font-family: var(--font-card);
+    font-size: 29px;
+    line-height: 1;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    transform-origin: 0 0;
+    rotate: 90deg;
+  }
+
+  .feature__copy {
+    display: flow-root;
+    padding-block-start: 50px;    /* [ĐO] nét "Glow" bắt đầu y4395 */
+    padding-inline-start: 193px;  /* [ĐO] chữ bắt đầu x953 */
+  }
+
+  .feature__title {
+    font-size: 100px;
+    line-height: 116px;
+    letter-spacing: 0.04em;
+  }
+
+  /* [ĐO] Figma ghép "fi" thành một ký tự ligature. Chrome tắt ligature khi
+     có letter-spacing, nên riêng cặp này bỏ giãn chữ để ligature hiện lại;
+     margin bù phần giãn sau chữ "i". "Confidence" rộng 471px. */
+  .feature__ligature {
+    letter-spacing: 0;
+    margin-inline-end: 0.04em;
+  }
+
+  .feature__subtitle {
+    margin-block-start: 11px;
+    margin-inline-start: -1px;
+    font-family: var(--font-display);   /* [FIGMA] Butler */
+    font-size: 32px;
+    font-weight: var(--weight-bold);
+    line-height: 1.2;
+    letter-spacing: -0.25px;            /* [ĐO] rộng 193px */
+  }
+
+  .feature__text {
+    max-inline-size: 660px;
+    margin-block-start: 52px;
+    font-size: 28px;
+    line-height: 48px;
+  }
+
+  .feature__cta {
+    margin-block-start: 122px;
+    margin-inline-start: -11px;
+    text-indent: 14px;   /* [ĐO] chữ lệch phải tâm elip 7px */
+    line-height: 124px;  /* [ĐO] chữ cao hơn tâm elip 1px */
+  }
+
+  @media (width < 90rem) {
+    .feature__copy { padding-inline-start: 64px; }
+
+    .feature__title { font-size: 80px; line-height: 1.15; }
+
+    .feature__text { font-size: 22px; line-height: 1.7; }
+  }
+
+  /* Dưới 1280px: ảnh lên trên, chữ xuống dưới. */
+  @media (width < 80rem) {
+    .feature__media {
+      float: none;
+      margin-inline: auto;
+      max-inline-size: 100%;
+    }
+
+    .feature__copy { padding: 48px 0 0; }
+
+    .feature::before { display: none; }
+  }
+
+  @media (width < 48rem) {
+    .feature { margin-block-start: 96px; }
+
+    .feature__title { font-size: 44px; }
+
+    .feature__text { font-size: 18px; }
+
+    .feature__cta { margin-block-start: 48px; margin-inline-start: 0; }
+  }
+
+  /* Khung vòm và dòng chữ dọc canh theo ảnh 538px; màn hình hẹp hơn thì
+     bỏ đi, ảnh co theo bề ngang. */
+  @media (width < 40rem) {
+    .feature__media { block-size: auto; inline-size: auto; }
+
+    .feature__media img { position: static; }
+
+    .feature__frame,
+    .feature__tagline { display: none; }
+  }
+}
